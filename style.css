@@ -1,0 +1,256 @@
+/* Configuração Global e Reset Básico */
+:root {
+    --color-primary: #00ADB5; /* O Ciano/Turquesa do seu logo */
+    --color-secondary: #222831; /* Fundo escuro/texto de destaque */
+    --color-background: #000000; /* Preto para o fundo premium */
+    --color-text: #EEEEEE; /* Texto claro */
+    --color-light-gray: #393E46; /* Elementos secundários escuros */
+    --font-stack: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-stack);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    line-height: 1.6;
+}
+
+.section {
+    padding: 60px 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Tipografia */
+h1 {
+    font-size: 3em;
+    color: var(--color-primary);
+    margin-bottom: 0.5em;
+}
+
+h2 {
+    font-size: 2em;
+    margin-bottom: 1em;
+}
+
+p.section-subtitle {
+    font-size: 1.1em;
+    color: #a8a8a8;
+    margin-bottom: 2em;
+}
+
+/* Botões de Chamada para Ação (CTAs) */
+.btn-cta {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn-cta.primary {
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    border: 2px solid var(--color-primary);
+}
+
+.btn-cta.primary:hover {
+    background-color: #008C9E; /* Tom mais escuro */
+}
+
+.btn-cta.large {
+    font-size: 1.1em;
+    padding: 15px 30px;
+}
+
+/* Header e Navegação */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    border-bottom: 1px solid var(--color-light-gray);
+    background-color: var(--color-background);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    height: 35px; /* Ajuste conforme o tamanho do logo real */
+}
+
+.nav a {
+    color: var(--color-text);
+    text-decoration: none;
+    margin-left: 20px;
+    padding: 5px 10px;
+    transition: color 0.3s;
+}
+
+.nav a:hover {
+    color: var(--color-primary);
+}
+
+.menu-toggle {
+    display: none; /* Esconde no desktop */
+    background: none;
+    border: none;
+    color: var(--color-primary);
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+/* SEÇÃO HERO (Primeira Dobra) */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 100px 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero-content {
+    max-width: 50%;
+    text-align: left;
+}
+
+.hero-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 173, 181, 0.2); /* Sombra que destaca a cor primária */
+}
+
+/* SEÇÃO DE INTEGRAÇÕES */
+.integration-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsivo com CSS Grid */
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.integration-card {
+    background-color: var(--color-light-gray);
+    padding: 30px;
+    border-radius: 8px;
+    text-align: left;
+    transition: transform 0.3s;
+}
+
+.integration-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 173, 181, 0.5);
+}
+
+.integration-card h3 {
+    color: var(--color-primary);
+    margin-bottom: 10px;
+}
+
+/* Rodapé */
+.footer {
+    text-align: center;
+    padding: 30px 5%;
+    border-top: 1px solid var(--color-light-gray);
+    color: #a8a8a8;
+    font-size: 0.9em;
+}
+
+.footer-links a {
+    color: #a8a8a8;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+/* --- MEDIA QUERIES (Responsividade) --- */
+@media (max-width: 900px) {
+    .hero-content {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Ajuste do Hero para Mobile */
+    .hero {
+        flex-direction: column;
+        padding: 60px 5%;
+        text-align: center;
+    }
+    
+    .hero-content {
+        order: 2; /* Move o conteúdo para baixo no mobile */
+    }
+
+    .hero-image {
+        order: 1; /* Move a imagem para cima no mobile */
+        margin-bottom: 30px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.2em;
+    }
+
+    /* Menu Hamburger para Mobile */
+    .nav {
+        display: none; /* Esconde a navegação padrão */
+        flex-direction: column;
+        position: absolute;
+        top: 65px; /* Abaixo do header */
+        left: 0;
+        width: 100%;
+        background-color: var(--color-secondary);
+        border-top: 1px solid var(--color-light-gray);
+    }
+
+    .nav a {
+        margin: 0;
+        padding: 15px 20px;
+        border-bottom: 1px solid var(--color-light-gray);
+    }
+    
+    .menu-toggle {
+        display: block; /* Mostra o botão do menu hamburger */
+    }
+
+    /* O JavaScript adicionará a classe 'nav-open' quando o menu for clicado */
+    .nav.nav-open {
+        display: flex; 
+    }
+}
+
+@media (max-width: 480px) {
+    /* Ajustes menores para telas de celular */
+    .hero-content h1 {
+        font-size: 1.8em;
+    }
+
+    .btn-cta.large {
+        font-size: 1em;
+        padding: 12px 25px;
+    }
+}
+
+/* Adicione esta classe no final do seu arquivo CSS */
+.btn-cta.small-link {
+    margin-top: 15px;
+    padding: 8px 15px;
+    font-size: 0.9em;
+    display: inline-block; /* Garante que o botão não quebre o layout do card */
+}
+
+/* Garante que o CTA dentro do card fique alinhado à esquerda */
+.integration-card {
+    /* ... (outras propriedades) ... */
+    text-align: left;
+}
