@@ -359,7 +359,7 @@ p.section-subtitle {
 
     /* O JavaScript adicionará a classe 'nav-open' quando o menu for clicado */
     .nav.nav-open {
-        display: flex; 
+        display: flex !important; /* REFORÇADO: Adiciona !important para forçar a exibição */
     }
 
     /* Ajuste da Tabela de Preços para Mobile */
@@ -511,10 +511,55 @@ p.section-subtitle {
     left: 0;
 }
 
-/* Detalhe de contato na página de contato */
+/* Detalhe de /contato na página de /contato */
 .content-container .contact-info {
     text-align: center;
 }
 .content-container .contact-detail a {
     text-decoration: none;
+}
+
+/* --- NOVOS ESTILOS PARA FASE BETA / FUTURO --- */
+
+/* Estilo para preço em fase BETA (GRÁTIS) */
+.pricing-card .price-beta {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #4CAF50; /* Cor verde para GRATUITO */
+    margin-bottom: 5px;
+}
+
+/* Estilo para preço futuro (menor e cinza) */
+.pricing-card .price-future {
+    font-size: 1.5em; /* Menor que o preço ativo */
+    font-weight: bold;
+    color: #888; /* Cinza para indicar não ativo */
+    text-decoration: line-through; /* Risca o preço para futuro (opcional) */
+    margin-bottom: 5px;
+}
+
+/* Texto pequeno abaixo do preço */
+.pricing-card .small-text {
+    font-size: 0.9em;
+    color: #b8b8b8;
+    margin-bottom: 25px;
+    min-height: 20px; /* Garante que os cards tenham altura similar */
+}
+
+/* Tags de Destaque */
+.tag-popular.beta-tag {
+    background-color: var(--color-primary); /* Azul/Ciano para Beta ativo */
+}
+
+.tag-popular.future-tag {
+    background-color: var(--color-light-gray); /* Cinza para futuro */
+}
+
+/* Estilo para o botão "Em Breve" (desabilitado) */
+.btn-cta.disabled {
+    pointer-events: none; /* Desabilita o clique */
+    background-color: var(--color-light-gray);
+    color: #888;
+    border-color: var(--color-light-gray);
+    cursor: default;
 }

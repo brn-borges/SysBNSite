@@ -1,7 +1,23 @@
-// --- LÓGICA DO BANNER DE COOKIES ---
 document.addEventListener('DOMContentLoaded', () => {
-    // Código existente do menu toggle...
+    
+    // --- LÓGICA DO MENU HAMBURGER (CORRIGIDA) ---
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.nav');
 
+    menuToggle.addEventListener('click', () => {
+        nav.classList.toggle('nav-open');
+    });
+
+    // Fechar o menu ao clicar em um link
+    nav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (nav.classList.contains('nav-open')) {
+                nav.classList.remove('nav-open');
+            }
+        });
+    });
+
+    // --- LÓGICA DO BANNER DE COOKIES ---
     const cookieBanner = document.getElementById('cookie-banner');
     const acceptButton = document.getElementById('aceitar-cookies');
     const cookieName = 'sysbn_cookie_accepted';
@@ -15,12 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Adiciona o evento de clique ao botão
     acceptButton.addEventListener('click', () => {
-        // Salva o estado de aceitação no armazenamento local
         localStorage.setItem(cookieName, 'true');
-        // Oculta o banner com um fade out suave (opcional)
         cookieBanner.style.opacity = '0';
         setTimeout(() => {
             cookieBanner.style.display = 'none';
-        }, 500); // Aguarda 500ms para o fade
+        }, 500);
     });
 });
