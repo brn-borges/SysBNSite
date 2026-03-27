@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://sysbn.com.br/sitemap.xml
