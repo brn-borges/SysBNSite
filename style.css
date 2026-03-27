@@ -266,14 +266,15 @@ p.section-subtitle {
 }
 
 .hero-content {
-    max-width: 58%; /* Aumenta a largura para o texto */
+    flex: 1;
     padding-right: 20px; /* Adiciona um pequeno padding à direita para afastar da imagem */
 }
 
-/* Você também pode querer ajustar a largura da imagem se necessário, mas tente o acima primeiro */
 .hero-image {
-    max-width: 40%; /* Reduz a largura da imagem para compensar, se necessário */
-    flex-shrink: 0; /* Garante que a imagem não encolha mais do que o necessário */
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    perspective: 1000px;
 }
 
 .hero-image img {
@@ -281,6 +282,18 @@ p.section-subtitle {
     height: auto;
     border-radius: 20px; /* Combinando com os cards */
     box-shadow: var(--shadow);
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    animation: float 6s ease-in-out infinite;
+}
+
+.hero-image img:hover {
+    transform: scale(1.02) rotateY(-5deg);
+    box-shadow: 0 20px 40px rgba(45, 212, 191, 0.2);
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
 }
 
 .hero-content h2 { /* Aplica apenas ao H2 dentro do hero */
