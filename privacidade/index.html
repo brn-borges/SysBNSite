@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    <div id="reading-progress"></div>
 
     <header class="header">
         <a href="/" class="logo-link">
@@ -18,15 +19,16 @@
             </div>
         </a>
         <nav class="nav">
-            <a href="/#recursos">Recursos</a>
-            <a href="/#modulos">Módulos</a>
-            <a href="/#planos">Planos</a>
-            <a href="https://controlfinance.sysbn.com.br/" target="_blank" class="btn-cta primary">Acessar CF</a>
+            <a href="/#recursos"><i data-lucide="sparkles"></i> Recursos</a>
+            <a href="/#modulos"><i data-lucide="layers"></i> Módulos</a>
+            <a href="/#planos"><i data-lucide="credit-card"></i> Planos</a>
+            <a href="https://controlfinance.sysbn.com.br/" target="_blank" class="btn-cta primary" style="display: inline-flex; align-items: center; gap: 8px;"><i data-lucide="external-link"></i> Acessar CF</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Alternar tema claro/escuro"></button>
         </nav>
-        <button class="menu-toggle" aria-label="Abrir Menu">☰</button>
+        <button class="menu-toggle" aria-label="Abrir Menu"><i data-lucide="menu"></i></button>
     </header>
 
-    <section class="section">
+    <section class="section reveal">
         <div class="content-container">
             <h1>Política de Privacidade e Cookies</h1>
             <p class="section-subtitle">Última atualização: Outubro de 2025</p>
@@ -61,6 +63,15 @@
         </div>
     </footer>
 
+    <div id="cookie-banner">
+        <p>
+            Utilizamos cookies para garantir o melhor desempenho e segurança do SYSBN. Ao continuar navegando, você
+            concorda com a nossa
+            <a href="/privacidade" class="cookie-link">Política de Privacidade e Cookies</a>.
+        </p>
+        <button id="aceitar-cookies" class="btn-cta primary small-link">Aceitar e Continuar</button>
+    </div>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="/script.js"></script>
 </body>
 

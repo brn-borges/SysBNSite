@@ -1,11 +1,38 @@
 /* Configuração Global e Reset Básico */
 :root {
-    --color-primary: #00ADB5; /* O Ciano/Turquesa do seu logo */
-    --color-secondary: #222831; /* Fundo escuro/texto de destaque */
-    --color-background: #000000; /* Preto para o fundo premium */
-    --color-text: #EEEEEE; /* Texto claro */
-    --color-light-gray: #393E46; /* Elementos secundários escuros */
-    --font-stack: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Dark Theme (Padrão) */
+    --color-primary: #2DD4BF;    /* Um teal mais moderno e suave */
+    --color-secondary: #1E293B;  /* Slate 800: Azul marinho profundo para cards */
+    --color-background: #0F172A; /* Slate 950: Fundo escuro suave, não preto puro */
+    --color-text: #F1F5F9;       /* Slate 100: Texto quase branco, menos agressivo */
+    --color-on-primary: #0F172A; /* Texto escuro sobre fundo claro */
+    --color-primary-hover: #14B8A6;
+    --color-light-gray: #334155; /* Slate 700: Para bordas sutis */
+    --color-muted: #94A3B8;      /* Slate 400: Para textos secundários */
+    --header-bg: rgba(15, 23, 42, 0.8);
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    --bg-gradient: linear-gradient(-45deg, #0F172A, #1E293B, #134E4A, #0F172A);
+    --font-stack: 'Inter', system-ui, -apple-system, sans-serif;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme='light'] {
+    --color-primary: #0D7A73;    /* Teal um pouco mais fechado para maior contraste */
+    --color-background: #F8FAFC; /* Slate 50: Off-white relaxante */
+    --color-secondary: rgba(255, 255, 255, 0.65); /* Transparência para Glassmorphism */
+    --color-text: #334155;       /* Slate 700: Cinza escuro para evitar cansaço */
+    --color-on-primary: #FFFFFF; /* Texto branco puro para brilhar no teal escuro */
+    --color-primary-hover: #0A5F59;
+    --color-light-gray: #E2E8F0; /* Slate 200: Bordas delicadas */
+    --color-muted: #64748B;      /* Slate 500: Texto de apoio */
+    --header-bg: rgba(248, 250, 252, 0.9);
+    --shadow: 0 4px 20px rgba(15, 23, 42, 0.06); /* Sombra quase invisível */
+    --bg-gradient: linear-gradient(-45deg, #F8FAFC, #F1F5F9, #E0F2F1, #F8FAFC);
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 * {
@@ -17,12 +44,38 @@
 body {
     font-family: var(--font-stack);
     background-color: var(--color-background);
+    background-image: var(--bg-gradient);
+    background-size: 400% 400%;
+    background-attachment: fixed;
+    animation: gradientShift 15s ease infinite;
     color: var(--color-text);
+    overflow-x: hidden;
     line-height: 1.6;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* Animação suave para o fundo */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Efeito de desfoque no fundo quando menu mobile está aberto */
+body.menu-active .section, 
+body.menu-active .hero, 
+body.menu-active footer {
+    filter: blur(8px);
+    pointer-events: none;
+}
+
+/* Classe para evitar animação indesejada ao carregar a página */
+.no-transition * {
+    transition: none !important;
 }
 
 .section {
-    padding: 80px 5%; /* Aumentado o padding para melhor espaçamento */
+    padding: clamp(3rem, 10vh, 6rem) 5%;
     max-width: 1200px;
     margin: 0 auto;
     text-align: center;
@@ -35,20 +88,20 @@ body {
 
 /* Tipografia */
 h1 {
-    font-size: 3em;
-    color: var(--color-text); /* Alterado para branco para melhor destaque no Hero */
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    color: var(--color-text);
     margin-bottom: 0.5em;
 }
 
 h2 {
-    font-size: 2em;
-    color: var(--color-primary); /* Destaque em ciano */
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    color: var(--color-primary);
     margin-bottom: 0.5em; /* Ajustado para espaçamento com o subtítulo */
 }
 
 p.section-subtitle {
     font-size: 1.1em;
-    color: #a8a8a8;
+    color: var(--color-muted);
     margin-bottom: 40px; /* Mais espaço abaixo do subtítulo */
 }
 
@@ -56,20 +109,21 @@ p.section-subtitle {
 .btn-cta {
     display: inline-block;
     padding: 12px 25px;
-    border-radius: 5px;
+    border-radius: 50px; /* Estilo pílula, muito mais amigável */
     text-decoration: none;
     font-weight: bold;
-    transition: background-color 0.3s, transform 0.2s; /* Adicionado transform para efeito */
+    transition: var(--transition);
 }
 
 .btn-cta.primary {
     background-color: var(--color-primary);
-    color: var(--color-background);
+    color: var(--color-on-primary);
     border: 2px solid var(--color-primary);
 }
 
 .btn-cta.primary:hover {
-    background-color: #008C9E;
+    background-color: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
     transform: translateY(-2px); /* Efeito de elevação */
 }
 
@@ -84,26 +138,48 @@ p.section-subtitle {
     justify-content: space-between;
     align-items: center;
     padding: 15px 5%;
-    border-bottom: 1px solid var(--color-light-gray);
-    background-color: var(--color-background);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.1);
+    background-color: var(--header-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     position: sticky;
     top: 0;
     z-index: 1000;
+    transition: background-color 0.4s ease, border-color 0.4s ease;
 }
 
 .logo {
     height: 35px;
 }
 
+.nav {
+    display: flex;
+    align-items: center;
+}
+
 .nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     color: var(--color-text);
     text-decoration: none;
     margin-left: 20px;
     padding: 5px 10px;
-    transition: color 0.3s;
+    transition: var(--transition);
+}
+
+.nav a svg {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .nav a:hover {
+    color: var(--color-primary);
+}
+
+.nav a:hover svg {
+    transform: translateY(-4px);
     color: var(--color-primary);
 }
 
@@ -112,8 +188,63 @@ p.section-subtitle {
     background: none;
     border: none;
     color: var(--color-primary);
-    font-size: 1.5em;
     cursor: pointer;
+}
+
+.menu-toggle svg {
+    width: 28px;
+    height: 28px;
+    transition: transform 0.3s ease;
+}
+
+/* Botão de Troca de Tema */
+.theme-toggle {
+    background: none;
+    border: 1px solid var(--color-light-gray);
+    color: var(--color-text);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    margin-left: 20px; /* Alinhado com a margem dos links */
+    transition: var(--transition);
+}
+
+.theme-toggle::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 125%;
+    right: 0;
+    background-color: var(--color-secondary);
+    color: var(--color-text);
+    padding: 6px 12px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--color-light-gray);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: var(--transition);
+    pointer-events: none;
+    z-index: 2100;
+}
+
+.theme-toggle:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.theme-toggle svg {
+    width: 20px;
+    height: 20px;
 }
 
 /* SEÇÃO HERO (Primeira Dobra) */
@@ -142,8 +273,8 @@ p.section-subtitle {
 .hero-image img {
     max-width: 100%;
     height: auto;
-    border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0, 173, 181, 0.2);
+    border-radius: 20px; /* Combinando com os cards */
+    box-shadow: var(--shadow);
 }
 
 .hero-content h2 { /* Aplica apenas ao H2 dentro do hero */
@@ -163,52 +294,84 @@ p.section-subtitle {
 .feature-card {
     background-color: var(--color-background);
     padding: 25px;
-    border-radius: 8px;
+    border-radius: 20px;
+    border: 1px solid var(--color-light-gray);
     border-left: 5px solid var(--color-primary);
-    transition: background-color 0.3s;
+    transition: var(--transition);
+}
+
+/* Glassmorphism específico para o tema claro */
+[data-theme='light'] .feature-card,
+[data-theme='light'] .integration-card,
+[data-theme='light'] .pricing-card,
+[data-theme='light'] .content-container,
+[data-theme='light'] .theme-toggle::after {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .feature-card:hover {
-    background-color: var(--color-light-gray);
+    background-color: var(--color-secondary);
+    transform: translateY(-5px);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 20px rgba(45, 212, 191, 0.3), inset 0 0 10px rgba(45, 212, 191, 0.1);
 }
 
 .feature-card h3 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     color: var(--color-primary);
     margin-bottom: 10px;
     font-size: 1.2em;
 }
 
+.feature-card h3 svg {
+    width: 24px;
+    height: 24px;
+}
+
 /* SEÇÃO DE MÓDULOS (Antiga Integrações) */
 .integration-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
     margin-top: 40px;
 }
 
 .integration-card {
-    background-color: var(--color-light-gray);
+    background-color: var(--color-secondary);
     padding: 30px;
-    border-radius: 8px;
+    border-radius: 20px;
     text-align: left;
-    transition: transform 0.3s;
-    border: 1px solid transparent;
+    transition: var(--transition);
+    border: 1px solid var(--color-light-gray);
 }
 
 .integration-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 173, 181, 0.5);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 25px rgba(45, 212, 191, 0.4);
 }
 
 .integration-card h3 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     color: var(--color-primary);
     margin-bottom: 5px;
+}
+
+.integration-card h3 svg {
+    width: 24px;
+    height: 24px;
 }
 
 /* NOVO: Estilo para indicar status dos módulos */
 .integration-card .status {
     font-size: 0.9em;
-    color: #b8b8b8;
+    color: var(--color-muted);
     margin-bottom: 10px;
 }
 
@@ -235,8 +398,9 @@ p.section-subtitle {
 .pricing-card {
     background-color: var(--color-secondary);
     padding: 30px;
-    border-radius: 10px;
-    border: 2px solid var(--color-light-gray);
+    border-radius: 20px;
+    border: 1px solid var(--color-light-gray);
+    transition: var(--transition);
     text-align: center;
     position: relative;
 }
@@ -270,12 +434,17 @@ p.section-subtitle {
     border-bottom: none;
 }
 
+.pricing-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 25px rgba(45, 212, 191, 0.3);
+}
+
 /* Destaque para o plano mais popular */
 .pricing-card.highlighted {
     border-color: var(--color-primary);
     transform: scale(1.05); /* Destaca levemente */
     background-color: var(--color-secondary);
-    box-shadow: 0 0 20px rgba(0, 173, 181, 0.5);
+    box-shadow: 0 0 30px rgba(45, 212, 191, 0.5);
 }
 
 .tag-popular {
@@ -290,6 +459,8 @@ p.section-subtitle {
     font-weight: bold;
     font-size: 0.8em;
     text-transform: uppercase;
+    white-space: nowrap; /* Garante que o texto não quebre linha */
+    z-index: 10; /* Garante que fique acima da borda do card */
 }
 
 /* Rodapé */
@@ -337,14 +508,19 @@ p.section-subtitle {
 
     /* Menu Hamburger para Mobile */
     .nav {
-        display: none; /* Esconde a navegação padrão */
+        display: flex; /* Mantemos flex para estruturar os links */
         flex-direction: column;
-        position: absolute;
-        top: 65px; /* Abaixo do header */
-        left: 0;
-        width: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 280px; /* Largura da gaveta lateral */
+        height: 100vh;
         background-color: var(--color-secondary);
-        border-top: 1px solid var(--color-light-gray);
+        border-left: 1px solid var(--color-light-gray);
+        transform: translateX(100%); /* Esconde para a direita */
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1050;
+        padding-top: 80px; /* Espaço para não cobrir o topo */
     }
 
     .nav a {
@@ -353,13 +529,31 @@ p.section-subtitle {
         border-bottom: 1px solid var(--color-light-gray);
     }
     
+    .theme-toggle {
+        margin: 20px auto; /* Remove a margem lateral e centraliza o botão */
+        align-self: center;
+    }
+
+    /* Esconde o tooltip no mobile para não atrapalhar o toque */
+    .theme-toggle::after {
+        display: none;
+    }
+
     .menu-toggle {
-        display: block; /* Mostra o botão do menu hamburger */
+        display: flex; /* Mostra o botão como flex para centralizar o ícone */
+        align-items: center;
+        justify-content: center;
+        z-index: 1100; /* Garante que o botão fique acima da gaveta */
+        position: relative;
+    }
+
+    .nav.nav-open ~ .menu-toggle svg {
+        transform: rotate(90deg);
     }
 
     /* O JavaScript adicionará a classe 'nav-open' quando o menu for clicado */
     .nav.nav-open {
-        display: flex !important; /* REFORÇADO: Adiciona !important para forçar a exibição */
+        transform: translateX(0); /* Desliza para dentro da tela */
     }
 
     /* Ajuste da Tabela de Preços para Mobile */
@@ -443,6 +637,8 @@ p.section-subtitle {
     
     #cookie-banner #aceitar-cookies {
         margin-left: 0;
+        white-space: normal; /* Permite que o texto quebre linha se o celular for muito pequeno */
+        text-align: center;
     }
 }
 
@@ -456,11 +652,12 @@ p.section-subtitle {
     margin: 0 auto;
     padding: 40px;
     background-color: var(--color-secondary); /* Fundo escuro sutil */
-    border-radius: 10px;
+    border-radius: 24px; /* Um pouco mais arredondado para containers grandes */
     border: 1px solid var(--color-light-gray); /* Borda sutil, mas visível */
     text-align: left; /* Garante que o texto seja justificado à esquerda */
     box-shadow: 0 0 15px rgba(0, 173, 181, 0.15); /* Sombra suave ciano/tech */
     min-height: 60vh; /* Garante que o painel tenha um tamanho mínimo */
+    transition: var(--transition);
 }
 
 /* Título principal do documento */
@@ -487,7 +684,7 @@ p.section-subtitle {
 .content-container p {
     margin-bottom: 15px;
     line-height: 1.8;
-    color: #c0c0c0; /* Cinza claro para melhor contraste */
+    color: var(--color-text);
 }
 
 /* Listas (se usadas) */
@@ -500,7 +697,7 @@ p.section-subtitle {
     padding-left: 25px;
     position: relative;
     margin-bottom: 10px;
-    color: #c0c0c0;
+    color: var(--color-text);
 }
 
 .content-container ul li::before {
@@ -562,4 +759,47 @@ p.section-subtitle {
     color: #888;
     border-color: var(--color-light-gray);
     cursor: default;
+}
+
+/* --- ANIMAÇÃO DE REVELAÇÃO (FADE-IN UP) --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    pointer-events: none; /* Evita cliques antes de aparecer */
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* --- BARRA DE PROGRESSO DE LEITURA --- */
+#reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 5px;
+    background: linear-gradient(to right, transparent, var(--color-primary), #00FFF0);
+    box-shadow: 0 0 15px rgba(0, 173, 181, 0.7), 0 0 5px rgba(0, 173, 181, 0.4);
+    border-radius: 0 2px 2px 0;
+    z-index: 2001; /* Fica acima do header e do banner de cookies */
+    transition: width 0.1s ease-out;
+}
+
+/* --- ESTILOS PARA PÁGINA 404 --- */
+.error-container {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.error-code {
+    font-size: clamp(5rem, 15vw, 10rem);
+    font-weight: 800;
+    color: var(--color-primary);
+    line-height: 1;
+    margin-bottom: 10px;
+    text-shadow: 0 0 30px rgba(0, 173, 181, 0.3);
 }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SYSBN | Contato e Suporte</title>
+    <title>SYSBN | 404 - Página não encontrada</title>
     <link rel="stylesheet" href="/style.css">
     <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
 </head>
@@ -23,51 +23,41 @@
             <a href="/#modulos"><i data-lucide="layers"></i> Módulos</a>
             <a href="/#planos"><i data-lucide="credit-card"></i> Planos</a>
             <a href="https://controlfinance.sysbn.com.br/" target="_blank" class="btn-cta primary" style="display: inline-flex; align-items: center; gap: 8px;"><i data-lucide="external-link"></i> Acessar CF</a>
-            <button id="theme-toggle" class="theme-toggle" aria-label="Alternar tema claro/escuro"></button>
+            <button id="theme-toggle" class="theme-toggle">Trocar Tema</button>
         </nav>
         <button class="menu-toggle" aria-label="Abrir Menu"><i data-lucide="menu"></i></button>
     </header>
 
     <section class="section reveal">
-        <div class="content-container contact-info">
-            <h1>Fale Conosco</h1>
-            <p class="section-subtitle">Nossa equipe de suporte está pronta para ajudar você a gerenciar sua vida
-                digital com o SYSBN.</p>
-
-            <h3>Suporte Técnico e Dúvidas Gerais</h3>
-            <p>Para suporte técnico, informações sobre faturamento ou dúvidas sobre o Módulo ControlFinance, utilize o
-                email:</p>
-            <p class="contact-detail"><a href="mailto:suporte@sysbn.com.br"
-                    class="btn-cta primary large">suporte@sysbn.com.br</a></p>
-
-            <h3>Parcerias e Negócios</h3>
-            <p>Para propostas de parceria ou outros assuntos comerciais, entre em /contato via:</p>
-            <p class="contact-detail"><a href="mailto:/contato@sysbn.com.br"
-                    class="btn-cta primary large">contato@sysbn.com.br</a></p>
-
+        <div class="content-container error-container">
+            <div class="error-code">404</div>
+            <h1>Ops! Caminho não encontrado.</h1>
+            <p class="section-subtitle">Parece que a página que você está procurando foi movida ou não existe mais no ecossistema SYSBN.</p>
+            
+            <p style="margin-bottom: 30px;">Não se preocupe, você ainda pode gerenciar sua vida digital voltando para o início.</p>
+            
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <a href="/" class="btn-cta primary large">Voltar ao Início</a>
+                <a href="/contato" class="btn-cta" style="border: 1px solid var(--color-light-gray); color: var(--color-text);">Relatar Problema</a>
+            </div>
         </div>
     </section>
 
     <footer class="footer">
-        <p>&copy;
-            <script>document.write(new Date().getFullYear())</script> SYSBN. Todos os direitos reservados.
-        </p>
+        <p>&copy; <script>document.write(new Date().getFullYear())</script> SYSBN. Todos os direitos reservados.</p>
         <div class="footer-links">
-            <a href="/termos">Termos de Uso</a> | <a href="/privacidade">Privacidade</a> | <a
-                href="/contato">Contato</a>
+            <a href="/termos">Termos de Uso</a> | <a href="/privacidade">Privacidade</a> | <a href="/contato">Contato</a>
         </div>
     </footer>
 
     <div id="cookie-banner">
         <p>
-            Utilizamos cookies para garantir o melhor desempenho e segurança do SYSBN. Ao continuar navegando, você
-            concorda com a nossa
+            Utilizamos cookies para garantir o melhor desempenho e segurança do SYSBN. Ao continuar navegando, você concorda com a nossa 
             <a href="/privacidade" class="cookie-link">Política de Privacidade e Cookies</a>.
         </p>
         <button id="aceitar-cookies" class="btn-cta primary small-link">Aceitar e Continuar</button>
     </div>
-    <script src="https://unpkg.com/lucide@latest"></script>
+
     <script src="/script.js"></script>
 </body>
-
 </html>

@@ -10,18 +10,20 @@
 </head>
 
 <body>
+    <div id="reading-progress"></div>
 
     <header class="header">
         <div class="logo-container">
             <img src="assets/logo.png" alt="Logo SYSBN - Gerenciamento e Segurança" class="logo">
         </div>
         <nav class="nav">
-            <a href="#recursos">Recursos</a>
-            <a href="#modulos">Módulos</a>
-            <a href="#planos">Planos</a>
-            <a href="https://controlfinance.sysbn.com.br/" target="_blank" class="btn-cta primary">Acessar CF</a>
+            <a href="#recursos"><i data-lucide="sparkles"></i> Recursos</a>
+            <a href="#modulos"><i data-lucide="layers"></i> Módulos</a>
+            <a href="#planos"><i data-lucide="credit-card"></i> Planos</a>
+            <a href="https://controlfinance.sysbn.com.br/" target="_blank" class="btn-cta primary" style="display: inline-flex; align-items: center; gap: 8px;"><i data-lucide="external-link"></i> Acessar CF</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Alternar tema claro/escuro" data-tooltip="Alternar Tema"></button>
         </nav>
-        <button class="menu-toggle" aria-label="Abrir Menu">☰</button>
+        <button class="menu-toggle" aria-label="Abrir Menu"><i data-lucide="menu"></i></button>
     </header>
 
     <section class="hero">
@@ -39,43 +41,43 @@
         </div>
     </section>
 
-    <section id="recursos" class="section light-bg">
+    <section id="recursos" class="section light-bg reveal">
         <h2>Recursos que Transformam Gerenciamento em Simplicidade.</h2>
         <p class="section-subtitle">O SYSBN foi construído para unificar sua vida digital, garantindo controle total,
             clareza e segurança em cada módulo.</p>
 
         <div class="features-grid">
             <div class="feature-card">
-                <h3>Painel de Controle Unificado</h3>
+                <h3><i data-lucide="layout-dashboard"></i> Painel de Controle Unificado</h3>
                 <p>Chega de abas. Acesse dados do ControlFinance e de todos os seus módulos futuros em uma única tela
                     personalizável.</p>
             </div>
             <div class="feature-card">
-                <h3>Segurança Nível Empresarial</h3>
+                <h3><i data-lucide="shield-check"></i> Segurança Nível Empresarial</h3>
                 <p>Sua /privacidade e seus dados são nossa prioridade. Utilizamos criptografia e protocolos de segurança
                     avançados.</p>
             </div>
             <div class="feature-card">
-                <h3>Totalmente Responsivo</h3>
+                <h3><i data-lucide="smartphone"></i> Totalmente Responsivo</h3>
                 <p>Acesse, gerencie e tome decisões de qualquer lugar. Design otimizado para funcionar perfeitamente em
                     smartphones, tablets e desktops.</p>
             </div>
             <div class="feature-card">
-                <h3>Módulos Conectados (Future-Proof)</h3>
+                <h3><i data-lucide="layers"></i> Módulos Conectados (Future-Proof)</h3>
                 <p>Comece com o CF e adicione novos módulos no futuro. Todos se conversam, criando um ecossistema coeso
                     de gerenciamento.</p>
             </div>
         </div>
     </section>
 
-    <section id="modulos" class="section">
+    <section id="modulos" class="section reveal">
         <h2>A Plataforma SYSBN: Construída para Crescer com Você.</h2>
         <p class="section-subtitle">O ControlFinance é o módulo inaugural. Veja o que está sendo desenvolvido para
             integrar todos os aspectos da sua vida de gerenciamento.</p>
 
         <div class="integration-grid">
             <div class="integration-card active">
-                <h3>Módulo ControlFinance (CF)</h3>
+                <h3><i data-lucide="wallet"></i> Módulo ControlFinance (CF)</h3>
                 <p class="status">Status: Ativo</p>
                 <p>Seu controle financeiro pessoal completo, com lançamentos, relatórios e metas, totalmente integrado à
                     plataforma SYSBN.</p>
@@ -83,13 +85,13 @@
                     class="btn-cta primary small-link">Acessar Módulo</a>
             </div>
             <div class="integration-card future">
-                <h3>Projetos & Tarefas</h3>
+                <h3><i data-lucide="kanban"></i> Projetos & Tarefas</h3>
                 <p class="status">Status: Em Desenvolvimento</p>
                 <p>Sistema Kanban e Gantt para organizar projetos. Sinergia: Vincule tarefas aos orçamentos do
                     ControlFinance.</p>
             </div>
             <div class="integration-card future">
-                <h3>Comunicação & Notificações</h3>
+                <h3><i data-lucide="bell"></i> Comunicação & Notificações</h3>
                 <p class="status">Status: Em Desenvolvimento</p>
                 <p>Um centro unificado para alertas e notificações. Receba avisos de saldo baixo do CF e de prazos de
                     projetos no mesmo lugar.</p>
@@ -97,7 +99,7 @@
         </div>
     </section>
 
-    <section id="planos" class="section">
+    <section id="planos" class="section reveal">
         <h2>Participe da Fase Beta: Sua Evolução, Gratuita.</h2>
         <p class="section-subtitle">O SYSBN está em fase Beta e é **totalmente gratuito** para uso. Utilize o ControlFinance agora e ajude a construir o futuro do gerenciamento unificado.</p>
 
@@ -154,10 +156,8 @@
             <script>document.write(new Date().getFullYear())</script> SYSBN. Todos os direitos reservados.
         </p>
         <div class="footer-links">
-            <div class="footer-links">
-                <a href="/termos">Termos de Uso</a> | <a href="/privacidade">Privacidade</a> | <a
-                    href="/contato">Contato</a>
-            </div>
+            <a href="/termos">Termos de Uso</a> | <a href="/privacidade">Privacidade</a> | <a
+                href="/contato">Contato</a>
         </div>
     </footer>
     <div id="cookie-banner">
@@ -168,6 +168,7 @@
         </p>
         <button id="aceitar-cookies" class="btn-cta primary small-link">Aceitar e Continuar</button>
     </div>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="script.js"></script>
 </body>
 
