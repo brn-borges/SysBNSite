@@ -48,6 +48,7 @@ body {
     background-size: 400% 400%;
     background-attachment: fixed;
     animation: gradientShift 15s ease infinite;
+    padding-top: 70px; /* Adiciona padding para o conteúdo não ficar escondido atrás do header fixo */
     color: var(--color-text);
     overflow-x: hidden;
     line-height: 1.6;
@@ -84,6 +85,10 @@ body.menu-active footer {
 /* NOVO: Fundo claro para contrastar no tema escuro */
 .light-bg {
     background-color: var(--color-secondary);
+    border-radius: 30px;
+    margin: 40px auto;
+    border: 1px solid rgba(45, 212, 191, 0.2); /* Borda sutil com a cor primária */
+    box-shadow: 0 0 40px rgba(45, 212, 191, 0.05); /* Glow extra suave para dar profundidade */
 }
 
 /* Tipografia */
@@ -142,7 +147,8 @@ p.section-subtitle {
     background-color: var(--header-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    position: sticky;
+    position: fixed; /* Alterado de sticky para fixed */
+    width: 100%; /* Garante que o header fixo ocupe toda a largura */
     top: 0;
     z-index: 1000;
     transition: background-color 0.4s ease, border-color 0.4s ease;
