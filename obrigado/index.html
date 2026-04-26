@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYSBN | Mensagem Enviada</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <canvas id="confetti-canvas"></canvas>
+    <div id="reading-progress"></div>
+
+    <header class="header">
+        <div class="logo-container">
+            <a href="/">
+                <img src="/assets/logo.png" alt="Logo SYSBN" class="logo">
+            </a>
+        </div>
+        <nav class="nav">
+            <a href="/#recursos"><i data-lucide="sparkles"></i> Recursos</a>
+            <a href="/#modulos"><i data-lucide="layers"></i> Módulos</a>
+            <a href="/#planos"><i data-lucide="credit-card"></i> Planos</a>
+            <a href="https://controlfinance.sysbn.com.br/" target="_blank" class="btn-cta primary"
+                style="display: inline-flex; align-items: center; gap: 8px;"><i data-lucide="external-link"></i> Acessar
+                CF</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Alternar tema"
+                data-tooltip="Alternar Tema"></button>
+        </nav>
+        <button class="menu-toggle" aria-label="Abrir Menu"><i data-lucide="menu"></i></button>
+    </header>
+
+    <section class="section reveal">
+        <div class="content-container"
+            style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px;">
+            <div
+                style="background: rgba(45, 212, 191, 0.1); width: 100px; height: 100px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                <i data-lucide="party-popper" style="width: 50px; height: 50px; color: var(--color-primary);"></i>
+            </div>
+
+            <h1>Mensagem Recebida!</h1>
+            <p style="max-width: 500px; color: var(--color-muted); font-size: 1.1em;">
+                Obrigado por colaborar com o <strong>SYSBN</strong>. <br>
+                Sua sugestão ou dúvida foi enviada com sucesso. Nossa equipe analisará as informações e entrará em
+                contato em breve se necessário.
+            </p>
+
+            <p id="countdown-text"
+                style="margin-top: 20px; color: var(--color-muted); font-size: 0.9em; font-weight: 500; opacity: 0.8; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                Redirecionando em
+                <span id="seconds" style="color: var(--color-primary); font-weight: bold;">10</span>
+                <svg class="progress-ring" width="24" height="24">
+                    <circle stroke="var(--color-light-gray)" stroke-width="2.5" fill="transparent" r="10" cx="12"
+                        cy="12" />
+                    <circle id="progress-indicator" class="progress-ring__circle" stroke="var(--color-primary)"
+                        stroke-width="2.5" fill="transparent" r="10" cx="12" cy="12" stroke-linecap="round" />
+                </svg>
+                segundos...
+            </p>
+
+            <div style="margin-top: 40px; display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
+                <a href="/" class="btn-cta primary large">
+                    <i data-lucide="home" style="margin-right: 8px;"></i> Voltar ao Início
+                </a>
+                <a href="/feedback/" class="btn-cta"
+                    style="border: 1px solid var(--color-light-gray); color: var(--color-text);">
+                    Enviar outra mensagem
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy;
+            <script>document.write(new Date().getFullYear())</script> SYSBN. Todos os direitos reservados.
+        </p>
+        <div class="footer-links">
+            <a href="/termos.html">Termos de Uso</a> | <a href="/privacidade">Privacidade</a> | <a
+                href="/contato">Contato</a>
+        </div>
+    </footer>
+
+    <div id="cookie-banner">
+        <p>
+            Utilizamos cookies para garantir o melhor desempenho e segurança do SYSBN.
+            <a href="/privacidade" class="cookie-link">Política de Privacidade</a>.
+        </p>
+        <button id="aceitar-cookies" class="btn-cta primary small-link">Aceitar</button>
+    </div>
+    <a href="/feedback/" class="floating-help-btn" aria-label="Ajuda e Suporte" data-tooltip="Dúvidas ou Sugestões?">
+        <i data-lucide="help-circle"></i>
+    </a>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="/script.js"></script>
+    <script>
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        let confetti = [];
+        const confettiCount = 150;
+        const gravity = 0.5;
+        const terminalVelocity = 5;
+        const drag = 0.075;
+        const colors = [
+            { front: '#2DD4BF', back: '#134E4A' }, // Teal (Primária)
+            { front: '#F1F5F9', back: '#94A3B8' }, // Slate Light
+            { front: '#38BDF8', back: '#075985' }, // Sky Blue
+        ];
+
+        const resizeCanvas = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
+
+        const randomRange = (min, max) => Math.random() * (max - min) + min;
+
+        const initConfetti = () => {
+            for (let i = 0; i < confettiCount; i++) {
+                confetti.push({
+                    color: colors[Math.floor(randomRange(0, colors.length))],
+                    dimensions: { x: randomRange(10, 20), y: randomRange(10, 30) },
+                    position: { x: randomRange(0, canvas.width), y: canvas.height - 1 },
+                    rotation: randomRange(0, 2 * Math.PI),
+                    scale: { x: 1, y: 1 },
+                    velocity: { x: randomRange(-25, 25), y: randomRange(-25, -50) }
+                });
+            }
+        };
+
+        const update = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            confetti.forEach((confetto, index) => {
+                let width = confetto.dimensions.x * confetto.scale.x;
+                let height = confetto.dimensions.y * confetto.scale.y;
+                ctx.translate(confetto.position.x, confetto.position.y);
+                ctx.rotate(confetto.rotation);
+                confetto.velocity.x -= confetto.velocity.x * drag;
+                confetto.velocity.y = Math.min(confetto.velocity.y + gravity, terminalVelocity);
+                confetto.velocity.x += Math.random() > 0.5 ? Math.random() : -Math.random();
+                confetto.position.x += confetto.velocity.x;
+                confetto.position.y += confetto.velocity.y;
+                if (confetto.position.y >= canvas.height) confetti.splice(index, 1);
+                confetto.scale.y = Math.cos(confetto.position.y * 0.1);
+                ctx.fillStyle = confetto.scale.y > 0 ? confetto.color.front : confetto.color.back;
+                ctx.fillRect(-width / 2, -height / 2, width, height);
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
+            });
+            if (confetti.length <= 10) {
+                // Opcional: Para a animação quando os confetes saírem da tela
+                return;
+            }
+            requestAnimationFrame(update);
+        };
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Inicia a explosão após um pequeno delay para carregar a página
+        setTimeout(() => {
+            initConfetti();
+            update();
+        }, 300);
+
+        // --- LÓGICA DE REDIRECIONAMENTO DE ALTA PERFORMANCE ---
+        const REDIRECT_DELAY = 10000; // 10 segundos em milissegundos
+        const startTime = Date.now();
+        const secondsSpan = document.getElementById('seconds');
+        const progressIndicator = document.getElementById('progress-indicator');
+        const countdownText = document.getElementById('countdown-text');
+        const circumference = 2 * Math.PI * 10; // C = 2 * PI * R
+        let animationFrame;
+        let isPaused = false;
+
+        if (progressIndicator) {
+            progressIndicator.style.strokeDasharray = `${circumference} ${circumference}`;
+            progressIndicator.style.strokeDashoffset = 0;
+        }
+
+        function updateTimer() {
+            if (isPaused) return;
+
+            const elapsed = Date.now() - startTime;
+            const remaining = Math.max(0, REDIRECT_DELAY - elapsed);
+            const seconds = Math.ceil(remaining / 1000);
+
+            // Atualiza o texto apenas quando o segundo muda
+            if (secondsSpan && secondsSpan.textContent != seconds) {
+                secondsSpan.textContent = seconds;
+            }
+
+            // Atualiza o progresso do círculo com precisão de sub-pixel
+            if (progressIndicator) {
+                const progress = elapsed / REDIRECT_DELAY;
+                progressIndicator.style.strokeDashoffset = circumference * progress;
+            }
+
+            // Ativa o fade out 800ms antes do redirecionamento final
+            if (remaining <= 800 && !document.body.classList.contains('fade-out-active')) {
+                document.body.classList.add('fade-out-active');
+            }
+
+            if (elapsed < REDIRECT_DELAY) {
+                animationFrame = requestAnimationFrame(updateTimer);
+            } else {
+                window.location.href = '/';
+            }
+        }
+
+        // Função para interromper o redirecionamento se o usuário interagir
+        const stopRedirection = () => {
+            if (isPaused) return;
+            isPaused = true;
+            cancelAnimationFrame(animationFrame);
+
+            if (window.showToast) {
+                window.showToast('Redirecionamento automático desativado.');
+            }
+
+            if (countdownText) {
+                countdownText.style.transition = 'opacity 0.3s ease';
+                countdownText.style.opacity = '0';
+                setTimeout(() => countdownText.style.display = 'none', 300);
+            }
+            // Remove os ouvintes para evitar execuções desnecessárias
+            window.removeEventListener('mousedown', stopRedirection);
+            window.removeEventListener('keydown', stopRedirection);
+            window.removeEventListener('touchstart', stopRedirection);
+        };
+
+        // Adiciona detecção de interação (clique, teclado ou toque)
+        window.addEventListener('mousedown', stopRedirection);
+        window.addEventListener('keydown', stopRedirection);
+        window.addEventListener('touchstart', stopRedirection);
+
+        // Inicia o loop de animação
+        animationFrame = requestAnimationFrame(updateTimer);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYSBN | Contato e Sugestões</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <div id="reading-progress"></div>
+
+    <header class="header">
+        <div class="logo-container">
+            <a href="/">
+                <img src="/assets/logo.png" alt="Logo SYSBN" class="logo">
+            </a>
+        </div>
+        <nav class="nav">
+            <a href="/#recursos"><i data-lucide="sparkles"></i> Recursos</a>
+            <a href="/#modulos"><i data-lucide="layers"></i> Módulos</a>
+            <a href="/#planos"><i data-lucide="credit-card"></i> Planos</a>
+            <a href="https://controlfinance.sysbn.com.br/" target="_blank" class="btn-cta primary"
+                style="display: inline-flex; align-items: center; gap: 8px;"><i data-lucide="external-link"></i> Acessar
+                CF</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Alternar tema"
+                data-tooltip="Alternar Tema"></button>
+        </nav>
+        <button class="menu-toggle" aria-label="Abrir Menu"><i data-lucide="menu"></i></button>
+    </header>
+
+    <section class="section reveal">
+        <div class="content-container">
+            <h1>Contato & Feedback</h1>
+            <p style="text-align: center; color: var(--color-muted);">Tem alguma dúvida, encontrou um problema ou tem
+                uma sugestão de melhoria para nossos apps? Use o formulário abaixo.</p>
+
+            <!-- Crie sua conta em getform.io e substitua o ID abaixo -->
+            <form action="https://forminit.com/f/cj0jx2xcgp9" method="POST" class="contact-form"
+                enctype="multipart/form-data" novalidate>
+                <!-- URL da sua página de agradecimento personalizada -->
+                <input type="hidden" name="fi-redirect-url" value="/obrigado">
+
+                <div class="form-group">
+                    <label for="nome">Seu Nome</label>
+                    <input type="text" id="nome" name="fi-sender-fullName" class="form-control"
+                        placeholder="Como podemos te chamar?" required>
+                    <div class="invalid-feedback">Por favor, informe seu nome.</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-mail para Contato</label>
+                    <input type="email" id="email" name="fi-sender-email" class="form-control"
+                        placeholder="email@sysbn.com.br" required>
+                    <div class="invalid-feedback">Insira um endereço de e-mail válido.</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="tipo">Assunto Principal</label>
+                    <select id="tipo" name="fi-select-assunto" class="form-control" required>
+                        <option value="" disabled selected>Selecione uma opção</option>
+                        <option value="duvida">Dúvida Técnica</option>
+                        <option value="melhoria">Sugestão de Melhoria</option>
+                        <option value="bug">Relatar um Problema (Bug)</option>
+                        <option value="comercial">Parcerias ou Planos</option>
+                        <option value="outro">Outros</option>
+                    </select>
+                    <div class="invalid-feedback">Selecione o motivo do seu contato.</div>
+                </div>
+
+                <div class="form-group" id="upload-group" style="display: none;">
+                    <label for="screenshot">Anexar Captura de Tela (Opcional - Máx 5MB)</label>
+                    <input type="file" id="screenshot" name="fi-file-screenshot" class="form-control"
+                        accept=".jpg, .jpeg, .png">
+                    <div id="file-name-display" class="file-name-info">
+                        <i data-lucide="file-check"></i>
+                        <span class="file-name-text"></span>
+                    </div>
+                    <div id="image-preview-container" class="file-preview-container">
+                        <button type="button" id="remove-preview" class="remove-preview-btn" title="Remover imagem">
+                            <i data-lucide="x"></i>
+                        </button>
+                        <img id="image-preview" src="" alt="Prévia da imagem" class="file-preview-image">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="mensagem">Sua Mensagem</label>
+                    <textarea id="mensagem" name="fi-text-message" class="form-control"
+                        placeholder="Descreva detalhadamente sua dúvida ou sugestão..." required></textarea>
+                    <div class="invalid-feedback">Escreva uma breve mensagem sobre sua solicitação.</div>
+                </div>
+
+                <div class="upload-progress-container" id="upload-progress-container">
+                    <div class="upload-progress-fill" id="upload-progress-fill"></div>
+                </div>
+
+                <button type="submit" id="submit-btn" class="btn-cta primary large"
+                    style="width: 100%; margin-top: 10px; cursor: pointer;">
+                    <span class="btn-text">Enviar Mensagem</span>
+                    <span class="spinner"></span>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy;
+            <script>document.write(new Date().getFullYear())</script> SYSBN. Todos os direitos reservados.
+        </p>
+        <div class="footer-links">
+            <a href="/termos.html">Termos de Uso</a> | <a href="/privacidade">Privacidade</a> | <a
+                href="/contato">Contato</a>
+        </div>
+    </footer>
+
+    <div id="cookie-banner">
+        <p>
+            Utilizamos cookies para garantir o melhor desempenho e segurança do SYSBN.
+            <a href="/privacidade" class="cookie-link">Política de Privacidade</a>.
+        </p>
+        <button id="aceitar-cookies" class="btn-cta primary small-link">Aceitar</button>
+    </div>
+    <a href="/feedback/" class="floating-help-btn" aria-label="Ajuda e Suporte" data-tooltip="Dúvidas ou Sugestões?">
+        <i data-lucide="help-circle"></i>
+    </a>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="/script.js"></script>
+</body>
+
+</html>

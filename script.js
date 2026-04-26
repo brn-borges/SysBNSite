@@ -86,13 +86,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. Verifica se o cookie já foi aceito
     if (localStorage.getItem(cookieName) === 'true') {
         cookieBanner.style.display = 'none';
+        document.body.classList.add('cookies-accepted');
     } else {
         cookieBanner.style.display = 'flex'; // Exibe o banner
+        document.body.classList.remove('cookies-accepted');
     }
 
     // 2. Adiciona o evento de clique ao botão
     acceptButton.addEventListener('click', () => {
         localStorage.setItem(cookieName, 'true');
+        document.body.classList.add('cookies-accepted');
         cookieBanner.style.opacity = '0';
         setTimeout(() => {
             cookieBanner.style.display = 'none';
@@ -128,4 +131,220 @@ document.addEventListener('DOMContentLoaded', () => {
             progressBar.style.width = scrolled + "%";
         }
     });
+
+    // --- LÓGICA CONDICIONAL DO CAMPO DE UPLOAD ---
+    const tipoSelect = document.getElementById('tipo');
+    const uploadGroup = document.getElementById('upload-group');
+    const fileInput = document.getElementById('screenshot');
+    const fileNameDisplay = document.getElementById('file-name-display');
+    const fileNameText = fileNameDisplay ? fileNameDisplay.querySelector('.file-name-text') : null;
+    const imagePreviewContainer = document.getElementById('image-preview-container');
+    const imagePreview = document.getElementById('image-preview');
+    const removePreviewBtn = document.getElementById('remove-preview');
+
+    const resetFileDisplay = () => {
+        if (fileNameDisplay) fileNameDisplay.style.display = 'none';
+        if (fileNameText) fileNameText.textContent = '';
+        if (imagePreviewContainer) imagePreviewContainer.style.display = 'none';
+        if (imagePreview) imagePreview.src = '';
+        if (fileInput) fileInput.value = '';
+    };
+
+    if (fileInput && fileNameDisplay && fileNameText) {
+        fileInput.addEventListener('change', function() {
+            if (this.files && this.files.length > 0) {
+                const file = this.files[0];
+                const allowedTypes = ['image/jpeg', 'image/png'];
+
+                if (!allowedTypes.includes(file.type)) {
+                    showToast('Formato de arquivo inválido. Apenas JPG e PNG são permitidos.', true);
+                    resetFileDisplay();
+                    return;
+                }
+
+                fileNameText.textContent = `Arquivo selecionado: ${file.name}`;
+                fileNameDisplay.style.display = 'flex';
+
+                // Lógica de Pré-visualização
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imagePreview.src = e.target.result;
+                    imagePreviewContainer.style.display = 'block';
+                };
+                reader.readAsDataURL(this.files[0]);
+
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+            } else {
+                resetFileDisplay();
+            }
+        });
+    }
+
+    if (removePreviewBtn) {
+        removePreviewBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            resetFileDisplay();
+        });
+    }
+
+    if (tipoSelect && uploadGroup) {
+        tipoSelect.addEventListener('change', function() {
+            if (this.value === 'bug') {
+                uploadGroup.classList.add('field-visible');
+            } else {
+                uploadGroup.classList.remove('field-visible');
+                resetFileDisplay();
+            }
+        });
+    }
+
+    // --- LÓGICA DE CARREGAMENTO NO ENVIO ---
+    const contactForm = document.querySelector('.contact-form');
+    const submitBtn = document.getElementById('submit-btn');
+
+    // Função para mostrar a notificação (Toast)
+    window.showToast = (message, isError = false) => {
+        let container = document.querySelector('.toast-container');
+        if (!container) {
+            container = document.createElement('div');
+            container.className = 'toast-container';
+            document.body.appendChild(container);
+        }
+
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        if (isError) toast.style.borderLeftColor = '#ef4444'; // Vermelho para erro
+        toast.innerHTML = `
+            <i data-lucide="${isError ? 'alert-circle' : 'check-circle'}" style="color: ${isError ? '#ef4444' : 'var(--color-primary)'}"></i>
+            <span>${message}</span>
+        `;
+
+        container.appendChild(toast);
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+
+        // Remove o toast após 4 segundos
+        setTimeout(() => {
+            toast.classList.add('fade-out');
+            setTimeout(() => toast.remove(), 500);
+        }, 4000);
+    };
+
+    if (contactForm && submitBtn) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // Impede o recarregamento da página para mostrar o toast
+            
+            // Adiciona a classe que dispara as animações CSS de validação
+            contactForm.classList.add('was-validated');
+
+            // Verifica se o formulário é válido segundo as regras do HTML5
+            if (!contactForm.checkValidity()) {
+                e.stopPropagation();
+                
+                // Adiciona a animação de shake
+                contactForm.classList.add('shake');
+                
+                // Remove a classe após a animação terminar para poder disparar novamente
+                contactForm.addEventListener('animationend', () => {
+                    contactForm.classList.remove('shake');
+                }, { once: true });
+
+                showToast('Por favor, corrija os campos marcados em vermelho.', true);
+                return;
+            }
+
+            submitBtn.classList.add('loading');
+
+            // Validação de tamanho de arquivo (Limite: 5MB)
+            const fileInput = document.getElementById('screenshot');
+            if (fileInput && fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const allowedTypes = ['image/jpeg', 'image/png'];
+
+                if (!allowedTypes.includes(file.type)) {
+                    showToast('Apenas arquivos JPG e PNG são permitidos.', true);
+                    submitBtn.classList.remove('loading');
+                    return;
+                }
+
+                const maxSize = 5 * 1024 * 1024; // 5MB em bytes
+                if (file.size > maxSize) {
+                    showToast('O arquivo é muito grande. O limite máximo é de 5MB.', true);
+                    submitBtn.classList.remove('loading');
+                    return; // Interrompe o envio
+                }
+            }
+
+            const formData = new FormData(contactForm);
+            
+            // Adiciona um assunto amigável usando o prefixo fi-subject do Forminit
+            if (!formData.has('fi-subject')) {
+                formData.append('fi-subject', `Novo contato: ${formData.get('fi-select-assunto')} - ${formData.get('fi-sender-fullName')}`);
+            }
+
+            // Desativa todos os campos para evitar edições ou cliques duplos durante o envio
+            const formFields = contactForm.querySelectorAll('input, select, textarea, button');
+            formFields.forEach(field => field.disabled = true);
+
+            // Lógica de Upload com XMLHttpRequest para monitorar progresso
+            const xhr = new XMLHttpRequest();
+            const progressContainer = document.getElementById('upload-progress-container');
+            const progressFill = document.getElementById('upload-progress-fill');
+
+            if (progressContainer) {
+                progressContainer.style.display = 'block';
+                if (progressFill) progressFill.style.width = '0%';
+            }
+
+            xhr.upload.addEventListener('progress', (event) => {
+                if (event.lengthComputable) {
+                    const percentComplete = (event.loaded / event.total) * 100;
+                    if (progressFill) progressFill.style.width = percentComplete + '%';
+                }
+            });
+
+            xhr.onload = () => {
+                submitBtn.classList.remove('loading');
+                formFields.forEach(field => field.disabled = false); // Reativa os campos
+                if (progressContainer) progressContainer.style.display = 'none';
+
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    showToast('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+                    contactForm.reset(); // Limpa o formulário
+                    contactForm.classList.remove('was-validated'); // Remove o estado de validação visual
+                    resetFileDisplay();
+                    
+                    // Redireciona para a página de agradecimento após 2 segundos
+                    setTimeout(() => {
+                        const redirectUrl = contactForm.querySelector('input[name="fi-redirect-url"]').value;
+                        window.location.href = redirectUrl;
+                    }, 2000);
+
+                    if (uploadGroup) {
+                        uploadGroup.classList.remove('field-visible');
+                        uploadGroup.style.display = 'none';
+                    }
+                } else {
+                    let errorMsg = 'Erro ao processar envio.';
+                    try {
+                        const data = JSON.parse(xhr.responseText);
+                        errorMsg = data.errors ? data.errors.map(err => err.message).join(', ') : (data.message || errorMsg);
+                    } catch (parseError) {
+                        errorMsg = xhr.responseText || `Erro ${xhr.status}`;
+                    }
+                    showToast('Ops! ' + errorMsg, true);
+                }
+            };
+
+            xhr.onerror = () => {
+                submitBtn.classList.remove('loading');
+                formFields.forEach(field => field.disabled = false); // Reativa os campos
+                if (progressContainer) progressContainer.style.display = 'none';
+                showToast('Erro de conexão. Verifique sua internet.', true);
+            };
+
+            xhr.open('POST', contactForm.action);
+            xhr.setRequestHeader('Accept', 'application/json');
+            xhr.send(formData);
+        });
+    }
 });
