@@ -354,6 +354,8 @@ p.section-subtitle {
 
 /* Glassmorphism específico para o tema claro */
 [data-theme='light'] .feature-card,
+[data-theme='light'] .update-card,
+[data-theme='light'] .contact-channel-card,
 [data-theme='light'] .integration-card,
 [data-theme='light'] .pricing-card,
 [data-theme='light'] .content-container,
@@ -382,6 +384,74 @@ p.section-subtitle {
 .feature-card h3 svg {
     width: 24px;
     height: 24px;
+}
+
+
+/* SEÇÃO DE NOVIDADES */
+.updates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    margin-top: 40px;
+    text-align: left;
+}
+
+.update-card {
+    background-color: var(--color-secondary);
+    padding: 28px;
+    border-radius: 20px;
+    border: 1px solid var(--color-light-gray);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.update-card::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 5px;
+    background: var(--color-primary);
+}
+
+.update-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 25px rgba(45, 212, 191, 0.32);
+}
+
+.update-badge {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background-color: rgba(45, 212, 191, 0.12);
+    color: var(--color-primary);
+    border: 1px solid rgba(45, 212, 191, 0.3);
+    font-size: 0.78em;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.update-card h3 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--color-text);
+    margin-bottom: 10px;
+    font-size: 1.18em;
+}
+
+.update-card h3 svg {
+    width: 24px;
+    height: 24px;
+    color: var(--color-primary);
+    flex: 0 0 auto;
+}
+
+.update-card p {
+    color: var(--color-muted);
 }
 
 /* SEÇÃO DE MÓDULOS (Antiga Integrações) */
@@ -609,7 +679,9 @@ p.section-subtitle {
     }
 
     /* Ajuste da Tabela de Preços para Mobile */
-    .pricing-table {
+    .pricing-table,
+    .updates-grid,
+    .contact-channels {
         grid-template-columns: 1fr;
     }
     
@@ -766,6 +838,51 @@ p.section-subtitle {
 }
 .content-container .contact-detail a {
     text-decoration: none;
+}
+
+
+.contact-channels {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    margin: 35px 0;
+    text-align: left;
+}
+
+.contact-channel-card {
+    background-color: var(--color-secondary);
+    border: 1px solid var(--color-light-gray);
+    border-left: 5px solid var(--color-primary);
+    border-radius: 20px;
+    padding: 24px;
+    transition: var(--transition);
+}
+
+.contact-channel-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 22px rgba(45, 212, 191, 0.25);
+}
+
+.contact-channel-card h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 0;
+}
+
+.contact-channel-card h3 svg {
+    width: 22px;
+    height: 22px;
+    color: var(--color-primary);
+    flex: 0 0 auto;
+}
+
+.contact-channel-card .btn-cta.large {
+    width: 100%;
+    padding-left: 12px;
+    padding-right: 12px;
+    font-size: 0.98em;
 }
 
 /* --- NOVOS ESTILOS PARA FASE BETA / FUTURO --- */
