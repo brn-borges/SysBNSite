@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <title>Símbolo SysBN</title>
+  <path d="M47 15H25C17.8 15 12 20.2 12 27s5.8 12 13 12h14" stroke="#087f80" stroke-width="9" stroke-linecap="round"/>
+  <path d="M17 49h22c7.2 0 13-5.2 13-12s-5.8-12-13-12H25" stroke="#38bfb3" stroke-width="9" stroke-linecap="round"/>
+  <circle cx="47" cy="15" r="4.5" fill="#38bfb3"/>
+  <circle cx="17" cy="49" r="4.5" fill="#087f80"/>
+</svg>

@@ -7,46 +7,55 @@
     <meta name="description" content="Conheça o ControlFinance, o módulo SYSBN para gestão financeira pessoal com contas, cartões, orçamentos, relatórios, PDV, compartilhamento, auditoria e notificações.">
     <title>SYSBN | ControlFinance e Gestão Unificada</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/assets/sysbn-symbol.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/premium.css">
+    <script>try { const t = localStorage.getItem('theme'); document.documentElement.dataset.theme = t === 'dark' || t === 'light' ? t : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); } catch (_) { document.documentElement.dataset.theme = 'light'; }</script>
 </head>
 
 <body>
+    <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
     <div id="reading-progress"></div>
 
     <header class="header">
         <div class="logo-container">
             <a href="/">
-                <img src="assets/logo.png" alt="Logo SYSBN - Gerenciamento e Segurança" class="logo">
+                <span class="site-brand"><span class="site-brand__mark" aria-hidden="true"><img src="/assets/sysbn-symbol.svg" alt="" width="44" height="44"></span><span class="site-brand__name">SysBN<small>Tecnologia que simplifica</small></span></span>
             </a>
         </div>
-        <nav class="nav">
+        <nav class="nav" id="site-navigation" aria-label="Navegação principal">
             <a href="#recursos"><i data-lucide="sparkles"></i> Recursos</a>
             <a href="#novidades"><i data-lucide="badge-check"></i> Novidades</a>
             <a href="#modulos"><i data-lucide="layers"></i> Módulos</a>
             <a href="#planos"><i data-lucide="credit-card"></i> Planos</a>
-            <a href="https://controlfinance.sysbn.com.br/" target="_blank" class="btn-cta primary" style="display: inline-flex; align-items: center; gap: 8px;"><i data-lucide="external-link"></i> Acessar CF</a>
+            <a href="https://controlfinance.sysbn.com.br/" target="_blank" rel="noopener noreferrer" class="btn-cta primary" style="display: inline-flex; align-items: center; gap: 8px;"><i data-lucide="external-link"></i> Acessar CF</a>
             <button id="theme-toggle" class="theme-toggle" aria-label="Alternar tema claro/escuro" data-tooltip="Alternar Tema"></button>
         </nav>
-        <button class="menu-toggle" aria-label="Abrir Menu"><i data-lucide="menu"></i></button>
+        <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="site-navigation"><i data-lucide="menu"></i></button>
     </header>
 
-    <section class="hero">
+    <main id="conteudo"><section class="hero">
         <div class="hero-content">
-            <h1>ControlFinance: gestão financeira completa dentro do SYSBN.</h1>
-            <h2>Finanças pessoais, relatórios e PDV em uma única plataforma.</h2>
+            <span class="eyebrow"><span class="status-dot"></span> Plataforma SysBN · ControlFinance</span>
+            <h1>Mais clareza para suas finanças.<br><em>Mais espaço para evoluir.</em></h1>
+            <h2>Seu controle financeiro, em um só lugar.</h2>
             <p>Organize contas, cartões, transações, orçamentos, vencimentos, compartilhamentos e vendas com uma
                 experiência responsiva, segura e em evolução contínua. O módulo financeiro do SYSBN já reúne o controle
                 do dia a dia e recursos operacionais para quem precisa de mais clareza.</p>
-            <a href="https://controlfinance.sysbn.com.br/" target="_blank" class="btn-cta primary large">Acessar
-                ControlFinance</a>
+            <div class="hero-actions"><a href="https://controlfinance.sysbn.com.br/" target="_blank" rel="noopener noreferrer" class="btn-cta primary large">Conhecer o ControlFinance <i data-lucide="arrow-up-right"></i></a><a href="#recursos" class="btn-cta secondary">Explorar recursos <i data-lucide="arrow-down"></i></a></div>
+            <div class="hero-notes"><span><i data-lucide="check"></i> Gratuito durante o Beta</span><span><i data-lucide="monitor-smartphone"></i> No computador e no celular</span></div>
         </div>
-        <div class="hero-image">
-            <img src="assets/placeholder-dashboard.png" alt="Mockup da Interface do SYSBN com ControlFinance" loading="lazy" decoding="async">
+        <div class="hero-image product-preview" aria-label="Visão ilustrativa dos recursos do ControlFinance">
+            <div class="preview-top"><span><i data-lucide="wallet"></i> ControlFinance</span><span class="update-badge">Seu dinheiro, com clareza</span></div>
+            <div class="preview-title"><span class="eyebrow">Tudo conectado</span><h3>Organize. Acompanhe. Decida.</h3><p>Uma experiência pensada para o seu dia a dia.</p></div>
+            <div class="preview-modules"><div><i data-lucide="landmark"></i><strong>Contas e saldos</strong><small>Sua visão financeira</small></div><div><i data-lucide="credit-card"></i><strong>Cartões e faturas</strong><small>Pagamentos organizados</small></div><div><i data-lucide="store"></i><strong>PDV integrado</strong><small>Da venda ao controle</small></div></div>
+            <div class="preview-flow"><span><i data-lucide="calendar-check"></i> Compromissos do mês</span><i data-lucide="arrow-right"></i><span><i data-lucide="chart-no-axes-combined"></i> Relatórios e decisões</span></div>
+            <div class="preview-bottom"><span><i data-lucide="users-round"></i> Perfis compartilhados</span><span><i data-lucide="sun-moon"></i> Claro e escuro</span></div>
+            <small class="preview-caption">Visão ilustrativa dos recursos da plataforma</small>
         </div>
     </section>
 
     <section id="recursos" class="section light-bg reveal">
-        <h2>Recursos que transformam rotina financeira em clareza.</h2>
+        <span class="eyebrow">Do dia a dia às decisões</span><h2>Controle completo. Experiência simples.</h2>
         <p class="section-subtitle">O ControlFinance combina cadastro, movimento, relatório e colaboração para você
             acompanhar sua vida financeira com menos esforço e mais contexto.</p>
 
@@ -85,7 +94,7 @@
     </section>
 
     <section id="novidades" class="section reveal">
-        <h2>Novidades recentes do ControlFinance.</h2>
+        <span class="eyebrow">Em evolução contínua</span><h2>Uma plataforma que acompanha você.</h2>
         <p class="section-subtitle">O sistema ganhou recursos práticos para controle financeiro, operação de vendas e
             gestão compartilhada.</p>
 
@@ -118,7 +127,7 @@
     </section>
 
     <section id="modulos" class="section reveal">
-        <h2>A plataforma SYSBN construída para crescer com você.</h2>
+        <span class="eyebrow">Um ecossistema conectado</span><h2>Finanças, operação e colaboração.</h2>
         <p class="section-subtitle">O ControlFinance é o módulo ativo da plataforma e concentra os principais fluxos de
             gestão financeira, colaboração e operação.</p>
 
@@ -128,7 +137,7 @@
                 <p class="status">Status: Ativo</p>
                 <p>Controle financeiro com contas, bancos, categorias, transações, cartões, faturas, orçamentos,
                     agendamentos, vencimentos e relatórios.</p>
-                <a href="https://controlfinance.sysbn.com.br/" target="_blank"
+                <a href="https://controlfinance.sysbn.com.br/" target="_blank" rel="noopener noreferrer"
                     class="btn-cta primary small-link">Acessar Módulo</a>
             </div>
             <div class="integration-card active">
@@ -147,7 +156,7 @@
     </section>
 
     <section id="planos" class="section reveal">
-        <h2>Participe da fase Beta: sua evolução, gratuita.</h2>
+        <span class="eyebrow">Comece no seu ritmo</span><h2>Conheça os planos da plataforma.</h2>
         <p class="section-subtitle">O SYSBN está em fase Beta e o ControlFinance pode ser utilizado gratuitamente
             enquanto seguimos evoluindo a plataforma com feedback real dos usuários.</p>
 
@@ -165,7 +174,7 @@
                     <li>✅ Feedback, notificações e manual</li>
                     <li>✅ Compartilhamento em evolução</li>
                 </ul>
-                <a href="https://controlfinance.sysbn.com.br/" target="_blank" class="btn-cta primary large">Começar Grátis Agora</a>
+                <a href="https://controlfinance.sysbn.com.br/" target="_blank" rel="noopener noreferrer" class="btn-cta primary large">Começar Grátis Agora</a>
             </div>
 
             <div class="pricing-card highlighted">
@@ -180,7 +189,7 @@
                     <li>✅ Suporte Prioritário</li>
                     <li>✅ Recursos avançados de colaboração</li>
                 </ul>
-                <a href="#" class="btn-cta primary large disabled">Em Breve</a>
+                <a href="#" class="btn-cta primary large disabled" aria-disabled="true" tabindex="-1">Em Breve</a>
             </div>
 
             <div class="pricing-card">
@@ -194,11 +203,13 @@
                     <li>✅ Histórico Ilimitado de Dados</li>
                     <li>✅ Suporte 24h</li>
                 </ul>
-                <a href="#" class="btn-cta primary disabled">Em Breve</a>
+                <a href="#" class="btn-cta primary disabled" aria-disabled="true" tabindex="-1">Em Breve</a>
             </div>
         </div>
     </section>
 
+    <section class="site-invitation"><div><span class="eyebrow">Seu próximo passo</span><h2>Comece a organizar o que importa.</h2><p>Explore o ControlFinance ou fale com a gente para tirar suas dúvidas.</p></div><div class="hero-actions"><a class="btn-cta primary" href="https://controlfinance.sysbn.com.br/" target="_blank" rel="noopener noreferrer">Acessar a plataforma <i data-lucide="arrow-up-right"></i></a><a class="btn-cta secondary" href="/contato/">Falar com a SysBN</a></div></section>
+    </main>
     <footer class="footer">
         <p>&copy;
             <script>document.write(new Date().getFullYear())</script> SYSBN. Todos os direitos reservados.

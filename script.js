@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Detecta preferência do sistema se não houver escolha salva
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const initialTheme = currentTheme || (systemPrefersDark ? 'dark' : 'light');
+    const initialTheme = ['dark', 'light'].includes(currentTheme) ? currentTheme : (systemPrefersDark ? 'dark' : 'light');
 
     // Função para atualizar o ícone do botão
     const updateThemeIcon = (theme) => {
@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const tooltipText = theme === 'dark' ? 'Ativar Modo Claro' : 'Ativar Modo Escuro';
         themeToggle.innerHTML = `<i data-lucide="${iconName}"></i>`;
         themeToggle.setAttribute('data-tooltip', tooltipText);
+        themeToggle.setAttribute('aria-label', tooltipText);
+        themeToggle.setAttribute('title', tooltipText);
         if (typeof lucide !== 'undefined') {
             lucide.createIcons();
         }
@@ -56,19 +58,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!menuToggle) return;
         const iconName = isOpen ? 'x' : 'menu';
         menuToggle.innerHTML = `<i data-lucide="${iconName}"></i>`;
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+        menuToggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
         if (typeof lucide !== 'undefined') {
             lucide.createIcons();
         }
     };
 
-    menuToggle.addEventListener('click', () => {
+    menuToggle?.addEventListener('click', () => {
         const isOpen = nav.classList.toggle('nav-open');
         document.body.classList.toggle('menu-active', isOpen);
         updateMenuIcon(isOpen);
     });
 
     // Fechar o menu ao clicar em um link
-    nav.querySelectorAll('a').forEach(link => {
+    nav?.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
             if (nav.classList.contains('nav-open')) {
                 nav.classList.remove('nav-open');
@@ -77,6 +81,22 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    const closeMenu = () => {
+        nav?.classList.remove('nav-open');
+        document.body.classList.remove('menu-active');
+        updateMenuIcon(false);
+    };
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && nav?.classList.contains('nav-open')) {
+            closeMenu();
+            menuToggle?.focus();
+        }
+    });
+    document.addEventListener('click', event => {
+        if (nav?.classList.contains('nav-open') && !event.composedPath().includes(nav) && !event.composedPath().includes(menuToggle)) closeMenu();
+    });
+    window.addEventListener('resize', () => { if (innerWidth > 900) closeMenu(); });
 
     // --- LÓGICA DO BANNER DE COOKIES ---
     const cookieBanner = document.getElementById('cookie-banner');
@@ -126,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', () => {
         const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
         const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (winScroll / height) * 100;
+        const scrolled = height > 0 ? Math.min(100, (winScroll / height) * 100) : 0;
         if (progressBar) {
             progressBar.style.width = scrolled + "%";
         }
@@ -213,20 +233,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const toast = document.createElement('div');
         toast.className = 'toast';
-        if (isError) toast.style.borderLeftColor = '#ef4444'; // Vermelho para erro
-        toast.innerHTML = `
-            <i data-lucide="${isError ? 'alert-circle' : 'check-circle'}" style="color: ${isError ? '#ef4444' : 'var(--color-primary)'}"></i>
-            <span>${message}</span>
-        `;
-
+        toast.dataset.type = isError ? 'error' : 'success';
+        toast.setAttribute('role', isError ? 'alert' : 'status');
+        toast.setAttribute('aria-atomic', 'true');
+        const iconTile = document.createElement('span');
+        iconTile.className = 'toast__icon';
+        iconTile.setAttribute('aria-hidden', 'true');
+        const icon = document.createElement('i');
+        icon.setAttribute('data-lucide', isError ? 'circle-alert' : 'circle-check');
+        iconTile.appendChild(icon);
+        const content = document.createElement('div');
+        content.className = 'toast__content';
+        const title = document.createElement('strong');
+        title.className = 'toast__title';
+        title.textContent = isError ? 'Atenção' : 'Notificação';
+        const text = document.createElement('span');
+        text.className = 'toast__message';
+        text.textContent = message;
+        content.append(title, text);
+        const close = document.createElement('button');
+        close.type = 'button';
+        close.className = 'toast__close';
+        close.setAttribute('aria-label', 'Fechar notificação');
+        close.title = 'Fechar notificação';
+        const closeIcon = document.createElement('i');
+        closeIcon.setAttribute('data-lucide', 'x');
+        closeIcon.setAttribute('aria-hidden', 'true');
+        close.appendChild(closeIcon);
+        toast.append(iconTile, content, close);
+        let dismissed = false;
+        let timer;
+        const dismiss = () => {
+            if (dismissed) return;
+            dismissed = true;
+            clearTimeout(timer);
+            toast.classList.add('fade-out');
+            setTimeout(() => toast.remove(), 180);
+        };
+        close.addEventListener('click', dismiss);
         container.appendChild(toast);
         if (typeof lucide !== 'undefined') lucide.createIcons();
+        timer = setTimeout(dismiss, 5500);
 
-        // Remove o toast após 4 segundos
-        setTimeout(() => {
-            toast.classList.add('fade-out');
-            setTimeout(() => toast.remove(), 500);
-        }, 4000);
     };
 
     if (contactForm && submitBtn) {
@@ -253,6 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             submitBtn.classList.add('loading');
+            contactForm.setAttribute('aria-busy', 'true');
 
             // Validação de tamanho de arquivo (Limite: 5MB)
             const fileInput = document.getElementById('screenshot');
@@ -263,6 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!allowedTypes.includes(file.type)) {
                     showToast('Apenas arquivos JPG e PNG são permitidos.', true);
                     submitBtn.classList.remove('loading');
+                    contactForm.setAttribute('aria-busy', 'false');
                     return;
                 }
 
@@ -270,6 +320,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (file.size > maxSize) {
                     showToast('O arquivo é muito grande. O limite máximo é de 5MB.', true);
                     submitBtn.classList.remove('loading');
+                    contactForm.setAttribute('aria-busy', 'false');
                     return; // Interrompe o envio
                 }
             }
@@ -304,6 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             xhr.onload = () => {
                 submitBtn.classList.remove('loading');
+                    contactForm.setAttribute('aria-busy', 'false');
                 formFields.forEach(field => field.disabled = false); // Reativa os campos
                 if (progressContainer) progressContainer.style.display = 'none';
 
@@ -337,6 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             xhr.onerror = () => {
                 submitBtn.classList.remove('loading');
+                    contactForm.setAttribute('aria-busy', 'false');
                 formFields.forEach(field => field.disabled = false); // Reativa os campos
                 if (progressContainer) progressContainer.style.display = 'none';
                 showToast('Erro de conexão. Verifique sua internet.', true);
