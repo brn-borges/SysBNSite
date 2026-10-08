@@ -7,32 +7,35 @@
     <title>SYSBN | Mensagem Enviada</title>
     <link rel="stylesheet" href="/style.css">
     <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/premium.css">
+    <script>try { const t = localStorage.getItem('theme'); document.documentElement.dataset.theme = t === 'dark' || t === 'light' ? t : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); } catch (_) { document.documentElement.dataset.theme = 'light'; }</script>
 </head>
 
 <body>
+    <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
     <canvas id="confetti-canvas"></canvas>
     <div id="reading-progress"></div>
 
     <header class="header">
         <div class="logo-container">
             <a href="/">
-                <img src="/assets/logo.png" alt="Logo SYSBN" class="logo">
+                <span class="site-brand"><span class="site-brand__mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M11 7H8a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h3M21 7h3a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3h-3M18 10l-4 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></span><span class="site-brand__name">SysBN<small>Tecnologia que simplifica</small></span></span>
             </a>
         </div>
-        <nav class="nav">
+        <nav class="nav" id="site-navigation" aria-label="Navegação principal">
             <a href="/#recursos"><i data-lucide="sparkles"></i> Recursos</a>
             <a href="/#modulos"><i data-lucide="layers"></i> Módulos</a>
             <a href="/#planos"><i data-lucide="credit-card"></i> Planos</a>
-            <a href="https://controlfinance.sysbn.com.br/" target="_blank" class="btn-cta primary"
+            <a href="https://controlfinance.sysbn.com.br/" target="_blank" rel="noopener noreferrer" class="btn-cta primary"
                 style="display: inline-flex; align-items: center; gap: 8px;"><i data-lucide="external-link"></i> Acessar
                 CF</a>
             <button id="theme-toggle" class="theme-toggle" aria-label="Alternar tema"
                 data-tooltip="Alternar Tema"></button>
         </nav>
-        <button class="menu-toggle" aria-label="Abrir Menu"><i data-lucide="menu"></i></button>
+        <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="site-navigation"><i data-lucide="menu"></i></button>
     </header>
 
-    <section class="section reveal">
+    <main id="conteudo"><section class="section reveal">
         <div class="content-container"
             style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px;">
             <div
@@ -72,12 +75,13 @@
         </div>
     </section>
 
+    </main>
     <footer class="footer">
         <p>&copy;
             <script>document.write(new Date().getFullYear())</script> SYSBN. Todos os direitos reservados.
         </p>
         <div class="footer-links">
-            <a href="/termos.html">Termos de Uso</a> | <a href="/privacidade">Privacidade</a> | <a
+            <a href="/termos/">Termos de Uso</a> | <a href="/privacidade">Privacidade</a> | <a
                 href="/contato">Contato</a>
         </div>
     </footer>
