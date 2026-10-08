@@ -7,7 +7,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- LÓGICA DE TEMA (CLARO/ESCURO) ---
     const themeToggle = document.getElementById('theme-toggle'); // Você deve adicionar um botão com este ID no HTML
-    const currentTheme = localStorage.getItem('theme');
+    const readSharedTheme = () => {
+        const theme = document.cookie.split(';').map(part => part.trim())
+            .find(part => part.startsWith('sysbn_theme='))?.slice('sysbn_theme='.length);
+        return theme === 'dark' || theme === 'light' ? theme : null;
+    };
+    const saveTheme = theme => {
+        try { localStorage.setItem('theme', theme); } catch (_) { /* Tema permanece ativo. */ }
+        if (location.hostname === 'sysbn.com.br' || location.hostname.endsWith('.sysbn.com.br')) {
+            document.cookie = `sysbn_theme=${theme}; Domain=sysbn.com.br; Path=/; Max-Age=31536000; SameSite=Lax${location.protocol === 'https:' ? '; Secure' : ''}`;
+        }
+    };
+    let currentTheme = null;
+    try { currentTheme = localStorage.getItem('theme'); } catch (_) { /* Usa o navegador. */ }
+    currentTheme = readSharedTheme() || currentTheme;
 
     // Detecta preferência do sistema se não houver escolha salva
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -33,6 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.documentElement.classList.add('no-transition');
     document.documentElement.setAttribute('data-theme', initialTheme);
     updateThemeIcon(initialTheme);
+    saveTheme(initialTheme);
     
     // Força um reflow e remove a classe no próximo frame
     requestAnimationFrame(() => {
@@ -45,10 +59,34 @@ document.addEventListener('DOMContentLoaded', () => {
             let newTheme = theme === 'dark' ? 'light' : 'dark';
             
             document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
+            saveTheme(newTheme);
             updateThemeIcon(newTheme);
         });
     }
+
+    const syncSharedTheme = () => {
+        const theme = readSharedTheme();
+        if (theme && theme !== document.documentElement.dataset.theme) {
+            document.documentElement.dataset.theme = theme;
+            try { localStorage.setItem('theme', theme); } catch (_) { /* Preferência do cookie é preservada. */ }
+            updateThemeIcon(theme);
+        }
+    };
+    window.addEventListener('focus', syncSharedTheme);
+    document.addEventListener('visibilitychange', syncSharedTheme);
+    window.addEventListener('storage', event => {
+        if (event.key === 'theme') {
+            if (event.newValue === 'dark' || event.newValue === 'light') {
+                document.documentElement.dataset.theme = event.newValue;
+                saveTheme(event.newValue);
+                updateThemeIcon(event.newValue);
+            }
+        }
+    });
+    const themeSyncTimer = setInterval(() => {
+        if (document.visibilityState === 'visible') syncSharedTheme();
+    }, 2000);
+    window.addEventListener('pagehide', event => { if (!event.persisted) clearInterval(themeSyncTimer); });
 
     // --- LÓGICA DO MENU HAMBURGER (CORRIGIDA) ---
     const menuToggle = document.querySelector('.menu-toggle');
