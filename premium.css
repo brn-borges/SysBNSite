@@ -254,3 +254,15 @@ body:not(.cookies-accepted) .floating-help-btn { bottom: 155px; }
   .toast__icon { width: 36px; height: 36px; border-radius: 10px; }
   .toast__close { width: 28px; height: 28px; }
 }
+
+/* Keep the import limits visually separate from the feature cards. */
+#importacao-ofx .ofx-details-note {
+  margin: 28px 0 0;
+  padding: 4px 0 4px 16px;
+  border-left: 2px solid var(--color-light-gray);
+  font-size: 14px;
+  line-height: 1.8;
+}
+@media (max-width: 767px) {
+  #importacao-ofx .ofx-details-note { margin-top: 24px; padding-left: 12px; }
+}
