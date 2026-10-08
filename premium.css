@@ -219,3 +219,38 @@ body:not(.cookies-accepted) .floating-help-btn { bottom: 155px; }
 .feedback-page .form-group { margin-bottom: 22px; }
 
 .toast-container .toast { width: 100%; min-width: 0; }
+
+/* Toasts compartilham a hierarquia e as superfícies premium do sistema. */
+.toast-container .toast {
+  --toast-accent: var(--color-primary);
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) 32px;
+  align-items: start;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid var(--color-light-gray);
+  border-radius: 18px;
+  background: var(--color-secondary);
+  box-shadow: 0 14px 36px #00000018, 0 3px 8px #00000008;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  animation: premiumToastIn 180ms ease-out both;
+}
+.toast-container .toast[data-type='error'] { --toast-accent: #c4495c; }
+[data-theme='dark'] .toast-container .toast[data-type='error'] { --toast-accent: #ff8096; }
+.toast__icon { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 12px; color: var(--toast-accent); background: color-mix(in srgb, var(--toast-accent) 12%, transparent); border: 1px solid color-mix(in srgb, var(--toast-accent) 18%, transparent); }
+.toast__icon svg { width: 21px; height: 21px; stroke-width: 1.8; }
+.toast__content { min-width: 0; display: flex; flex-direction: column; gap: 5px; padding-top: 1px; }
+.toast__title { font-size: 13px; font-weight: 700; line-height: 1.4; color: var(--color-text); }
+.toast__message { font-size: 12px; font-weight: 400; line-height: 1.65; color: var(--color-muted); overflow-wrap: anywhere; }
+.toast__close { width: 32px; height: 32px; display: grid; place-items: center; border: 0; border-radius: 8px; background: transparent; color: var(--color-muted); cursor: pointer; }
+.toast__close:hover { background: var(--soft); color: var(--color-text); }
+.toast__close svg { width: 17px; height: 17px; }
+.toast-container .toast.fade-out { animation: premiumToastOut 160ms ease-in both; }
+@keyframes premiumToastIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes premiumToastOut { to { opacity: 0; transform: translateY(-8px); } }
+@media (max-width: 599px) {
+  .toast-container .toast { grid-template-columns: 36px minmax(0, 1fr) 28px; gap: 10px; padding: 14px; border-radius: 15px; }
+  .toast__icon { width: 36px; height: 36px; border-radius: 10px; }
+  .toast__close { width: 28px; height: 28px; }
+}

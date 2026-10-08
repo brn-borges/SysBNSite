@@ -233,24 +233,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const toast = document.createElement('div');
         toast.className = 'toast';
-        if (isError) toast.style.borderLeftColor = '#ef4444'; // Vermelho para erro
+        toast.dataset.type = isError ? 'error' : 'success';
         toast.setAttribute('role', isError ? 'alert' : 'status');
+        toast.setAttribute('aria-atomic', 'true');
+        const iconTile = document.createElement('span');
+        iconTile.className = 'toast__icon';
+        iconTile.setAttribute('aria-hidden', 'true');
         const icon = document.createElement('i');
-        icon.setAttribute('data-lucide', isError ? 'alert-circle' : 'check-circle');
-        icon.setAttribute('aria-hidden', 'true');
-        icon.style.color = isError ? '#ef4444' : 'var(--color-primary)';
+        icon.setAttribute('data-lucide', isError ? 'circle-alert' : 'circle-check');
+        iconTile.appendChild(icon);
+        const content = document.createElement('div');
+        content.className = 'toast__content';
+        const title = document.createElement('strong');
+        title.className = 'toast__title';
+        title.textContent = isError ? 'Atenção' : 'Notificação';
         const text = document.createElement('span');
+        text.className = 'toast__message';
         text.textContent = message;
-        toast.append(icon, text);
-
+        content.append(title, text);
+        const close = document.createElement('button');
+        close.type = 'button';
+        close.className = 'toast__close';
+        close.setAttribute('aria-label', 'Fechar notificação');
+        close.title = 'Fechar notificação';
+        const closeIcon = document.createElement('i');
+        closeIcon.setAttribute('data-lucide', 'x');
+        closeIcon.setAttribute('aria-hidden', 'true');
+        close.appendChild(closeIcon);
+        toast.append(iconTile, content, close);
+        let dismissed = false;
+        let timer;
+        const dismiss = () => {
+            if (dismissed) return;
+            dismissed = true;
+            clearTimeout(timer);
+            toast.classList.add('fade-out');
+            setTimeout(() => toast.remove(), 180);
+        };
+        close.addEventListener('click', dismiss);
         container.appendChild(toast);
         if (typeof lucide !== 'undefined') lucide.createIcons();
+        timer = setTimeout(dismiss, 5500);
 
-        // Remove o toast após 4 segundos
-        setTimeout(() => {
-            toast.classList.add('fade-out');
-            setTimeout(() => toast.remove(), 500);
-        }, 4000);
     };
 
     if (contactForm && submitBtn) {
