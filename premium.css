@@ -208,3 +208,12 @@ body:not(.cookies-accepted) .floating-help-btn { bottom: 155px; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+/* Marca vetorial e coluna única de leitura no feedback. */
+.site-brand__mark { width: 44px; height: 44px; background: transparent; border-radius: 0; }
+.site-brand__mark img { width: 44px; height: 44px; display: block; }
+.feedback-page .content-container { max-width: 800px; }
+.feedback-page .content-container h1 { margin-bottom: 16px; padding-bottom: 0; border-bottom: 0; }
+.feedback-page .feedback-intro { text-align: left; margin-bottom: 0; }
+.feedback-page .contact-form { width: 100%; max-width: none; margin: 28px 0 0; }
+.feedback-page .form-group { margin-bottom: 22px; }
