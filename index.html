@@ -73,6 +73,12 @@
 
         <div class="features-grid">
             <div class="feature-card">
+                <span class="update-badge">Próxima atualização</span>
+                <h3><i data-lucide="file-up"></i> Importação de extratos OFX</h3>
+                <p>Traga movimentos de contas e cartões, revise os dados e classifique categoria e subcategoria antes
+                    de confirmar. A identificação de movimentos já importados ajuda a evitar duplicidades.</p>
+            </div>
+            <div class="feature-card">
                 <h3><i data-lucide="layout-dashboard"></i> Dashboard e saldos</h3>
                 <p>Acompanhe indicadores, saldos por conta, vencimentos e movimentações em telas pensadas para decisão
                     rápida.</p>
@@ -94,8 +100,8 @@
             </div>
             <div class="feature-card">
                 <h3><i data-lucide="users-round"></i> Compartilhamento</h3>
-                <p>Trabalhe com contexto compartilhado de conta, mantendo dados financeiros acessíveis para quem precisa
-                    colaborar.</p>
+                <p>Compartilhe recursos com permissões de consulta, edição e exclusão. Alterne o perfil de dados para
+                    trabalhar somente com as informações autorizadas pelo proprietário.</p>
             </div>
             <div class="feature-card">
                 <h3><i data-lucide="shield-check"></i> Segurança e auditoria</h3>
@@ -107,10 +113,34 @@
 
     <section id="novidades" class="section reveal">
         <span class="eyebrow">Em evolução contínua</span><h2>Uma plataforma que acompanha você.</h2>
-        <p class="section-subtitle">O sistema ganhou recursos práticos para controle financeiro, operação de vendas e
-            gestão compartilhada.</p>
+        <p class="section-subtitle">Conheça o que está sendo preparado para a próxima atualização do ControlFinance e os recursos
+            que já fazem parte da plataforma.</p>
 
         <div class="updates-grid">
+            <article class="update-card">
+                <span class="update-badge">Próxima atualização · OFX</span>
+                <h3><i data-lucide="file-check-2"></i> Você revisa antes de importar</h3>
+                <p>Escolha a conta ou o cartão e confira cada movimento. Ajuste descrição, data, valor, categoria,
+                    subcategoria e observação; selecione apenas o que deseja salvar.</p>
+            </article>
+            <article class="update-card">
+                <span class="update-badge">Próxima atualização · Cartões</span>
+                <h3><i data-lucide="calendar-plus"></i> A fatura é criada quando precisar</h3>
+                <p>Escolha mês e ano para importar o OFX do cartão. Se a fatura ainda não existir, ela será criada
+                    junto com os lançamentos ao confirmar. Faturas abertas existentes serão reutilizadas.</p>
+            </article>
+            <article class="update-card">
+                <span class="update-badge">Próxima atualização · Mais cuidado</span>
+                <h3><i data-lucide="triangle-alert"></i> Entenda o impacto antes de excluir</h3>
+                <p>As confirmações de exclusão explicarão os efeitos nos saldos, faturas, limite e relatórios.
+                    Assim, você poderá conferir o registro e decidir antes de continuar.</p>
+            </article>
+            <article class="update-card">
+                <span class="update-badge">Próxima atualização · Acesso rápido</span>
+                <h3><i data-lucide="users-round"></i> Compartilhamentos perto de você</h3>
+                <p>O menu de perfil de dados terá um atalho para gerenciar convites, permissões e recursos.
+                    O manual atualizado explicará os novos fluxos, e as novidades usarão a rolagem padrão do sistema.</p>
+            </article>
             <article class="update-card">
                 <span class="update-badge">PDV</span>
                 <h3><i data-lucide="circle-dollar-sign"></i> Caixa, produtos e relatórios de vendas</h3>
@@ -136,6 +166,33 @@
                     do produto e uso contínuo.</p>
             </article>
         </div>
+    </section>
+
+    <section id="importacao-ofx" class="section light-bg reveal" aria-labelledby="ofx-title">
+        <span class="eyebrow">Na próxima atualização</span>
+        <h2 id="ofx-title">Do extrato ao controle, com conferência.</h2>
+        <p class="section-subtitle">A importação OFX será feita por arquivo. Você escolhe o destino, revisa os movimentos
+            e só depois confirma o que entra no seu histórico.</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3><i data-lucide="landmark"></i> Contas bancárias</h3>
+                <p>Selecione uma conta ativa do perfil em uso. Entradas e saídas confirmadas serão registradas como
+                    compensadas e atualizarão o saldo da conta.</p>
+            </div>
+            <div class="feature-card">
+                <h3><i data-lucide="credit-card"></i> Cartões de crédito</h3>
+                <p>Compras e créditos atualizarão a fatura e o limite disponível. Pagamentos reconhecidos no arquivo
+                    ficarão fora da importação; use a ação de pagar fatura no sistema.</p>
+            </div>
+            <div class="feature-card">
+                <h3><i data-lucide="copy-check"></i> Revisão e repetições</h3>
+                <p>Movimentos já importados serão ignorados. Possíveis repetições de lançamentos manuais começarão
+                    desmarcadas para sua conferência. Em compras parceladas, só entrará a parcela presente no arquivo.</p>
+            </div>
+        </div>
+        <p class="section-subtitle">Arquivos em reais, com até 2 MB e 2.000 movimentos, de uma única conta ou cartão.
+            O recurso respeitará as permissões e os recursos do perfil selecionado. Consulte o manual no ControlFinance
+            para acompanhar a liberação e o passo a passo.</p>
     </section>
 
     <section id="modulos" class="section reveal">
