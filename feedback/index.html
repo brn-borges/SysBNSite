@@ -9,19 +9,23 @@
     <link rel="icon" href="/assets/sysbn-symbol.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/premium.css">
     <script>try { const shared = document.cookie.split(';').map(p => p.trim()).find(p => p.startsWith('sysbn_theme='))?.slice(12); const t = shared === 'dark' || shared === 'light' ? shared : localStorage.getItem('theme'); document.documentElement.dataset.theme = t === 'dark' || t === 'light' ? t : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); } catch (_) { document.documentElement.dataset.theme = 'light'; }</script>
-    <meta name="description" content="Envie dúvidas, sugestões e relatos de problemas sobre a SYSBN e o ControlFinance. Anexe uma captura de tela para ajudar nossa equipe a entender seu feedback.">
+    <meta name="description"
+        content="Envie dúvidas, sugestões e relatos de problemas sobre a SYSBN e o ControlFinance. Anexe uma captura de tela para ajudar nossa equipe a entender seu feedback.">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <link rel="canonical" href="https://sysbn.com.br/feedback/">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="pt_BR">
     <meta property="og:site_name" content="SYSBN">
     <meta property="og:title" content="Feedback e sugestões | SYSBN">
-    <meta property="og:description" content="Envie dúvidas, sugestões e relatos de problemas sobre a SYSBN e o ControlFinance. Anexe uma captura de tela para ajudar nossa equipe a entender seu feedback.">
+    <meta property="og:description"
+        content="Envie dúvidas, sugestões e relatos de problemas sobre a SYSBN e o ControlFinance. Anexe uma captura de tela para ajudar nossa equipe a entender seu feedback.">
     <meta property="og:url" content="https://sysbn.com.br/feedback/">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Feedback e sugestões | SYSBN">
-    <meta name="twitter:description" content="Envie dúvidas, sugestões e relatos de problemas sobre a SYSBN e o ControlFinance. Anexe uma captura de tela para ajudar nossa equipe a entender seu feedback.">
-    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://sysbn.com.br/#organization","name":"SYSBN","url":"https://sysbn.com.br/","logo":"https://sysbn.com.br/assets/sysbn-symbol.svg"},{"@type":"WebSite","@id":"https://sysbn.com.br/#website","url":"https://sysbn.com.br/","name":"SYSBN","inLanguage":"pt-BR","publisher":{"@id":"https://sysbn.com.br/#organization"}},{"@type":"ContactPage","@id":"https://sysbn.com.br/feedback/#webpage","url":"https://sysbn.com.br/feedback/","name":"Feedback e sugestões | SYSBN","description":"Envie dúvidas, sugestões e relatos de problemas sobre a SYSBN e o ControlFinance. Anexe uma captura de tela para ajudar nossa equipe a entender seu feedback.","inLanguage":"pt-BR","isPartOf":{"@id":"https://sysbn.com.br/#website"}}]}</script>
+    <meta name="twitter:description"
+        content="Envie dúvidas, sugestões e relatos de problemas sobre a SYSBN e o ControlFinance. Anexe uma captura de tela para ajudar nossa equipe a entender seu feedback.">
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://sysbn.com.br/#organization","name":"SYSBN","url":"https://sysbn.com.br/","logo":"https://sysbn.com.br/assets/sysbn-symbol.svg"},{"@type":"WebSite","@id":"https://sysbn.com.br/#website","url":"https://sysbn.com.br/","name":"SYSBN","inLanguage":"pt-BR","publisher":{"@id":"https://sysbn.com.br/#organization"}},{"@type":"ContactPage","@id":"https://sysbn.com.br/feedback/#webpage","url":"https://sysbn.com.br/feedback/","name":"Feedback e sugestões | SYSBN","description":"Envie dúvidas, sugestões e relatos de problemas sobre a SYSBN e o ControlFinance. Anexe uma captura de tela para ajudar nossa equipe a entender seu feedback.","inLanguage":"pt-BR","isPartOf":{"@id":"https://sysbn.com.br/#website"}}]}</script>
 </head>
 
 <body class="feedback-page">
@@ -31,96 +35,102 @@
     <header class="header">
         <div class="logo-container">
             <a href="/">
-                <span class="site-brand"><span class="site-brand__mark" aria-hidden="true"><img src="/assets/sysbn-symbol.svg" alt="" width="44" height="44"></span><span class="site-brand__name">SYSBN<small>Tecnologia que simplifica</small></span></span>
+                <span class="site-brand"><span class="site-brand__mark" aria-hidden="true"><img
+                            src="/assets/sysbn-symbol.svg" alt="" width="44" height="44"></span><span
+                        class="site-brand__name">SYSBN<small>Tecnologia que simplifica</small></span></span>
             </a>
         </div>
         <nav class="nav" id="site-navigation" aria-label="Navegação principal">
             <a href="/#recursos"><i data-lucide="sparkles"></i> Recursos</a>
             <a href="/#modulos"><i data-lucide="layers"></i> Módulos</a>
+            <a href="/status/" aria-current="page"><i data-lucide="activity" aria-hidden="true"></i> Status</a>
             <a href="/#planos"><i data-lucide="credit-card"></i> Planos</a>
-            <a href="https://controlfinance.sysbn.com.br/" target="_blank" rel="noopener noreferrer" class="btn-cta primary"
-                style="display: inline-flex; align-items: center; gap: 8px;"><i data-lucide="external-link"></i> Acessar
+            <a href="https://controlfinance.sysbn.com.br/" target="_blank" rel="noopener noreferrer"
+                class="btn-cta primary" style="display: inline-flex; align-items: center; gap: 8px;"><i
+                    data-lucide="external-link"></i> Acessar
                 CF</a>
             <button id="theme-toggle" class="theme-toggle" aria-label="Alternar tema"
                 data-tooltip="Alternar Tema"></button>
         </nav>
-        <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="site-navigation"><i data-lucide="menu"></i></button>
+        <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="site-navigation"><i
+                data-lucide="menu"></i></button>
     </header>
 
-    <main id="conteudo"><section class="section reveal">
-        <div class="content-container">
-            <h1>Contato & Feedback</h1>
-            <p class="feedback-intro">Tem alguma dúvida, encontrou um problema ou tem
-                uma sugestão de melhoria para nossos apps? Use o formulário abaixo.</p>
+    <main id="conteudo">
+        <section class="section reveal">
+            <div class="content-container">
+                <h1>Contato & Feedback</h1>
+                <p class="feedback-intro">Tem alguma dúvida, encontrou um problema ou tem
+                    uma sugestão de melhoria para nossos apps? Use o formulário abaixo.</p>
 
-            <!-- Crie sua conta em getform.io e substitua o ID abaixo -->
-            <form action="https://forminit.com/f/cj0jx2xcgp9" method="POST" class="contact-form"
-                enctype="multipart/form-data" novalidate>
-                <!-- URL da sua página de agradecimento personalizada -->
-                <input type="hidden" name="fi-redirect-url" value="/obrigado">
+                <!-- Crie sua conta em getform.io e substitua o ID abaixo -->
+                <form action="https://forminit.com/f/cj0jx2xcgp9" method="POST" class="contact-form"
+                    enctype="multipart/form-data" novalidate>
+                    <!-- URL da sua página de agradecimento personalizada -->
+                    <input type="hidden" name="fi-redirect-url" value="/obrigado">
 
-                <div class="form-group">
-                    <label for="nome">Seu Nome</label>
-                    <input type="text" id="nome" name="fi-sender-fullName" class="form-control"
-                        placeholder="Como podemos te chamar?" required>
-                    <div class="invalid-feedback">Por favor, informe seu nome.</div>
-                </div>
-
-                <div class="form-group">
-                    <label for="email">E-mail para Contato</label>
-                    <input type="email" id="email" name="fi-sender-email" class="form-control"
-                        placeholder="email@sysbn.com.br" required>
-                    <div class="invalid-feedback">Insira um endereço de e-mail válido.</div>
-                </div>
-
-                <div class="form-group">
-                    <label for="tipo">Assunto Principal</label>
-                    <select id="tipo" name="fi-select-assunto" class="form-control" required>
-                        <option value="" disabled selected>Selecione uma opção</option>
-                        <option value="duvida">Dúvida Técnica</option>
-                        <option value="melhoria">Sugestão de Melhoria</option>
-                        <option value="bug">Relatar um Problema (Bug)</option>
-                        <option value="comercial">Parcerias ou Planos</option>
-                        <option value="outro">Outros</option>
-                    </select>
-                    <div class="invalid-feedback">Selecione o motivo do seu contato.</div>
-                </div>
-
-                <div class="form-group" id="upload-group" style="display: none;">
-                    <label for="screenshot">Anexar Captura de Tela (Opcional - Máx 5MB)</label>
-                    <input type="file" id="screenshot" name="fi-file-screenshot" class="form-control"
-                        accept=".jpg, .jpeg, .png">
-                    <div id="file-name-display" class="file-name-info">
-                        <i data-lucide="file-check"></i>
-                        <span class="file-name-text"></span>
+                    <div class="form-group">
+                        <label for="nome">Seu Nome</label>
+                        <input type="text" id="nome" name="fi-sender-fullName" class="form-control"
+                            placeholder="Como podemos te chamar?" required>
+                        <div class="invalid-feedback">Por favor, informe seu nome.</div>
                     </div>
-                    <div id="image-preview-container" class="file-preview-container">
-                        <button type="button" id="remove-preview" class="remove-preview-btn" title="Remover imagem">
-                            <i data-lucide="x"></i>
-                        </button>
-                        <img id="image-preview" src="" alt="Prévia da imagem" class="file-preview-image">
+
+                    <div class="form-group">
+                        <label for="email">E-mail para Contato</label>
+                        <input type="email" id="email" name="fi-sender-email" class="form-control"
+                            placeholder="email@sysbn.com.br" required>
+                        <div class="invalid-feedback">Insira um endereço de e-mail válido.</div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="mensagem">Sua Mensagem</label>
-                    <textarea id="mensagem" name="fi-text-message" class="form-control"
-                        placeholder="Descreva detalhadamente sua dúvida ou sugestão..." required></textarea>
-                    <div class="invalid-feedback">Escreva uma breve mensagem sobre sua solicitação.</div>
-                </div>
+                    <div class="form-group">
+                        <label for="tipo">Assunto Principal</label>
+                        <select id="tipo" name="fi-select-assunto" class="form-control" required>
+                            <option value="" disabled selected>Selecione uma opção</option>
+                            <option value="duvida">Dúvida Técnica</option>
+                            <option value="melhoria">Sugestão de Melhoria</option>
+                            <option value="bug">Relatar um Problema (Bug)</option>
+                            <option value="comercial">Parcerias ou Planos</option>
+                            <option value="outro">Outros</option>
+                        </select>
+                        <div class="invalid-feedback">Selecione o motivo do seu contato.</div>
+                    </div>
 
-                <div class="upload-progress-container" id="upload-progress-container">
-                    <div class="upload-progress-fill" id="upload-progress-fill"></div>
-                </div>
+                    <div class="form-group" id="upload-group" style="display: none;">
+                        <label for="screenshot">Anexar Captura de Tela (Opcional - Máx 5MB)</label>
+                        <input type="file" id="screenshot" name="fi-file-screenshot" class="form-control"
+                            accept=".jpg, .jpeg, .png">
+                        <div id="file-name-display" class="file-name-info">
+                            <i data-lucide="file-check"></i>
+                            <span class="file-name-text"></span>
+                        </div>
+                        <div id="image-preview-container" class="file-preview-container">
+                            <button type="button" id="remove-preview" class="remove-preview-btn" title="Remover imagem">
+                                <i data-lucide="x"></i>
+                            </button>
+                            <img id="image-preview" src="" alt="Prévia da imagem" class="file-preview-image">
+                        </div>
+                    </div>
 
-                <button type="submit" id="submit-btn" class="btn-cta primary large"
-                    style="width: 100%; margin-top: 10px; cursor: pointer;">
-                    <span class="btn-text">Enviar Mensagem</span>
-                    <span class="spinner"></span>
-                </button>
-            </form>
-        </div>
-    </section>
+                    <div class="form-group">
+                        <label for="mensagem">Sua Mensagem</label>
+                        <textarea id="mensagem" name="fi-text-message" class="form-control"
+                            placeholder="Descreva detalhadamente sua dúvida ou sugestão..." required></textarea>
+                        <div class="invalid-feedback">Escreva uma breve mensagem sobre sua solicitação.</div>
+                    </div>
+
+                    <div class="upload-progress-container" id="upload-progress-container">
+                        <div class="upload-progress-fill" id="upload-progress-fill"></div>
+                    </div>
+
+                    <button type="submit" id="submit-btn" class="btn-cta primary large"
+                        style="width: 100%; margin-top: 10px; cursor: pointer;">
+                        <span class="btn-text">Enviar Mensagem</span>
+                        <span class="spinner"></span>
+                    </button>
+                </form>
+            </div>
+        </section>
 
     </main>
     <footer class="footer">
@@ -128,8 +138,8 @@
             <script>document.write(new Date().getFullYear())</script> SYSBN. Todos os direitos reservados.
         </p>
         <div class="footer-links">
-            <a href="/termos/">Termos de Uso</a> | <a href="/privacidade/">Privacidade</a> | <a
-                href="/contato/">Contato</a>
+            <a href="/status/">Status dos serviços</a> | <a href="/termos/">Termos de Uso</a> | <a
+                href="/privacidade/">Privacidade</a> | <a href="/contato/">Contato</a>
         </div>
     </footer>
 
