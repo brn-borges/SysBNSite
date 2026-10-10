@@ -281,6 +281,17 @@
         </div>
     </section>
 
+    <section class="service-status" id="status-servicos" aria-labelledby="service-status-title">
+        <div class="service-status-heading"><div><span class="eyebrow">Disponibilidade</span><h2 id="service-status-title">Como estão os serviços?</h2><p>Acompanhe o acesso à plataforma e a conexão com os dados.</p></div><button type="button" class="btn-cta secondary" id="service-status-refresh"><i data-lucide="refresh-cw" aria-hidden="true"></i> Verificar agora</button></div>
+        <div class="service-status-grid" aria-live="polite" aria-atomic="true">
+            <article class="service-status-card"><div class="service-status-name"><i data-lucide="monitor" aria-hidden="true"></i><h3>Plataforma ControlFinance</h3></div><span class="service-status-badge" id="frontend-status" data-state="checking">Verificando…</span><p>Verifica o acesso aos arquivos públicos do frontend.</p></article>
+            <article class="service-status-card"><div class="service-status-name"><i data-lucide="server" aria-hidden="true"></i><h3>API e banco de dados</h3></div><span class="service-status-badge" id="api-status" data-state="checking">Verificando…</span><p>Confirma se a API responde e está conectada ao banco.</p></article>
+        </div>
+        <p class="service-status-note" id="service-status-updated">Aguardando a primeira verificação.</p>
+        <p class="service-status-note">Atualização automática a cada minuto enquanto esta página estiver visível. A verificação depende da sua conexão e não confirma todas as funcionalidades do sistema.</p>
+        <noscript><p>Ative o JavaScript para consultar o estado dos serviços.</p></noscript>
+    </section>
+
     <section class="site-invitation"><div><span class="eyebrow">Seu próximo passo</span><h2>Comece a organizar o que importa.</h2><p>Explore o ControlFinance ou fale com a gente para tirar suas dúvidas.</p></div><div class="hero-actions"><a class="btn-cta primary" href="https://controlfinance.sysbn.com.br/" target="_blank" rel="noopener noreferrer">Acessar a plataforma <i data-lucide="arrow-up-right"></i></a><a class="btn-cta secondary" href="/contato/">Falar com a SYSBN</a></div></section>
     </main>
     <footer class="footer">
@@ -305,6 +316,7 @@
     </a>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="script.js"></script>
+    <script src="/service-status.js" defer></script>
 </body>
 
 </html>
