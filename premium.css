@@ -328,3 +328,13 @@ body:not(.cookies-accepted) .floating-help-btn { bottom: 155px; }
 [data-theme="dark"] .preview-controlfinance-brand .cf-logo-light { display:none; }
 [data-theme="dark"] .preview-controlfinance-brand .cf-logo-dark { display:block; }
 @media(max-width:480px) { .preview-controlfinance-brand img { width:164px; } }
+
+/* Keep the product brand stationary, including pointer hover. */
+.hero-image.product-preview .preview-controlfinance-brand img,
+.hero-image.product-preview .preview-controlfinance-brand img:hover {
+  animation:none;
+  transition:none;
+  transform:none;
+  box-shadow:none;
+  border-radius:0;
+}
