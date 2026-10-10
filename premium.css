@@ -321,3 +321,10 @@ body:not(.cookies-accepted) .floating-help-btn { bottom: 155px; }
 .service-status-link svg { width:18px; height:18px; }
 @media(max-width:1240px) { .service-status-link { margin-left:24px; margin-right:24px; } }
 @media(max-width:700px) { .service-status-link { margin:32px 20px; padding:20px; } .service-status-link a { width:100%; justify-content:center; box-sizing:border-box; } }
+
+.preview-controlfinance-brand { min-width:0; }
+.preview-controlfinance-brand img { display:block; width:184px; max-width:100%; height:auto; }
+.preview-controlfinance-brand .cf-logo-dark { display:none; }
+[data-theme="dark"] .preview-controlfinance-brand .cf-logo-light { display:none; }
+[data-theme="dark"] .preview-controlfinance-brand .cf-logo-dark { display:block; }
+@media(max-width:480px) { .preview-controlfinance-brand img { width:164px; } }
