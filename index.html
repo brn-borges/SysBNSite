@@ -38,6 +38,7 @@
             <a href="#recursos"><i data-lucide="sparkles"></i> Recursos</a>
             <a href="#novidades"><i data-lucide="badge-check"></i> Novidades</a>
             <a href="#modulos"><i data-lucide="layers"></i> Módulos</a>
+            <a href="/status/"><i data-lucide="activity" aria-hidden="true"></i> Status</a>
             <a href="#planos"><i data-lucide="credit-card"></i> Planos</a>
             <a href="https://controlfinance.sysbn.com.br/" target="_blank" rel="noopener noreferrer" class="btn-cta primary" style="display: inline-flex; align-items: center; gap: 8px;"><i data-lucide="external-link"></i> Acessar CF</a>
             <button id="theme-toggle" class="theme-toggle" aria-label="Alternar tema claro/escuro" data-tooltip="Alternar Tema"></button>
@@ -57,7 +58,7 @@
             <div class="hero-notes"><span><i data-lucide="check"></i> Gratuito durante o Beta</span><span><i data-lucide="monitor-smartphone"></i> No computador e no celular</span></div>
         </div>
         <div class="hero-image product-preview" aria-label="Visão ilustrativa dos recursos do ControlFinance">
-            <div class="preview-top"><span><i data-lucide="wallet"></i> ControlFinance</span><span class="update-badge">Seu dinheiro, com clareza</span></div>
+            <div class="preview-top"><span class="preview-controlfinance-brand"><img class="cf-logo-light" src="/assets/controlfinance-brand-light.svg" alt="ControlFinance by SYSBN" width="184" height="36"><img class="cf-logo-dark" src="/assets/controlfinance-brand-dark.svg" alt="ControlFinance by SYSBN" width="184" height="36"></span><span class="update-badge">Seu dinheiro, com clareza</span></div>
             <div class="preview-title"><span class="eyebrow">Tudo conectado</span><h3>Organize. Acompanhe. Decida.</h3><p>Uma experiência pensada para o seu dia a dia.</p></div>
             <div class="preview-modules"><div><i data-lucide="landmark"></i><strong>Contas e saldos</strong><small>Sua visão financeira</small></div><div><i data-lucide="credit-card"></i><strong>Cartões e faturas</strong><small>Pagamentos organizados</small></div><div><i data-lucide="store"></i><strong>PDV integrado</strong><small>Da venda ao controle</small></div></div>
             <div class="preview-flow"><span><i data-lucide="calendar-check"></i> Compromissos do mês</span><i data-lucide="arrow-right"></i><span><i data-lucide="chart-no-axes-combined"></i> Relatórios e decisões</span></div>
@@ -114,7 +115,7 @@
     <section id="novidades" class="section reveal">
         <span class="eyebrow">Em evolução contínua</span><h2>Uma plataforma que acompanha você.</h2>
         <p class="section-subtitle">Conheça as melhorias do ControlFinance: recorrências mensais, orçamentos para contas e cartões,
-            avisos de saldo e relatórios mais fáceis de conferir. Os novos recursos chegam com a publicação da atualização.</p>
+            avisos de saldo, cadastro de clientes e uma operação de vendas mais organizada. Os novos recursos chegam com a publicação da atualização.</p>
 
         <div class="news-highlights">
             <article><i data-lucide="repeat" aria-hidden="true"></i><h3>Rotina mais simples</h3><p>Compras e lançamentos mensais com opções para pausar, retomar ou cancelar.</p></article>
@@ -139,7 +140,7 @@
                 <summary><span><strong>Extratos e importação</strong><small>Relatórios, OFX e faturas</small></span><i data-lucide="chevron-down" aria-hidden="true"></i></summary>
                 <ul>
                     <li><h4>Extratos para ler e dados para trabalhar</h4><p>Transações, agendamentos e vencimentos têm relatórios em formato de extrato, com categoria e
-                    subcategoria identificadas. Use PDF para leitura ou CSV para planilhas. Recibos e manual continuam somente em PDF.</p></li>
+                    subcategoria identificadas. Use PDF para leitura ou CSV para planilhas. No relatório de vencimentos, escolha se deseja incluir faturas de cartão e quais cartões conferir. Recibos e manual continuam somente em PDF.</p></li>
                     <li><h4>Você revisa antes de importar</h4><p>Escolha a conta ou o cartão e confira cada movimento. Ajuste descrição, data, valor, categoria,
                     subcategoria e observação; selecione apenas o que deseja salvar.</p></li>
                     <li><h4>A fatura é criada quando precisar</h4><p>Escolha mês e ano para importar o OFX do cartão. Se a fatura ainda não existir, ela é criada
@@ -151,8 +152,9 @@
                 <ul>
                     <li><h4>Compartilhamentos perto de você</h4><p>O menu de perfil de dados tem um atalho para gerenciar convites, permissões e recursos.
                     O manual atualizado explica os novos fluxos, e a janela de novidades usa a rolagem padrão do sistema.</p></li>
-                    <li><h4>Caixa, produtos e relatórios de vendas</h4><p>Venda produtos, registre pagamentos e acompanhe vendas e relatórios operacionais. Salve a conta
+                    <li><h4>Clientes e pedidos em um só lugar</h4><p>Cadastre clientes com consulta de CEP, encontre-os na venda e registre observações do pedido. Acompanhe compras e produtos mais pedidos no relatório de clientes. Salve a conta
                     e a subcategoria padrão dos recebimentos no seu perfil para reutilizar em outros dispositivos.</p></li>
+                    <li><h4>Entregas, retiradas e valores a receber</h4><p>Separe pedidos pendentes de entrega ou retirada dos valores ainda a receber. Ao receber por PIX, apresente o QR Code e confira o pagamento antes de confirmar. Edite os dados do pedido em um formulário próprio.</p></li>
                     <li><h4>Contexto compartilhado por usuário</h4><p>Contas, categorias e filtros do PDV respeitam o usuário ativo e o contexto compartilhado, deixando a
                     experiência mais segura para uso conjunto.</p></li>
                 </ul>
@@ -280,6 +282,8 @@
         </div>
     </section>
 
+    <section class="service-status-link" aria-labelledby="status-link-title"><div><span class="eyebrow">Disponibilidade</span><h2 id="status-link-title">Acompanhe o estado dos serviços</h2><p>Consulte a disponibilidade da plataforma ControlFinance e da API em uma página dedicada.</p></div><a class="btn-cta secondary" href="/status/"><i data-lucide="activity" aria-hidden="true"></i> Status dos serviços</a></section>
+
     <section class="site-invitation"><div><span class="eyebrow">Seu próximo passo</span><h2>Comece a organizar o que importa.</h2><p>Explore o ControlFinance ou fale com a gente para tirar suas dúvidas.</p></div><div class="hero-actions"><a class="btn-cta primary" href="https://controlfinance.sysbn.com.br/" target="_blank" rel="noopener noreferrer">Acessar a plataforma <i data-lucide="arrow-up-right"></i></a><a class="btn-cta secondary" href="/contato/">Falar com a SYSBN</a></div></section>
     </main>
     <footer class="footer">
@@ -287,7 +291,7 @@
             <script>document.write(new Date().getFullYear())</script> SYSBN. Todos os direitos reservados.
         </p>
         <div class="footer-links">
-            <a href="/termos/">Termos de Uso</a> | <a href="/privacidade/">Privacidade</a> | <a
+            <a href="/status/">Status dos serviços</a> | <a href="/termos/">Termos de Uso</a> | <a href="/privacidade/">Privacidade</a> | <a
                 href="/contato/">Contato</a>
         </div>
     </footer>

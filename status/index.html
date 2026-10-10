@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status dos serviços | SYSBN</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="icon" href="/assets/sysbn-symbol.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/premium.css">
+    <script>try { const shared = document.cookie.split(';').map(p => p.trim()).find(p => p.startsWith('sysbn_theme='))?.slice(12); const t = shared === 'dark' || shared === 'light' ? shared : localStorage.getItem('theme'); document.documentElement.dataset.theme = t === 'dark' || t === 'light' ? t : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); } catch (_) { document.documentElement.dataset.theme = 'light'; }</script>
+    <meta name="description" content="Consulte a disponibilidade da plataforma ControlFinance e da API com banco de dados. Atualização automática a cada 5 minutos e verificação manual.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="canonical" href="https://sysbn.com.br/status/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="SYSBN">
+    <meta property="og:title" content="Status dos serviços | SYSBN">
+    <meta property="og:description" content="Consulte a disponibilidade da plataforma ControlFinance e da API com banco de dados. Atualização automática a cada 5 minutos e verificação manual.">
+    <meta property="og:url" content="https://sysbn.com.br/status/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Status dos serviços | SYSBN">
+    <meta name="twitter:description" content="Consulte a disponibilidade da plataforma ControlFinance e da API com banco de dados. Atualização automática a cada 5 minutos e verificação manual.">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "@id": "https://sysbn.com.br/status/#webpage", "url": "https://sysbn.com.br/status/", "name": "Status dos serviços | SYSBN", "description": "Consulte a disponibilidade da plataforma ControlFinance e da API com banco de dados. Atualização automática a cada 5 minutos e verificação manual.", "inLanguage": "pt-BR"}</script>
+</head>
+
+<body>
+    <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+    <div id="reading-progress"></div>
+
+    <header class="header">
+        <div class="logo-container">
+            <a href="/">
+                <span class="site-brand"><span class="site-brand__mark" aria-hidden="true"><img src="/assets/sysbn-symbol.svg" alt="" width="44" height="44"></span><span class="site-brand__name">SYSBN<small>Tecnologia que simplifica</small></span></span>
+            </a>
+        </div>
+        <nav class="nav" id="site-navigation" aria-label="Navegação principal">
+            <a href="/#recursos"><i data-lucide="sparkles"></i> Recursos</a>
+            <a href="/#novidades"><i data-lucide="badge-check"></i> Novidades</a>
+            <a href="/#modulos"><i data-lucide="layers"></i> Módulos</a>
+            <a href="/status/" aria-current="page"><i data-lucide="activity" aria-hidden="true"></i> Status</a>
+            <a href="/#planos"><i data-lucide="credit-card"></i> Planos</a>
+            <a href="https://controlfinance.sysbn.com.br/" target="_blank" rel="noopener noreferrer" class="btn-cta primary" style="display: inline-flex; align-items: center; gap: 8px;"><i data-lucide="external-link"></i> Acessar CF</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Alternar tema claro/escuro" data-tooltip="Alternar Tema"></button>
+        </nav>
+        <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="site-navigation"><i data-lucide="menu"></i></button>
+    </header>
+
+    <main id="conteudo">
+    <section class="service-status" id="status-servicos" aria-labelledby="service-status-title">
+        <div class="service-status-heading"><div><span class="eyebrow">Disponibilidade</span><h1 id="service-status-title">Status dos serviços</h1><p>Acompanhe o acesso à plataforma e a conexão com os dados. Cada consulta aguarda até 15 segundos por serviço.</p></div><button type="button" class="btn-cta secondary" id="service-status-refresh"><i data-lucide="refresh-cw" aria-hidden="true"></i> Verificar agora</button></div>
+        <div class="service-status-grid" aria-live="polite" aria-atomic="true">
+            <article class="service-status-card"><div class="service-status-name"><i data-lucide="monitor" aria-hidden="true"></i><h3>Plataforma ControlFinance</h3></div><span class="service-status-badge" id="frontend-status" data-state="checking">Verificando…</span><p>Verifica o acesso aos arquivos públicos do frontend.</p></article>
+            <article class="service-status-card"><div class="service-status-name"><i data-lucide="server" aria-hidden="true"></i><h3>API e banco de dados</h3></div><span class="service-status-badge" id="api-status" data-state="checking">Verificando…</span><p>Confirma se a API responde e está conectada ao banco.</p></article>
+        </div>
+        <p class="service-status-note" id="service-status-updated">Aguardando a primeira verificação.</p>
+        <p class="service-status-note">Atualização automática a cada 5 minutos enquanto esta página estiver visível. A verificação depende da sua conexão e não confirma todas as funcionalidades do sistema.</p>
+        <noscript><p>Ative o JavaScript para consultar o estado dos serviços.</p></noscript>
+    </section>
+
+    </main>
+    <footer class="footer">
+        <p>&copy;
+            <script>document.write(new Date().getFullYear())</script> SYSBN. Todos os direitos reservados.
+        </p>
+        <div class="footer-links">
+            <a href="/status/" aria-current="page">Status dos serviços</a> | <a href="/termos/">Termos de Uso</a> | <a href="/privacidade/">Privacidade</a> | <a
+                href="/contato/">Contato</a>
+        </div>
+    </footer>
+    <div id="cookie-banner">
+        <p>
+            Utilizamos cookies para garantir o melhor desempenho e segurança do SYSBN. Ao continuar navegando, você
+            concorda com a nossa
+            <a href="/privacidade/" class="cookie-link">Política de Privacidade e Cookies</a>.
+        </p>
+        <button id="aceitar-cookies" class="btn-cta primary small-link">Aceitar e Continuar</button>
+    </div>
+    <a href="/feedback/" class="floating-help-btn" aria-label="Ajuda e Suporte" data-tooltip="Dúvidas ou Sugestões?">
+        <i data-lucide="help-circle"></i>
+    </a>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="/script.js"></script>
+    <script src="/service-status.js" defer></script>
+</body>
+
+</html>
