@@ -38,6 +38,7 @@
             <a href="#recursos"><i data-lucide="sparkles"></i> Recursos</a>
             <a href="#novidades"><i data-lucide="badge-check"></i> Novidades</a>
             <a href="#modulos"><i data-lucide="layers"></i> Módulos</a>
+            <a href="/status/"><i data-lucide="activity" aria-hidden="true"></i> Status</a>
             <a href="#planos"><i data-lucide="credit-card"></i> Planos</a>
             <a href="https://controlfinance.sysbn.com.br/" target="_blank" rel="noopener noreferrer" class="btn-cta primary" style="display: inline-flex; align-items: center; gap: 8px;"><i data-lucide="external-link"></i> Acessar CF</a>
             <button id="theme-toggle" class="theme-toggle" aria-label="Alternar tema claro/escuro" data-tooltip="Alternar Tema"></button>
@@ -281,16 +282,7 @@
         </div>
     </section>
 
-    <section class="service-status" id="status-servicos" aria-labelledby="service-status-title">
-        <div class="service-status-heading"><div><span class="eyebrow">Disponibilidade</span><h2 id="service-status-title">Como estão os serviços?</h2><p>Acompanhe o acesso à plataforma e a conexão com os dados.</p></div><button type="button" class="btn-cta secondary" id="service-status-refresh"><i data-lucide="refresh-cw" aria-hidden="true"></i> Verificar agora</button></div>
-        <div class="service-status-grid" aria-live="polite" aria-atomic="true">
-            <article class="service-status-card"><div class="service-status-name"><i data-lucide="monitor" aria-hidden="true"></i><h3>Plataforma ControlFinance</h3></div><span class="service-status-badge" id="frontend-status" data-state="checking">Verificando…</span><p>Verifica o acesso aos arquivos públicos do frontend.</p></article>
-            <article class="service-status-card"><div class="service-status-name"><i data-lucide="server" aria-hidden="true"></i><h3>API e banco de dados</h3></div><span class="service-status-badge" id="api-status" data-state="checking">Verificando…</span><p>Confirma se a API responde e está conectada ao banco.</p></article>
-        </div>
-        <p class="service-status-note" id="service-status-updated">Aguardando a primeira verificação.</p>
-        <p class="service-status-note">Atualização automática a cada minuto enquanto esta página estiver visível. A verificação depende da sua conexão e não confirma todas as funcionalidades do sistema.</p>
-        <noscript><p>Ative o JavaScript para consultar o estado dos serviços.</p></noscript>
-    </section>
+    <section class="service-status-link" aria-labelledby="status-link-title"><div><span class="eyebrow">Disponibilidade</span><h2 id="status-link-title">Acompanhe o estado dos serviços</h2><p>Consulte a disponibilidade da plataforma ControlFinance e da API em uma página dedicada.</p></div><a class="btn-cta secondary" href="/status/"><i data-lucide="activity" aria-hidden="true"></i> Status dos serviços</a></section>
 
     <section class="site-invitation"><div><span class="eyebrow">Seu próximo passo</span><h2>Comece a organizar o que importa.</h2><p>Explore o ControlFinance ou fale com a gente para tirar suas dúvidas.</p></div><div class="hero-actions"><a class="btn-cta primary" href="https://controlfinance.sysbn.com.br/" target="_blank" rel="noopener noreferrer">Acessar a plataforma <i data-lucide="arrow-up-right"></i></a><a class="btn-cta secondary" href="/contato/">Falar com a SYSBN</a></div></section>
     </main>
@@ -299,7 +291,7 @@
             <script>document.write(new Date().getFullYear())</script> SYSBN. Todos os direitos reservados.
         </p>
         <div class="footer-links">
-            <a href="/termos/">Termos de Uso</a> | <a href="/privacidade/">Privacidade</a> | <a
+            <a href="/status/">Status dos serviços</a> | <a href="/termos/">Termos de Uso</a> | <a href="/privacidade/">Privacidade</a> | <a
                 href="/contato/">Contato</a>
         </div>
     </footer>
@@ -316,7 +308,6 @@
     </a>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="script.js"></script>
-    <script src="/service-status.js" defer></script>
 </body>
 
 </html>
