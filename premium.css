@@ -31,9 +31,10 @@
   --accent-soft: #24423f;
   --shadow: 0 12px 32px #00000018;
 }
-body { background: var(--color-background); animation: none; padding-top: 88px; }
+body { background: var(--color-background); animation: none; padding-top: 88px; min-height: 100vh; min-height: 100dvh; box-sizing: border-box; display: flex; flex-direction: column; }
 html { scroll-padding-top: 104px; }
-main { min-height: 65vh; }
+body > main { flex: 1 0 auto; min-height: 0; width: 100%; box-sizing: border-box; }
+body > .footer { flex: 0 0 auto; margin-top: auto; }
 svg { flex-shrink: 0; }
 a, button, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 :focus-visible { outline: 2px solid var(--color-muted); outline-offset: 4px; }
