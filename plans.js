@@ -38,25 +38,39 @@ document.addEventListener('DOMContentLoaded', () => {
     function render(plans) {
         const cards = plans.map(plan => {
             const card = element('article', 'pricing-card public-plan');
-            card.append(element('span', 'plan-cycle', plan.preco_centavos === 0 ? 'Plano gratuito' : plan.periodicidade === 'anual' ? 'Cobrança anual' : 'Cobrança mensal'));
-            card.append(element('h3', '', plan.nome));
+            const heading = element('div', 'public-plan-heading');
+            heading.append(element('span', 'plan-cycle', plan.preco_centavos === 0 ? 'Plano gratuito' : plan.periodicidade === 'anual' ? 'Cobrança anual' : 'Cobrança mensal'));
+            heading.append(element('h3', '', plan.nome));
             const price = element('p', 'plan-price', plan.preco_centavos === 0 ? 'Grátis' : money.format(plan.preco_centavos / 100));
             if (plan.preco_centavos > 0) price.append(element('span', 'plan-price-cycle', plan.periodicidade === 'anual' ? ' / ano' : ' / mês'));
-            card.append(price, element('p', 'small-text plan-description', plan.descricao || 'Confira os recursos incluídos neste plano.'));
+            heading.append(price, element('p', 'small-text plan-description', plan.descricao || 'Confira os recursos incluídos neste plano.'));
+            card.append(heading);
             const list = element('ul', 'plan-resources');
-            for (const [key, label, quantity] of resources) {
+            const available = resources.filter(([key]) => plan.recursos[key].modo !== 'desabilitado');
+            const makeItem = ([key, label, quantity]) => {
                 const rule = plan.recursos[key];
-                if (rule.modo === 'desabilitado') continue;
                 const item = element('li', '');
                 item.append(element('span', '', label));
                 item.append(element('strong', '', quantity ? rule.modo === 'ilimitado' ? 'Ilimitado' : 'Até ' + number.format(rule.limite) : 'Incluído'));
-                list.append(item);
+                return item;
+            };
+            available.slice(0, 6).forEach(resource => list.append(makeItem(resource)));
+            card.append(element('h4', 'plan-resources-title', 'Recursos incluídos'), list);
+            if (available.length > 6) {
+                const details = element('details', 'plan-more');
+                details.append(element('summary', '', 'Ver todos os ' + available.length + ' recursos'));
+                const extra = element('ul', 'plan-resources');
+                available.slice(6).forEach(resource => extra.append(makeItem(resource)));
+                details.append(extra);
+                card.append(details);
             }
             if (!list.children.length) list.append(element('li', '', 'Nenhum recurso adicional disponível.'));
             const action = element('a', 'btn-cta primary', 'Conferir no cadastro');
             action.href = 'https://controlfinance.sysbn.com.br/authentication/register';
             action.setAttribute('aria-label', 'Conferir o plano ' + plan.nome + ' no cadastro do ControlFinance');
-            card.append(list, action);
+            const footer = element('div', 'plan-card-footer');
+            footer.append(action, element('small', '', plan.preco_centavos === 0 ? 'Confirme o plano ao criar sua conta.' : 'Liberação após confirmação do pagamento.'));
+            card.append(footer);
             return card;
         });
         container.replaceChildren(...cards);
@@ -79,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!Array.isArray(body.data) || body.data.length > 1000 || !body.data.every(validPlan)
                 || new Set(body.data.map(p => p.id)).size !== body.data.length) throw new Error('Catálogo inválido');
             render(body.data.sort((a, b) => a.preco_centavos - b.preco_centavos || a.id - b.id));
-            status.textContent = body.data.length ? 'Planos disponíveis para contratação' : 'Nenhum plano público disponível no momento. Consulte novamente mais tarde.';
+            status.textContent = body.data.length ? body.data.length + (body.data.length === 1 ? ' plano disponível' : ' planos disponíveis') : 'Nenhum plano público disponível no momento. Consulte novamente mais tarde.';
             loadedAt = Date.now();
         } catch (_) {
             container.replaceChildren();
