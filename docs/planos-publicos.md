@@ -6,7 +6,7 @@ O contrato esperado é `{ data: [{ id, nome, descricao, preco_centavos, periodic
 
 O carregamento tem timeout de 10 segundos. Falhas e respostas inválidas removem os cartões e permitem nova tentativa; catálogo vazio não recebe planos ou preços fictícios. Não há catálogo persistido no navegador. Ao retornar à página depois de cinco minutos, ela consulta novamente.
 
-O botão leva ao cadastro, onde o usuário escolhe e confirma um plano do catálogo atual. Para usuários existentes, há um link para Minha assinatura. O site não envia preço nem concede recursos; a API revalida a contratação e o pagamento.
+O botão leva ao cadastro com `?plano=ID`. O cadastro pré-seleciona somente um ID ainda presente no catálogo público atual da API; o usuário pode alterar a escolha. Um ID inexistente, inválido ou indisponível mantém a seleção obrigatória sem escolher outro plano automaticamente. Para usuários existentes, há um link para Minha assinatura. O site não envia preço nem concede recursos; a API revalida a contratação e o pagamento.
 
 ## Publicação
 

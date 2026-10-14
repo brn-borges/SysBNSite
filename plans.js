@@ -65,9 +65,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.append(details);
             }
             if (!list.children.length) list.append(element('li', '', 'Nenhum recurso adicional disponível.'));
-            const action = element('a', 'btn-cta primary', 'Conferir no cadastro');
-            action.href = 'https://controlfinance.sysbn.com.br/authentication/register';
-            action.setAttribute('aria-label', 'Conferir o plano ' + plan.nome + ' no cadastro do ControlFinance');
+            const action = element('a', 'btn-cta primary', 'Escolher plano');
+            const cadastro = new URL('https://controlfinance.sysbn.com.br/authentication/register');
+            cadastro.searchParams.set('plano', String(plan.id));
+            action.href = cadastro.href;
+            action.setAttribute('aria-label', 'Escolher o plano ' + plan.nome + ' no cadastro do ControlFinance');
             const footer = element('div', 'plan-card-footer');
             footer.append(action, element('small', '', plan.preco_centavos === 0 ? 'Confirme o plano ao criar sua conta.' : 'Liberação após confirmação do pagamento.'));
             card.append(footer);
