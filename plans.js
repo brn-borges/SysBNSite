@@ -53,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
             heading.append(price);
             if (plan.preco_centavos > 0 && plan.periodicidade === 'anual') heading.append(element('p', 'plan-annual-reference', 'Total cobrado por ano · equivalente a ' + money.format(plan.preco_centavos / 1200) + ' por mês. Não é cobrança mensal.'));
             heading.append(element('p', 'small-text plan-description', plan.descricao || 'Confira os recursos incluídos neste plano.'));
+            heading.append(element('span', 'plan-resource-count', resources.filter(([key]) => plan.recursos[key].modo !== 'desabilitado').length + ' recursos disponíveis'));
             card.append(heading);
             const list = element('ul', 'plan-resources');
             const available = resources.filter(([key]) => plan.recursos[key].modo !== 'desabilitado');
@@ -63,13 +64,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 item.append(element('strong', '', quantity ? rule.modo === 'ilimitado' ? 'Ilimitado' : 'Até ' + number.format(rule.limite) : 'Incluído'));
                 return item;
             };
-            available.slice(0, 6).forEach(resource => list.append(makeItem(resource)));
+            available.slice(0, 4).forEach(resource => list.append(makeItem(resource)));
             card.append(element('h4', 'plan-resources-title', 'Recursos incluídos'), list);
-            if (available.length > 6) {
+            if (available.length > 4) {
                 const details = element('details', 'plan-more');
                 details.append(element('summary', '', 'Ver todos os ' + available.length + ' recursos'));
                 const extra = element('ul', 'plan-resources');
-                available.slice(6).forEach(resource => extra.append(makeItem(resource)));
+                available.slice(4).forEach(resource => extra.append(makeItem(resource)));
                 details.append(extra);
                 card.append(details);
             }
@@ -132,3 +133,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     load();
 });
+
