@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
             action.href = cadastro.href;
             action.setAttribute('aria-label', 'Escolher o plano ' + plan.nome + ' no cadastro do ControlFinance');
             const footer = element('div', 'plan-card-footer');
-            footer.append(action, element('small', '', plan.preco_centavos === 0 ? 'Confirme o plano ao criar sua conta.' : 'Liberação após confirmação do pagamento.'));
+            footer.append(action, element('small', '', plan.preco_centavos === 0 ? 'Confirme o plano ao criar sua conta.' : 'Plano aplicado no cadastro, válido até o vencimento da cobrança inicial.'));
             card.append(footer);
             return card;
         });
