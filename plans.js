@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         && (p.descricao == null || typeof p.descricao === 'string' && p.descricao.length <= 10000)
         && Number.isSafeInteger(p.preco_centavos) && p.preco_centavos >= 0
         && ['mensal', 'anual'].includes(p.periodicidade)
+        && (p.recomendado === undefined || typeof p.recomendado === 'boolean')
         && p.recursos && typeof p.recursos === 'object' && !Array.isArray(p.recursos)
         && resources.every(([key, , quantity]) => {
             const rule = p.recursos[key];
@@ -44,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const cards = visible.map(plan => {
             const card = element('article', 'pricing-card public-plan');
             const heading = element('div', 'public-plan-heading');
+            if (plan.recomendado === true && plan.periodicidade === period) { card.classList.add('public-plan--recommended'); heading.append(element('span', 'plan-recommended-badge', 'Recomendado')); }
             heading.append(element('span', 'plan-cycle', plan.preco_centavos === 0 ? 'Plano gratuito' : plan.periodicidade === 'anual' ? 'Cobrança anual' : 'Cobrança mensal'));
             heading.append(element('h3', '', plan.nome));
             const price = element('p', 'plan-price', plan.preco_centavos === 0 ? 'Grátis' : money.format(plan.preco_centavos / 100));
