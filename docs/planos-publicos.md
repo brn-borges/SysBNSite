@@ -20,3 +20,7 @@ CORS limita a leitura pelo navegador e não torna os dados privados. O endpoint 
 ## Mensal e anual
 
 O seletor filtra planos pagos pela periodicidade configurada na API. Os gratuitos aparecem em ambos os períodos. Não são criados planos anuais ou descontos fictícios; ausência de opções pagas no período é informada. Em planos anuais, o preço principal é o total anual e a referência mensal corresponde ao total dividido por 12, arredondado na apresentação. A referência não altera a cobrança. O link mantém o ID do plano anual para pré-seleção no cadastro.
+
+## Recomendação por modalidade
+
+O catálogo pode fornecer recomendado (booleano); a ausência é tratada como sem destaque para compatibilidade. O selo Recomendado e a borda aparecem somente na modalidade correspondente. A indicação é configurada pelo administrador no ControlFinance, sem seleção automática e sem alterar preços ou links de cadastro. Publicar a API com a migração PlanoRecomendado primeiro.
