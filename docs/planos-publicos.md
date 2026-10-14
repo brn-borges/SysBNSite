@@ -16,3 +16,7 @@ O botão leva ao cadastro com `?plano=ID`. O cadastro pré-seleciona somente um 
 4. Publique `index.html`, `premium.css` e `plans.js` juntos. Confirme no navegador o carregamento do catálogo e os estados de erro e vazio.
 
 CORS limita a leitura pelo navegador e não torna os dados privados. O endpoint deve retornar apenas informações comerciais públicas e conservar o limite de requisições. A administração de planos continua protegida por autenticação e autorização no backend.
+
+## Mensal e anual
+
+O seletor filtra planos pagos pela periodicidade configurada na API. Os gratuitos aparecem em ambos os períodos. Não são criados planos anuais ou descontos fictícios; ausência de opções pagas no período é informada. Em planos anuais, o preço principal é o total anual e a referência mensal corresponde ao total dividido por 12, arredondado na apresentação. A referência não altera a cobrança. O link mantém o ID do plano anual para pré-seleção no cadastro.

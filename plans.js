@@ -16,6 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
     const money = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
     const number = new Intl.NumberFormat('pt-BR');
+    const periodControl = document.getElementById('plans-period');
+    const periodButtons = periodControl.querySelectorAll('[data-period]');
+    let catalog = [];
+    let period = 'mensal';
     let loading = false;
     let loadedAt = 0;
     const element = (tag, className, text) => {
@@ -36,14 +40,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 && (rule.modo !== 'limitado' || quantity && Number.isSafeInteger(rule.limite) && rule.limite > 0);
         });
     function render(plans) {
-        const cards = plans.map(plan => {
+        const visible = plans.filter(p => p.preco_centavos === 0 || p.periodicidade === period);
+        const cards = visible.map(plan => {
             const card = element('article', 'pricing-card public-plan');
             const heading = element('div', 'public-plan-heading');
             heading.append(element('span', 'plan-cycle', plan.preco_centavos === 0 ? 'Plano gratuito' : plan.periodicidade === 'anual' ? 'Cobrança anual' : 'Cobrança mensal'));
             heading.append(element('h3', '', plan.nome));
             const price = element('p', 'plan-price', plan.preco_centavos === 0 ? 'Grátis' : money.format(plan.preco_centavos / 100));
             if (plan.preco_centavos > 0) price.append(element('span', 'plan-price-cycle', plan.periodicidade === 'anual' ? ' / ano' : ' / mês'));
-            heading.append(price, element('p', 'small-text plan-description', plan.descricao || 'Confira os recursos incluídos neste plano.'));
+            heading.append(price);
+            if (plan.preco_centavos > 0 && plan.periodicidade === 'anual') heading.append(element('p', 'plan-annual-reference', 'Total cobrado por ano · equivalente a ' + money.format(plan.preco_centavos / 1200) + ' por mês. Não é cobrança mensal.'));
+            heading.append(element('p', 'small-text plan-description', plan.descricao || 'Confira os recursos incluídos neste plano.'));
             card.append(heading);
             const list = element('ul', 'plan-resources');
             const available = resources.filter(([key]) => plan.recursos[key].modo !== 'desabilitado');
@@ -76,11 +83,14 @@ document.addEventListener('DOMContentLoaded', () => {
             return card;
         });
         container.replaceChildren(...cards);
+        periodButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.period === period)));
+        status.textContent = !plans.length ? 'Nenhum plano público disponível no momento.' : !visible.some(p => p.preco_centavos > 0) ? 'Não há planos pagos ' + (period === 'anual' ? 'anuais' : 'mensais') + ' disponíveis no momento.' : visible.length + (visible.length === 1 ? ' plano disponível' : ' planos disponíveis');
     }
     async function load() {
         if (loading) return;
         loading = true;
         retry.hidden = true;
+        periodButtons.forEach(b => b.disabled = true);
         status.textContent = 'Carregando planos disponíveis…';
         container.setAttribute('aria-busy', 'true');
         const controller = new AbortController();
@@ -94,19 +104,26 @@ document.addEventListener('DOMContentLoaded', () => {
             const body = await response.json();
             if (!Array.isArray(body.data) || body.data.length > 1000 || !body.data.every(validPlan)
                 || new Set(body.data.map(p => p.id)).size !== body.data.length) throw new Error('Catálogo inválido');
-            render(body.data.sort((a, b) => a.preco_centavos - b.preco_centavos || a.id - b.id));
-            status.textContent = body.data.length ? body.data.length + (body.data.length === 1 ? ' plano disponível' : ' planos disponíveis') : 'Nenhum plano público disponível no momento. Consulte novamente mais tarde.';
+            catalog = body.data.sort((a, b) => a.preco_centavos - b.preco_centavos || a.id - b.id);
+            if (!loadedAt && !catalog.some(p => p.preco_centavos > 0 && p.periodicidade === 'mensal') && catalog.some(p => p.preco_centavos > 0 && p.periodicidade === 'anual')) period = 'anual';
+            periodControl.hidden = !catalog.length;
+            render(catalog);
+            /* status is derived from the selected period */
             loadedAt = Date.now();
         } catch (_) {
+            catalog = [];
+            periodControl.hidden = true;
             container.replaceChildren();
             status.textContent = 'Não foi possível consultar os planos agora. Tente novamente ou confira as opções no ControlFinance.';
             retry.hidden = false;
         } finally {
             clearTimeout(timeout);
             loading = false;
+            periodButtons.forEach(b => b.disabled = false);
             container.setAttribute('aria-busy', 'false');
         }
     }
+    periodButtons.forEach(button => button.addEventListener('click', () => { period = button.dataset.period; render(catalog); }));
     retry.addEventListener('click', load);
     document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'visible' && loadedAt && Date.now() - loadedAt >= 300000) load();
