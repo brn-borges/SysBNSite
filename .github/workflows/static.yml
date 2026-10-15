@@ -1,28 +1,25 @@
-# Simple workflow for deploying static content to GitHub Pages
+# Workflow para implantar conteúdo estático no GitHub Pages
 name: Deploy static content to Pages
 
 on:
-  # Runs on pushes targeting the default branch
+  # Executa quando houver um push na branch principal (main)
   push:
     branches: ["main"]
-
-  # Allows you to run this workflow manually from the Actions tab
+  # Permite rodar este workflow manualmente na aba Actions
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+# Configura as permissões do GITHUB_TOKEN para permitir o envio ao GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+# Permite apenas uma implantação por vez
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  # Single deploy job since we're just deploying
   deploy:
     environment:
       name: github-pages
@@ -31,13 +28,25 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Setup Node\n        uses: actions/setup-node@v4\n        with:\n          node-version: '24'\n      - name: Build and validate public site\n        run: |\n          npm run build\n          npm run check\n      - name: Upload artifact
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Build and validate public site
+        run: |
+          npm run build
+          npm run check
+
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload only the validated public artifact
           path: '_site'
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
