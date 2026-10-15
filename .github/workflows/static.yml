@@ -33,11 +33,11 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Upload artifact
+      - name: Setup Node\n        uses: actions/setup-node@v4\n        with:\n          node-version: '24'\n      - name: Build and validate public site\n        run: |\n          npm run build\n          npm run check\n      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: '.'
+          # Upload only the validated public artifact
+          path: '_site'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
