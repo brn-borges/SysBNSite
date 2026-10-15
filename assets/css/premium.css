@@ -147,9 +147,9 @@ a, button, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 #cookie-banner { background: var(--color-secondary); border-top: 1px solid var(--color-light-gray); color: var(--color-muted); box-shadow: 0 -8px 24px #0000000a; padding: 18px 24px; gap: 24px; z-index: 1500; }
 #cookie-banner p { font-size: 12px; max-width: 900px; }
 #cookie-banner #aceitar-cookies { white-space: normal; }
-body:not(.cookies-accepted) { padding-bottom: 140px; }
+body:not(.cookies-accepted) { padding-bottom: var(--cookie-banner-height, 0px); }
 .floating-help-btn { border-radius: 14px; background: var(--color-primary); color: var(--color-on-primary); box-shadow: var(--shadow); right: 24px; bottom: 24px; }
-body:not(.cookies-accepted) .floating-help-btn { bottom: 155px; }
+body:not(.cookies-accepted) .floating-help-btn { bottom: calc(var(--cookie-banner-height, 0px) + 15px); }
 .reveal { opacity: 1; transform: none; }
 .error-code { color: var(--color-primary); text-shadow: none; font-size: clamp(64px,14vw,110px); }
 @media (max-width: 1050px) {
@@ -202,8 +202,8 @@ body:not(.cookies-accepted) .floating-help-btn { bottom: 155px; }
   .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; font-size: 0; }
   .footer-links a { margin: 0; font-size: 12px; }
   #cookie-banner { padding: 16px; flex-direction: column; gap: 12px; align-items: stretch; }
-  body:not(.cookies-accepted) { padding-bottom: 225px; }
-  body:not(.cookies-accepted) .floating-help-btn { bottom: 235px; }
+  body:not(.cookies-accepted) { padding-bottom: var(--cookie-banner-height, 0px); }
+  body:not(.cookies-accepted) .floating-help-btn { bottom: calc(var(--cookie-banner-height, 0px) + 15px); }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -371,3 +371,4 @@ body:not(.cookies-accepted) .floating-help-btn { bottom: 155px; }
 #public-plans:has(> :only-child) > .public-plan { flex-basis:100%; }
 #public-plans:has(> :nth-child(2):last-child) > .public-plan { flex-basis:calc((100% - 24px)/2); }
 @media(max-width:620px){#public-plans:has(> :nth-child(2):last-child) > .public-plan{flex-basis:100%}}
+

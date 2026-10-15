@@ -150,10 +150,24 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.remove('cookies-accepted');
     }
 
+    // Reserve only the visible banner's real height, including after wrapping on mobile.
+    const syncCookieBannerHeight = () => {
+        const height = document.body.classList.contains('cookies-accepted')
+            ? 0 : Math.ceil(cookieBanner.getBoundingClientRect().height);
+        document.body.style.setProperty('--cookie-banner-height', `${height}px`);
+    };
+    syncCookieBannerHeight();
+    if (typeof ResizeObserver !== 'undefined') {
+        new ResizeObserver(syncCookieBannerHeight).observe(cookieBanner);
+    } else {
+        window.addEventListener('resize', syncCookieBannerHeight);
+    }
+
     // 2. Adiciona o evento de clique ao botão
     acceptButton.addEventListener('click', () => {
         localStorage.setItem(cookieName, 'true');
         document.body.classList.add('cookies-accepted');
+        syncCookieBannerHeight();
         cookieBanner.style.opacity = '0';
         setTimeout(() => {
             cookieBanner.style.display = 'none';
@@ -439,3 +453,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
