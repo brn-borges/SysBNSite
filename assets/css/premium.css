@@ -372,3 +372,9 @@ body:not(.cookies-accepted) .floating-help-btn { bottom: calc(var(--cookie-banne
 #public-plans:has(> :nth-child(2):last-child) > .public-plan { flex-basis:calc((100% - 24px)/2); }
 @media(max-width:620px){#public-plans:has(> :nth-child(2):last-child) > .public-plan{flex-basis:100%}}
 
+
+.plan-promotion-badge{display:inline-flex;align-self:flex-start;padding:5px 10px;border-radius:999px;background:var(--primary-color,#0f767a);color:#fff;font-size:.78rem;font-weight:700}.plan-original-price{font-size:.9rem;opacity:.75}.plan-promotion-terms{line-height:1.5;margin:6px 0}
+
+.public-plan-badges { display:flex; flex-wrap:wrap; align-items:center; gap:8px; max-width:100%; }
+.public-plan .public-plan-badges :is(.plan-recommended-badge,.plan-promotion-badge,.plan-cycle) { margin:0; padding:6px 10px; border-radius:8px; font-size:12px; font-weight:650; line-height:1.4; }
+.public-plan .plan-promotion-badge { background:var(--color-primary); color:var(--color-on-primary); }
