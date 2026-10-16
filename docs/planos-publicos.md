@@ -24,3 +24,6 @@ O seletor filtra planos pagos pela periodicidade configurada na API. Os gratuito
 ## Recomendação por modalidade
 
 O catálogo pode fornecer recomendado (booleano); a ausência é tratada como sem destaque para compatibilidade. O selo Recomendado e a borda aparecem somente na modalidade correspondente. A indicação é configurada pelo administrador no ControlFinance, sem seleção automática e sem alterar preços ou links de cadastro. Publicar a API com a migração PlanoRecomendado primeiro.
+
+
+O catálogo apresenta Compromissos, formatos PDF/CSV, relatórios financeiros individuais e limite de clientes do PDV. Recursos indisponíveis ficam ocultos; manual e suporte preservam suas exportações. As promoções vigentes mostram preço normal, promocional, condição da renovação e término em horário de Brasília. A API calcula o preço contratado; o site nunca envia um valor para cobrança. Ofertas expiradas deixam de ter destaque mesmo com a página aberta. Publicar somente após a API de promoções e o front correspondentes.
