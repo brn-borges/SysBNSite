@@ -68,9 +68,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const priceCents=offer?.preco_centavos ?? plan.preco_centavos;
             const card = element('article', 'pricing-card public-plan');
             const heading = element('div', 'public-plan-heading');
-            if (plan.recomendado === true && plan.periodicidade === period) { card.classList.add('public-plan--recommended'); heading.append(element('span', 'plan-recommended-badge', 'Recomendado')); }
-            if(offer)heading.append(element('span','plan-promotion-badge','Em promoção'));
-            heading.append(element('span', 'plan-cycle', plan.preco_centavos === 0 ? 'Plano gratuito' : plan.periodicidade === 'anual' ? 'Cobrança anual' : 'Cobrança mensal'));
+            const badges = element('div', 'public-plan-badges');
+            if (plan.recomendado === true && plan.periodicidade === period) { card.classList.add('public-plan--recommended'); badges.append(element('span', 'plan-recommended-badge', 'Recomendado')); }
+            if(offer)badges.append(element('span','plan-promotion-badge','Em promoção'));
+            badges.append(element('span', 'plan-cycle', plan.preco_centavos === 0 ? 'Plano gratuito' : plan.periodicidade === 'anual' ? 'Cobrança anual' : 'Cobrança mensal'));
+            heading.append(badges);
             heading.append(element('h3', '', plan.nome));
             const price = element('p', 'plan-price', plan.preco_centavos === 0 ? 'Grátis' : money.format(priceCents / 100));
             if (plan.preco_centavos > 0) price.append(element('span', 'plan-price-cycle', plan.periodicidade === 'anual' ? ' / ano' : ' / mês'));
