@@ -36,6 +36,23 @@ O catálogo consulta `GET https://cfapi.sysbn.com.br/auth/planos` com `credentia
 
 Nunca coloque no JavaScript credenciais de banco, SMTP, Google, tokens administrativos ou dados privados de assinantes. Recursos de autenticação e administração pertencem ao sistema/API. Consulte [planos públicos](docs/planos-publicos.md).
 
+## Configurações públicas
+
+O site e seus scripts atuais não consomem `.env`. As configurações são versionadas nos arquivos públicos ou definidas na hospedagem:
+
+| Configuração | Local / comportamento |
+| --- | --- |
+| URL do catálogo | `assets/js/plans.js`: `https://cfapi.sysbn.com.br/auth/planos`. |
+| Plano selecionado | Query `plano` no link de cadastro; identificador público revalidado pela API. |
+| Tema compartilhado | Cookie `sysbn_theme`, valores `light`/`dark`, domínio `sysbn.com.br`, caminho `/`, duração de um ano, SameSite=Lax e Secure em HTTPS. |
+| Preferência local de tema | `localStorage.theme`, com fallback à preferência do dispositivo. |
+| Aceite do banner | `localStorage.sysbn_cookie_accepted`: `true` oculta o aviso; não é sessão/autorização. |
+| Domínio de publicação | `CNAME`; manter URLs canônicas e sitemap coerentes. |
+| Arquivos publicados | Lista explícita de `scripts/build-site.mjs`; saída `_site/`. |
+| HTTPS, headers e cache | Configuração da hospedagem/Cloudflare; não são variáveis do JavaScript. |
+
+Ao trocar o domínio, revise também URLs de cadastro/contato e a integração de tema. Cookies de `sysbn.com.br` não são compartilhados com localhost ou outro domínio. Nunca use essas preferências como controle de permissão.
+
 ## Publicação
 
 O workflow valida e publica somente `_site/` no GitHub Pages. Documentação, scripts e metadados do repositório não fazem parte do pacote público. A configuração Apache `.htaccess` é uma referência para outros ambientes; GitHub Pages não a interpreta.
