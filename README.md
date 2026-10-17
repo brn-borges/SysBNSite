@@ -1,25 +1,55 @@
 # Site público SYSBN
 
-Site estático em HTML, CSS e JavaScript, sem dependências de build. Requer Node.js 22 ou superior para os scripts de publicação.
+Site institucional estático em HTML, CSS e JavaScript, com apresentação do ControlFinance, catálogo público de planos, contato e páginas legais. Projetos relacionados: [frontend](https://github.com/brn-borges/ControlFinance) e [API](https://github.com/brn-borges/ControlFinanceAPI).
+
+## Requisitos e execução
+
+Node.js **22 ou superior** para os scripts de construção e validação. O site não possui dependências de build no `package.json`.
+
+```bash
+git clone https://github.com/brn-borges/SysBNSite.git
+cd SysBNSite
+npm run build
+npm run check
+python3 -m http.server 8080 --directory _site
+```
+
+Abra `http://localhost:8080`. Os caminhos de assets partem da raiz do domínio; abrir arquivos HTML diretamente não representa o ambiente publicado. Não utilize esse servidor de desenvolvimento como hospedagem pública de produção.
 
 ## Organização
 
-- `index.html`: página inicial.
-- `contato/`, `feedback/`, `obrigado/`, `privacidade/`, `termos/`: páginas públicas, com URLs preservadas.
-- `assets/css/site.css`: estilos base; `premium.css`: tema e componentes visuais. A ordem dos links é intencional.
-- `assets/js/site.js`: navegação, tema, cookies e interações; `plans.js`: catálogo público e seleção de planos.
-- `assets/`: identidade visual e favicon. Os endereços existentes dos ícones foram preservados.
-- `scripts/`: construção e validação; `docs/`: documentação de manutenção.
-- `_site/`: artefato público gerado; não versionado.
+| Caminho | Responsabilidade |
+| --- | --- |
+| `index.html` | Apresentação e planos |
+| `contato/`, `feedback/`, `obrigado/`, `privacidade/`, `termos/` | Páginas públicas com URLs preservadas |
+| `assets/css/site.css` e `premium.css` | Base, temas e componentes; mantenha a ordem de carregamento |
+| `assets/js/site.js` | Navegação, tema, cookies e interações |
+| `assets/js/plans.js` | Catálogo, mensal/anual, promoções e seleção do plano |
+| `scripts/` e `docs/` | Construção, validação e manutenção |
+| `_site/` | Artefato público gerado, não versionado |
 
-## Validar e visualizar
+O build copia somente a lista explícita de arquivos de `scripts/build-site.mjs`. Inclua novas páginas públicas nessa lista e revise links, sitemap e regras de navegação. `npm run check` verifica o pacote gerado e suas referências locais.
 
-Execute `npm run build` e depois `npm run check`. Para visualizar, sirva `_site/` por HTTP, por exemplo com `python3 -m http.server 8080 --directory _site`. Os caminhos de assets partem da raiz do domínio; abrir HTML diretamente por file:// não representa o ambiente de publicação.
+## Integração com planos
 
-O build mantém somente a lista explícita de páginas/arquivos públicos em `scripts/build-site.mjs`. Ao adicionar uma página pública, inclua-a nessa lista e atualize o sitemap quando apropriado. Não coloque segredos em assets: seu conteúdo é público.
+O catálogo consulta `GET https://cfapi.sysbn.com.br/auth/planos` com `credentials: omit`, sem JWT ou sessão do usuário. A escolha leva o identificador no parâmetro `plano` do cadastro do ControlFinance. O site apresenta preços, periodicidade, destaques e condições públicas; a API revalida a disponibilidade e as condições antes de aplicar uma contratação.
+
+Nunca coloque no JavaScript credenciais de banco, SMTP, Google, tokens administrativos ou dados privados de assinantes. Recursos de autenticação e administração pertencem ao sistema/API. Consulte [planos públicos](docs/planos-publicos.md).
 
 ## Publicação
 
-O workflow valida e envia somente `_site/` ao GitHub Pages. Documentação, ferramentas e metadados do repositório não são enviados. A configuração Apache `.htaccess` permanece no repositório como referência de hospedagem; GitHub Pages não a interpreta. Para outro servidor, publique o conteúdo de `_site/` e configure redirecionamentos/headers nele.
+O workflow valida e publica somente `_site/` no GitHub Pages. Documentação, scripts e metadados do repositório não fazem parte do pacote público. A configuração Apache `.htaccess` é uma referência para outros ambientes; GitHub Pages não a interpreta.
 
-O catálogo de planos continua consultando somente a rota pública da API, sem credenciais de sessão. A seleção do plano permanece no parâmetro `plano` do cadastro.
+Para outra hospedagem, publique o conteúdo de `_site/` e configure HTTPS, redirecionamentos e headers nela. A presença de arquivos de configuração no repositório não comprova que o servidor publicado os aplica.
+
+## Segurança, Cloudflare e manutenção
+
+- Confirme proxy DNS e configuração HTTPS compatível com a hospedagem. Para origem HTTPS própria, utilize certificado válido e Full (strict).
+- Regras de cache do site estático não devem ser estendidas indiscriminadamente à API ou a respostas autenticadas.
+- Mantenha conteúdo dinâmico do catálogo como texto/elementos, sem inserir HTML arbitrário retornado pela API.
+- Revise nos dois temas, em desktop/mobile e com API indisponível. Preços e condições exibidos precisam corresponder à resposta pública atual.
+- A Cloudflare não substitui a proteção da VPS que atende à API. A verificação da origem, firewall, SSH e banco é separada da publicação do site.
+
+Referências: [proteger a origem](https://developers.cloudflare.com/fundamentals/security/protect-your-origin-server/) e [Full (strict)](https://developers.cloudflare.com/ssl/origin-configuration/ssl-modes/full-strict/).
+
+Faça alterações em branch, valide o artefato e abra PR. Merge e publicação seguem o processo autorizado; atualizar o README não altera a configuração da Cloudflare ou do servidor.
