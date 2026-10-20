@@ -1,4 +1,5 @@
-import { cp, mkdir, rm } from 'node:fs/promises';
+import { secureHtml } from './site-security.mjs';
+import { cp, mkdir, rm, readdir, readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
@@ -10,4 +11,15 @@ const publicPaths = ['index.html', '404.html', 'CNAME', 'robots.txt', 'sitemap.x
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
 for (const entry of publicPaths) await cp(path.join(root, entry), path.join(output, entry), { recursive: true });
-console.log('Site público gerado em _site/.');
+async function protectPages(dir) {
+  for (const entry of await readdir(dir, { withFileTypes: true })) {
+    const file = path.join(dir, entry.name);
+    if (entry.isDirectory()) await protectPages(file);
+    else if (entry.name.endsWith('.html')) {
+      const html = await readFile(file, 'utf8');
+      if (/<head[\s>]/i.test(html)) await writeFile(file, secureHtml(html));
+    }
+  }
+}
+await protectPages(output);
+console.log('Site público gerado em _site/ com política de conteúdo.');

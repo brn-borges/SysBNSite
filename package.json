@@ -3,7 +3,9 @@
   "private": true,
   "scripts": {
     "build": "node scripts/build-site.mjs",
-    "check": "node scripts/check-site.mjs"
+    "check": "node --test scripts/site-security.test.mjs && node scripts/check-site.mjs"
   },
-  "engines": { "node": ">=22" }
+  "engines": {
+    "node": ">=22"
+  }
 }

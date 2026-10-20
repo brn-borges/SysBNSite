@@ -70,3 +70,7 @@ Para outra hospedagem, publique o conteúdo de `_site/` e configure HTTPS, redir
 Referências: [proteger a origem](https://developers.cloudflare.com/fundamentals/security/protect-your-origin-server/) e [Full (strict)](https://developers.cloudflare.com/ssl/origin-configuration/ssl-modes/full-strict/).
 
 Faça alterações em branch, valide o artefato e abra PR. Merge e publicação seguem o processo autorizado; atualizar o README não altera a configuração da Cloudflare ou do servidor.
+
+## Segurança do site público
+
+O build gera uma política de conteúdo com hashes dos scripts e os ícones usam versão fixa com SRI. Consulte [configuração dos cabeçalhos e validação](docs/security-headers.md) para concluir o reforço no Cloudflare.
