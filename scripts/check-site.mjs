@@ -1,3 +1,4 @@
+import { validateHtmlSecurity } from './site-security.mjs';
 import { readdir, readFile, stat } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
@@ -14,6 +15,7 @@ await walk(root);
 const errors = [];
 for (const file of files.filter(f => f.endsWith('.html'))) {
   const html = await readFile(file, 'utf8');
+  for (const issue of validateHtmlSecurity(html)) errors.push(`${path.relative(root, file)}: ${issue}`);
   for (const [, raw] of html.matchAll(/(?:src|href)\s*=\s*["']([^"']+)["']/gi)) {
     if (/^(?:[a-z]+:|\/\/|#)/i.test(raw)) continue;
     const relative = decodeURIComponent(raw.split(/[?#]/)[0]);
