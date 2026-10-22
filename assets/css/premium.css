@@ -14,7 +14,7 @@
   --accent-soft: #e3f3f2;
   --shadow: 0 12px 32px #1737440a;
   --bg-gradient: none;
-  --font-stack: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-stack: 'Inter', 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
 }
 [data-theme='dark'] {
   color-scheme: dark;
@@ -378,3 +378,11 @@ body:not(.cookies-accepted) .floating-help-btn { bottom: calc(var(--cookie-banne
 .public-plan-badges { display:flex; flex-wrap:wrap; align-items:center; gap:8px; max-width:100%; }
 .public-plan .public-plan-badges :is(.plan-recommended-badge,.plan-promotion-badge,.plan-cycle) { margin:0; padding:6px 10px; border-radius:8px; font-size:12px; font-weight:650; line-height:1.4; }
 .public-plan .plan-promotion-badge { background:var(--color-primary); color:var(--color-on-primary); }
+
+/* Keep native controls on the same text font as the page. */
+button,
+input,
+textarea,
+select {
+  font-family: var(--font-stack);
+}
