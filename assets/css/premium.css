@@ -14,7 +14,7 @@
   --accent-soft: #e3f3f2;
   --shadow: 0 12px 32px #1737440a;
   --bg-gradient: none;
-  --font-stack: 'Inter', 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+  --font-stack: 'Manrope', 'Segoe UI', Arial, sans-serif;
 }
 [data-theme='dark'] {
   color-scheme: dark;
