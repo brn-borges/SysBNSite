@@ -1,37 +1,25 @@
-# Workflow simples para implantar conteúdo estático no GitHub Pages
+# Build e deploy separados para garantir que o artefato do Pages esteja disponível.
 name: Deploy static content to Pages
 
 on:
-  # Executa em todo push para a branch principal (main)
   push:
     branches: ["main"]
-  # Permite executar este workflow manualmente na aba Actions
   workflow_dispatch:
 
-# Configura as permissões do GITHUB_TOKEN para permitir o envio ao GitHub Pages
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
-# Permite apenas uma implantação simultânea por vez
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  # Job único de implantação
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
+    name: Build and validate site
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -43,11 +31,45 @@ jobs:
           npm run build
           npm run check
 
-      - name: Upload artifact
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Envia apenas o artefato público validado
           path: '_site'
+
+  deploy:
+    name: Publish to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      # O upload pode estar concluído antes de ficar visível na API do Actions.
+      - name: Wait for Pages artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          for attempt in {1..12}; do
+            found="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/artifacts" \
+              --jq '[.artifacts[] | select(.name == "github-pages" and .expired == false)] | length' 2>/dev/null || echo 0)"
+            if [[ "$found" =~ ^[0-9]+$ ]] && (( found > 0 )); then
+              echo "Pages artifact found in Actions API."
+              exit 0
+            fi
+            echo "Artifact not visible yet (attempt ${attempt}/12)."
+            sleep 5
+          done
+          echo "::error::Pages artifact was not visible after 12 attempts."
+          exit 1
 
       - name: Deploy to GitHub Pages
         id: deployment
