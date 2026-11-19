@@ -1410,17 +1410,25 @@ body.plans-modal-open {
 .footer .footer-brands a { display: inline-flex; align-items: center; gap: 7px; min-width: 0; text-decoration: none; color: var(--cf-text); }
 .footer .footer-brand-sysbn { font-weight: 800; font-size: 18px; letter-spacing: -.04em; white-space: nowrap; }
 .footer .footer-brand-sysbn img { display: block; width: 38px; height: 38px; flex-shrink: 0; }
-.footer .footer-brand-pdv { display: inline-flex; align-items: center; white-space: nowrap; }
-.footer .footer-brand-pdv img { display: block; width: 81px; height: auto; max-height: 34px; max-width: 100%; object-fit: contain; object-position: left center; }
-.footer .footer-brand-pdv .footer-pdv-logo-dark { display: none; }
-[data-theme='dark'] .footer .footer-brand-pdv .footer-pdv-logo-light { display: none; }
-[data-theme='dark'] .footer .footer-brand-pdv .footer-pdv-logo-dark { display: block; }
-
+.footer .footer-brand-pdv, .footer .footer-brand-controlfinance { display: inline-flex; align-items: center; white-space: nowrap; }
 .footer .footer-brand-divider { width: 1px; height: 29px; background: var(--cf-border); flex-shrink: 0; }
-.footer .footer-brand-controlfinance img { display: block; width: 144px; max-width: 100%; max-height: 34px; height: auto; object-fit: contain; object-position: left center; }
-.footer .footer-brand-controlfinance .footer-cf-logo-dark { display: none; }
-[data-theme='dark'] .footer .footer-brand-controlfinance .footer-cf-logo-light { display: none; }
-[data-theme='dark'] .footer .footer-brand-controlfinance .footer-cf-logo-dark { display: block; }
+.footer .footer-brands .footer-brand-icon {
+  display: block; flex: 0 0 34px; width: 34px; height: 34px; object-fit: contain;
+}
+.footer .footer-brand-text {
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 2px;
+  font-family: var(--app-font-family-base, 'Manrope', 'Segoe UI', Arial, sans-serif);
+  line-height: 1.12;
+  letter-spacing: 0;
+}
+.footer .footer-brand-text strong {
+  display: block; font-family: inherit; font-size: 14px; font-weight: 700; line-height: 1.2;
+  letter-spacing: 0; color: var(--cf-text);
+}
+.footer .footer-brand-text small {
+  display: block; font-family: inherit; font-size: 8px; font-weight: 700;
+  line-height: 1.2; letter-spacing: .075em; color: var(--cf-muted);
+}
 .footer .footer-legal { grid-column: 2; text-align: center; min-width: 0; }
 .footer .footer-legal p { margin: 0; line-height: 1.6; }
 .footer .footer-links { margin-top: 8px; display: flex; justify-content: center; align-items: center; gap: 9px; flex-wrap: wrap; }
@@ -1455,8 +1463,7 @@ body.plans-modal-open {
     flex-wrap: wrap;
   }
   .footer .footer-brands a { flex: 0 0 auto; }
-  .footer .footer-brand-controlfinance { max-width: min(138px, 42vw); }
-  .footer .footer-brand-controlfinance img { max-width: 100%; }
+  .footer .footer-brand-controlfinance { max-width: 100%; }
   .footer .footer-legal {
     width: 100%;
     align-self: center;
@@ -1469,8 +1476,9 @@ body.plans-modal-open {
   .footer .footer-brands { gap: 8px; }
   .footer .footer-brand-sysbn { font-size: 16px; }
   .footer .footer-brand-sysbn img { width: 32px; height: 32px; }
-  .footer .footer-brand-pdv img { width: 75px; max-height: 30px; }
-  .footer .footer-brand-controlfinance img { width: min(132px,100%); max-height: 30px; }
+  .footer .footer-brands .footer-brand-icon { width: 30px; height: 30px; flex-basis: 30px; }
+  .footer .footer-brand-text strong { font-size: 12px; }
+  .footer .footer-brand-text small { font-size: 7px; }
   .footer .footer-legal { font-size: 11px; }
 }
 
