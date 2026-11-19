@@ -1392,7 +1392,7 @@ body.plans-modal-open {
   width: min(1280px,100%);
   margin-inline: auto;
   display: grid;
-  grid-template-columns: minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);
+  grid-template-columns: minmax(430px, 1.2fr) minmax(240px, 1fr) minmax(0, .35fr);
   align-items: center;
   gap: 20px;
 }
@@ -1401,7 +1401,7 @@ body.plans-modal-open {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 9px;
   width: 100%;
   min-width: 0;
@@ -1435,9 +1435,9 @@ body.plans-modal-open {
 .footer .footer-links a { margin: 0; }
 .footer .footer-layout-spacer { min-width: 0; }
 .footer .footer-brands a:focus-visible { outline: 2px solid var(--cf-accent); outline-offset: 4px; border-radius: 6px; }
-@media(max-width: 1050px) {
+@media(max-width: 1130px) {
   .footer .footer-inner { grid-template-columns: minmax(0,1fr); gap: 16px; }
-  .footer .footer-brands { justify-content: flex-start; flex-wrap: wrap; grid-column: 1; }
+  .footer .footer-brands { justify-content: flex-start; flex-wrap: nowrap; grid-column: 1; width: max-content; max-width: 100%; }
   .footer .footer-legal { grid-column: 1; }
   .footer .footer-layout-spacer { display: none; }
 }
@@ -1461,7 +1461,10 @@ body.plans-modal-open {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+    column-gap: 12px;
+    row-gap: 10px;
   }
+  .footer .footer-brand-divider { display: none; }
   .footer .footer-brands a { flex: 0 0 auto; }
   .footer .footer-brand-controlfinance { max-width: 100%; }
   .footer .footer-legal {
@@ -1540,4 +1543,32 @@ body :is(.btn-cta,.plans-period-buttons button,.plans-carousel-arrow,.plans-comp
   .hero h1 { font-size: clamp(2rem, 7.5vw, 2.5rem); }
   .section > h2 { font-size: clamp(1.65rem, 6vw, 2rem); }
   #plans-comparison .plans-comparison-header h3 { font-size: var(--app-text-title-md); }
+}
+
+/* Rodapé: três marcas na mesma linha em telas largas.
+   Em telas pequenas a quebra ocorre por grupo, sem divisor pendurado. */
+@media (min-width: 1131px) {
+  .footer .footer-inner {
+    grid-template-columns: minmax(430px, 1.25fr) minmax(220px, 1fr) minmax(0, .35fr);
+  }
+  .footer .footer-brands { flex-wrap: nowrap; width: max-content; max-width: 100%; }
+}
+@media (min-width: 641px) and (max-width: 1130px) {
+  .footer .footer-inner { display: flex; flex-direction: column; align-items: stretch; }
+  .footer .footer-brands { width: max-content; max-width: 100%; align-self: flex-start; }
+  .footer .footer-legal { align-self: center; }
+}
+.plans-recovery-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 14px 0 0;
+}
+.plans-recovery-actions:has(> [hidden]:only-child) { display: none; }
+.plans-recovery-actions > [hidden] { display: none !important; }
+.plans-recovery-actions .btn-cta { min-height: 42px; }
+@media (max-width: 640px) {
+  .plans-recovery-actions { align-items: stretch; }
+  .plans-recovery-actions .btn-cta { flex: 1 1 100%; }
 }
