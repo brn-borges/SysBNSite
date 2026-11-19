@@ -311,6 +311,14 @@
         <div id="plans-status" class="plans-status" role="status" aria-live="polite">Carregando planos disponíveis…</div>
         <button id="plans-retry" type="button" class="btn-cta secondary" hidden>Tentar novamente</button>
         <div id="public-plans" class="pricing-table" aria-busy="true"></div>
+        <section id="plans-comparison" class="plans-comparison" aria-labelledby="plans-comparison-title" hidden>
+            <div class="plans-comparison-header">
+                <div><h3 id="plans-comparison-title">Compare os recursos de cada plano</h3><p>Veja o que está incluído e quais são os limites. Arraste a tabela para o lado no celular.</p></div>
+                <label class="plans-differences-filter"><input id="plans-differences-only" type="checkbox"><span>Mostrar somente diferenças</span></label>
+            </div>
+            <div id="plans-comparison-content" class="plans-comparison-scroll" role="region" aria-label="Tabela comparativa de planos" tabindex="0"></div>
+            <p class="plans-comparison-note">Preços, promoções e limites são obtidos do catálogo público e confirmados no ControlFinance antes da contratação. No período anual, o valor exibido é o total da cobrança anual.</p>
+        </section>
         <p class="plans-existing"><a href="https://controlfinance.sysbn.com.br/subscription">Já possui uma conta? Consulte Minha assinatura</a></p>
         <p class="plans-note">Os limites são definidos por assinatura. A disponibilidade e os valores são conferidos novamente pelo ControlFinance antes da contratação. Planos pagos dependem da confirmação do pagamento para liberação.</p>
         <noscript><p>Ative o JavaScript para consultar os planos ou <a href="https://controlfinance.sysbn.com.br/authentication/register">confira as opções no cadastro do ControlFinance</a>.</p></noscript>

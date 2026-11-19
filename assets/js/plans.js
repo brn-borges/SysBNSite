@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!container) return;
     const status = document.getElementById('plans-status');
     const retry = document.getElementById('plans-retry');
+    const comparison = document.getElementById('plans-comparison');
+    const comparisonContent = document.getElementById('plans-comparison-content');
+    const differencesOnly = document.getElementById('plans-differences-only');
     const resources = [
         ['compartilhamentos', 'Compartilhamentos', true], ['contas', 'Contas', true],
         ['cartoes', 'Cartões', true], ['categorias', 'Categorias', true],
@@ -61,6 +64,64 @@ document.addEventListener('DOMContentLoaded', () => {
             return rule && ['desabilitado', 'limitado', 'ilimitado'].includes(rule.modo)
                 && (rule.modo !== 'limitado' || quantity && Number.isSafeInteger(rule.limite) && rule.limite > 0);
         });
+    // Tabela derivada exclusivamente do catálogo público e do período selecionado.
+    // Não usa preços/limites fixos nem interpreta um recurso desabilitado como incluído.
+    const planPrice = plan => {
+        const cents = promotion(plan)?.preco_centavos ?? plan.preco_centavos;
+        return plan.preco_centavos === 0 ? 'Grátis' : money.format(cents / 100) + (plan.periodicidade === 'anual' ? ' / ano' : ' / mês');
+    };
+    const resourceLabel = (plan, key, quantity) => {
+        const rule = plan.recursos[key];
+        if (!rule || rule.modo === 'desabilitado') return 'Não incluído';
+        if (rule.modo === 'ilimitado') return quantity ? 'Ilimitado' : 'Incluído';
+        return quantity ? 'Até ' + number.format(rule.limite) : 'Incluído';
+    };
+    function renderComparison(visible) {
+        comparison.hidden = visible.length < 2;
+        comparisonContent.replaceChildren();
+        if (comparison.hidden) return;
+        const rows = resources.map(([key, label, quantity]) => ({
+            label, values: visible.map(plan => resourceLabel(plan, key, quantity))
+        })).filter(row => !differencesOnly.checked || new Set(row.values).size > 1);
+        const table = element('table', 'plans-compare-table');
+        const caption = element('caption', 'plans-compare-caption', 'Comparação de recursos entre os planos disponíveis');
+        const thead = element('thead', '');
+        const names = element('tr', '');
+        names.append(element('th', 'plans-compare-feature', 'Recurso'));
+        for (const plan of visible) {
+            const heading = element('th', '', '');
+            heading.scope = 'col';
+            heading.append(element('strong', '', plan.nome));
+            if (plan.recomendado === true && plan.periodicidade === period) {
+                heading.append(element('span', 'plans-compare-recommended', 'Recomendado'));
+            }
+            heading.append(element('small', '', planPrice(plan)));
+            names.append(heading);
+        }
+        thead.append(names);
+        const tbody = element('tbody', '');
+        for (const row of rows) {
+            const tr = element('tr', '');
+            const th = element('th', 'plans-compare-feature', row.label);
+            th.scope = 'row';
+            tr.append(th);
+            row.values.forEach(value => {
+                const td = element('td', value === 'Não incluído' ? 'plans-compare-unavailable' : '');
+                td.textContent = value;
+                tr.append(td);
+            });
+            tbody.append(tr);
+        }
+        if (!rows.length) {
+            const tr = element('tr', '');
+            const td = element('td', 'plans-compare-empty', 'Nenhuma diferença entre os recursos dos planos selecionados.');
+            td.colSpan = visible.length + 1;
+            tr.append(td);
+            tbody.append(tr);
+        }
+        table.append(caption, thead, tbody);
+        comparisonContent.append(table);
+    }
     function render(plans) {
         const visible = plans.filter(p => p.preco_centavos === 0 || p.periodicidade === period);
         const cards = visible.map(plan => {
@@ -106,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.append(details);
             }
             if (!list.children.length) list.append(element('li', '', 'Nenhum recurso adicional disponível.'));
-            const action = element('a', 'btn-cta primary', 'Escolher plano');
+            const action = element('a', 'btn-cta primary', plan.preco_centavos === 0 ? 'Começar grátis' : 'Escolher plano');
             const cadastro = new URL('https://controlfinance.sysbn.com.br/authentication/register');
             cadastro.searchParams.set('plano', String(plan.id));
             action.href = cadastro.href;
@@ -117,6 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return card;
         });
         container.replaceChildren(...cards);
+        renderComparison(visible);
         periodButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.period === period)));
         status.textContent = !plans.length ? 'Nenhum plano público disponível no momento.' : !visible.some(p => p.preco_centavos > 0) ? 'Não há planos pagos ' + (period === 'anual' ? 'anuais' : 'mensais') + ' disponíveis no momento.' : visible.length + (visible.length === 1 ? ' plano disponível' : ' planos disponíveis');
     }
@@ -149,6 +211,8 @@ document.addEventListener('DOMContentLoaded', () => {
             catalog = [];
             periodControl.hidden = true;
             container.replaceChildren();
+            comparison.hidden = true;
+            comparisonContent.replaceChildren();
             status.textContent = 'Não foi possível consultar os planos agora. Tente novamente ou confira as opções no ControlFinance.';
             retry.hidden = false;
         } finally {
@@ -159,6 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     periodButtons.forEach(button => button.addEventListener('click', () => { period = button.dataset.period; render(catalog); }));
+    differencesOnly.addEventListener('change', () => { if (catalog.length) renderComparison(catalog.filter(p => p.preco_centavos === 0 || p.periodicidade === period)); });
     retry.addEventListener('click', load);
     document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'visible' && loadedAt && Date.now() - loadedAt >= 300000) load();
