@@ -181,6 +181,16 @@ document.addEventListener('DOMContentLoaded', () => {
     compareClose.addEventListener('click', closeComparison);
     compareDone.addEventListener('click', closeComparison);
     comparison.querySelector('[data-close-comparison]').addEventListener('click', closeComparison);
+    // Quando a roda do mouse está sobre o cabeçalho/ações, rola a tabela.
+    // Sobre a tabela, a rolagem permanece nativa. Nunca transfere scroll à página.
+    comparisonDialog.addEventListener('wheel', event => {
+        if (event.ctrlKey || event.target.closest('.plans-comparison-scroll')) return;
+        if (!event.deltaY && !event.deltaX) return;
+        event.preventDefault();
+        const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? comparisonContent.clientHeight : 1;
+        comparisonContent.scrollTop += event.deltaY * unit;
+        comparisonContent.scrollLeft += event.deltaX * unit;
+    }, { passive: false });
     comparison.addEventListener('keydown', event => {
         if (event.key === 'Escape') { event.preventDefault(); closeComparison(); return; }
         if (event.key !== 'Tab') return;
