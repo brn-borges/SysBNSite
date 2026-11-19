@@ -57,10 +57,15 @@ bloquear tema, catálogo, ícones ou formulários.
 
 ## Conferência após publicar
 
-Confira `curl -I https://sysbn.com.br/` para os cabeçalhos HTTP e DevTools > Console
+Execute `npm run check:headers` em um ambiente com DNS e acesso HTTPS, ou confira `curl -I https://sysbn.com.br/` para os cabeçalhos HTTP e DevTools > Console
 para violações da CSP. A CSP via meta aparece no HTML, não no `curl -I`.
 Verifique home, menu/tema, planos, feedback com anexo e agradecimento.
 Os testes locais não substituem um envio real autorizado ao serviço de formulários.
 
 Referências: https://developers.cloudflare.com/rules/transform/response-header-modification/
 e https://www.w3.org/TR/SRI/
+
+
+### Auditoria 19/11/2026
+
+Foi adicionado um comando somente-leitura que verifica HSTS, X-Content-Type-Options, X-Frame-Options, Referrer-Policy e Permissions-Policy nos dois hosts. Não configura cabeçalhos, não publica arquivos e devolve código 1 se DNS, HTTPS ou um cabeçalho falhar. Execute de um ambiente com DNS funcional; indisponibilidade de rede não é evidência de configuração insegura. A CSP baseada em tag meta continua sob validação de build e não é verificada por HEAD.
