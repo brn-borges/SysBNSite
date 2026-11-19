@@ -1572,3 +1572,35 @@ body :is(.btn-cta,.plans-period-buttons button,.plans-carousel-arrow,.plans-comp
   .plans-recovery-actions { align-items: stretch; }
   .plans-recovery-actions .btn-cta { flex: 1 1 100%; }
 }
+
+/* Centralização real do aviso legal no desktop, independente do tamanho das logos.
+   Colunas laterais simétricas mantêm o bloco no centro geométrico do rodapé. */
+@media (min-width: 1200px) {
+  .footer .footer-inner {
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  }
+  .footer .footer-brands {
+    grid-column: 1;
+    width: max-content;
+    max-width: 100%;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+  }
+  .footer .footer-legal {
+    grid-column: 2;
+    justify-self: center;
+    text-align: center;
+  }
+  .footer .footer-layout-spacer { grid-column: 3; }
+}
+@media (min-width: 1131px) and (max-width: 1199px) {
+  .footer .footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  .footer .footer-brands { align-self: flex-start; width: max-content; max-width: 100%; }
+  .footer .footer-legal { align-self: center; }
+  .footer .footer-layout-spacer { display: none; }
+}
