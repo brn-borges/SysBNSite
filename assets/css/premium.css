@@ -1396,7 +1396,17 @@ body.plans-modal-open {
   align-items: center;
   gap: 20px;
 }
-.footer .footer-brands { display: flex; align-items: center; gap: 13px; min-width: 0; }
+.footer .footer-brands {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 13px;
+  width: 100%;
+  min-width: 0;
+  margin-inline: auto;
+}
 .footer .footer-brands a { display: inline-flex; align-items: center; gap: 7px; min-width: 0; text-decoration: none; color: var(--cf-text); }
 .footer .footer-brand-sysbn { font-weight: 800; font-size: 18px; letter-spacing: -.04em; white-space: nowrap; }
 .footer .footer-brand-sysbn img { display: block; width: 38px; height: 38px; flex-shrink: 0; }
@@ -1405,7 +1415,7 @@ body.plans-modal-open {
 .footer .footer-brand-controlfinance .footer-cf-logo-dark { display: none; }
 [data-theme='dark'] .footer .footer-brand-controlfinance .footer-cf-logo-light { display: none; }
 [data-theme='dark'] .footer .footer-brand-controlfinance .footer-cf-logo-dark { display: block; }
-.footer .footer-legal { text-align: center; min-width: 0; }
+.footer .footer-legal { grid-column: 2; text-align: center; min-width: 0; }
 .footer .footer-legal p { margin: 0; line-height: 1.6; }
 .footer .footer-links { margin-top: 8px; display: flex; justify-content: center; align-items: center; gap: 9px; flex-wrap: wrap; }
 .footer .footer-links a { margin: 0; }
@@ -1413,7 +1423,8 @@ body.plans-modal-open {
 .footer .footer-brands a:focus-visible { outline: 2px solid var(--cf-accent); outline-offset: 4px; border-radius: 6px; }
 @media(max-width: 1050px) {
   .footer .footer-inner { grid-template-columns: minmax(0,1fr); gap: 16px; }
-  .footer .footer-brands { justify-content: center; flex-wrap: wrap; }
+  .footer .footer-brands { justify-content: center; flex-wrap: wrap; grid-column: 1; }
+  .footer .footer-legal { grid-column: 1; }
   .footer .footer-layout-spacer { display: none; }
 }
 @media(max-width: 480px) {
