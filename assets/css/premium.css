@@ -1428,10 +1428,35 @@ body.plans-modal-open {
   .footer .footer-layout-spacer { display: none; }
 }
 @media(max-width: 640px) {
-  .footer .footer-brands {
+  /* Mobile: centraliza o grupo inteiro pelo próprio tamanho, sem depender
+     das colunas ou da largura residual do footer. */
+  .footer .footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    margin-inline: auto;
+    gap: 16px;
   }
+  .footer .footer-brands {
+    display: flex;
+    flex: 0 0 auto;
+    width: fit-content;
+    max-width: 100%;
+    margin-inline: auto;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+  }
+  .footer .footer-brands a { flex: 0 1 auto; }
+  .footer .footer-brand-controlfinance { max-width: min(138px, 42vw); }
+  .footer .footer-brand-controlfinance img { max-width: 100%; }
+  .footer .footer-legal {
+    width: 100%;
+    align-self: center;
+    text-align: center;
+  }
+  .footer .footer-layout-spacer { display: none; }
 }
 @media(max-width: 480px) {
   .footer { padding: 24px 16px; }
