@@ -310,8 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         container.replaceChildren(...cards);
         resetCarousel(visible.length);
-        closeComparison();
-        selectedPlanIds.clear();
+        for (const id of [...selectedPlanIds]) if (!visible.some(p => p.id === id)) selectedPlanIds.delete(id);
         syncSelection();
         periodButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.period === period)));
         status.textContent = !plans.length ? 'Nenhum plano público disponível no momento.' : !visible.some(p => p.preco_centavos > 0) ? 'Não há planos pagos ' + (period === 'anual' ? 'anuais' : 'mensais') + ' disponíveis no momento.' : visible.length + (visible.length === 1 ? ' plano disponível' : ' planos disponíveis');
@@ -359,7 +358,13 @@ document.addEventListener('DOMContentLoaded', () => {
             container.setAttribute('aria-busy', 'false');
         }
     }
-    periodButtons.forEach(button => button.addEventListener('click', () => { period = button.dataset.period; render(catalog); }));
+    periodButtons.forEach(button => button.addEventListener('click', () => {
+        if (period === button.dataset.period) return;
+        closeComparison();
+        selectedPlanIds.clear();
+        period = button.dataset.period;
+        render(catalog);
+    }));
     differencesOnly.addEventListener('change', () => { if (!comparison.hidden) renderComparison(visiblePlans()); });
     retry.addEventListener('click', load);
     document.addEventListener('visibilitychange', () => {
