@@ -828,3 +828,91 @@ html::-webkit-scrollbar-thumb:hover, body::-webkit-scrollbar-thumb:hover,
   .plans-compare-table th, .plans-compare-table td { padding: 12px 14px; min-width: 140px; }
   .plans-compare-table .plans-compare-feature { min-width: 160px; max-width: 170px; }
 }
+
+/* Quatro ou mais planos: carrossel horizontal acessível com scroll-snap.
+   A grade de até três planos e a comparação abaixo permanecem independentes. */
+#plans-carousel-controls[hidden], #plans-carousel-dots[hidden] { display: none; }
+#plans-carousel-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin: 22px 0 0;
+}
+.plans-carousel-position { margin: 0; color: var(--cf-muted); font-size: 13px; font-weight: 650; }
+.plans-carousel-actions { display: flex; gap: 8px; }
+.plans-carousel-arrow {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--cf-border);
+  border-radius: 10px;
+  background: var(--cf-surface);
+  color: var(--cf-accent);
+  cursor: pointer;
+}
+.plans-carousel-arrow:hover:not(:disabled) { background: var(--cf-accent-soft); border-color: var(--cf-accent); }
+.plans-carousel-arrow:disabled { opacity: .4; cursor: not-allowed; }
+.plans-carousel-arrow:focus-visible, .plans-carousel-dot:focus-visible { outline: 2px solid var(--cf-accent); outline-offset: 2px; }
+.plans-carousel-arrow svg { width: 18px; height: 18px; }
+.plans-carousel-arrow span { display: none; }
+#public-plans.plans-carousel-active {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: 18px;
+  width: 100%;
+  max-width: 100%;
+  margin: 14px auto 0;
+  padding: 3px 2px 14px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 2px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--site-scroll-thumb) transparent;
+}
+#public-plans.plans-carousel-active > .public-plan {
+  flex: 0 0 calc((100% - 36px) / 3);
+  min-width: 0;
+  max-width: none;
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+}
+#public-plans.plans-carousel-active::-webkit-scrollbar { height: 10px; }
+#public-plans.plans-carousel-active::-webkit-scrollbar-track { background: transparent; }
+#public-plans.plans-carousel-active::-webkit-scrollbar-thumb { border: 3px solid transparent; border-radius: 999px; background: var(--site-scroll-thumb) padding-box; }
+#public-plans.plans-carousel-active::-webkit-scrollbar-thumb:hover { background: var(--site-scroll-thumb-hover) padding-box; }
+#plans-carousel-dots { display: flex; justify-content: center; flex-wrap: wrap; gap: 5px; margin: 8px 0 4px; }
+.plans-carousel-dot {
+  width: 26px;
+  height: 24px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.plans-carousel-dot::before {
+  content: '';
+  display: block;
+  width: 8px;
+  height: 8px;
+  margin: auto;
+  border-radius: 999px;
+  background: var(--cf-border);
+  transition: width .15s ease, background-color .15s ease;
+}
+.plans-carousel-dot[aria-current='true']::before { width: 20px; background: var(--cf-accent); }
+@media (max-width: 1000px) {
+  #public-plans.plans-carousel-active > .public-plan { flex-basis: calc((100% - 18px) / 2); }
+}
+@media (max-width: 640px) {
+  #public-plans.plans-carousel-active { gap: 12px; }
+  #public-plans.plans-carousel-active > .public-plan { flex-basis: min(86%, 360px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #public-plans.plans-carousel-active { scroll-behavior: auto; }
+  .plans-carousel-dot::before { transition: none; }
+}
