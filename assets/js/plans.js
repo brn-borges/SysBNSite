@@ -7,6 +7,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const comparison = document.getElementById('plans-comparison');
     const comparisonContent = document.getElementById('plans-comparison-content');
     const differencesOnly = document.getElementById('plans-differences-only');
+    const compareToolbar = document.getElementById('plans-compare-toolbar');
+    const compareSelection = document.getElementById('plans-compare-selection');
+    const compareClear = document.getElementById('plans-compare-clear');
+    const compareOpen = document.getElementById('plans-compare-open');
+    const compareClose = document.getElementById('plans-compare-close');
+    const compareDone = document.getElementById('plans-compare-done');
+    const comparisonDialog = comparison.querySelector('.plans-comparison-dialog');
+    const selectedPlanIds = new Set();
+    let returnFocus = null;
+    const carouselControls = document.getElementById('plans-carousel-controls');
+    const carouselPosition = document.getElementById('plans-carousel-position');
+    const carouselPrev = document.getElementById('plans-carousel-prev');
+    const carouselNext = document.getElementById('plans-carousel-next');
+    const carouselDots = document.getElementById('plans-carousel-dots');
+    let carouselVisible = false;
+    let carouselUpdateFrame = 0;
     const resources = [
         ['compartilhamentos', 'Compartilhamentos', true], ['contas', 'Contas', true],
         ['cartoes', 'Cartões', true], ['categorias', 'Categorias', true],
@@ -77,9 +93,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return quantity ? 'Até ' + number.format(rule.limite) : 'Incluído';
     };
     function renderComparison(visible) {
-        comparison.hidden = visible.length < 2;
+        const chosen = visible.filter(plan => selectedPlanIds.has(plan.id));
         comparisonContent.replaceChildren();
-        if (comparison.hidden) return;
+        if (chosen.length < 2) return;
+        visible = chosen;
         const rows = resources.map(([key, label, quantity]) => ({
             label, values: visible.map(plan => resourceLabel(plan, key, quantity))
         })).filter(row => !differencesOnly.checked || new Set(row.values).size > 1);
@@ -122,6 +139,107 @@ document.addEventListener('DOMContentLoaded', () => {
         table.append(caption, thead, tbody);
         comparisonContent.append(table);
     }
+    const visiblePlans = () => catalog.filter(p => p.preco_centavos === 0 || p.periodicidade === period);
+    const closeComparison = () => {
+        if (comparison.hidden) return;
+        comparison.hidden = true;
+        document.body.classList.remove('plans-modal-open');
+        if (returnFocus && returnFocus.isConnected) returnFocus.focus();
+    };
+    const syncSelection = () => {
+        const visible = visiblePlans();
+        const chosen = visible.filter(p => selectedPlanIds.has(p.id));
+        compareToolbar.hidden = visible.length < 2;
+        compareSelection.textContent = chosen.length ? chosen.length + ' de 3 planos selecionados' : 'Selecione de 2 a 3 planos para comparar.';
+        compareOpen.disabled = chosen.length < 2;
+        compareClear.disabled = chosen.length === 0;
+        container.querySelectorAll('[data-compare-plan]').forEach(input => {
+            const checked = selectedPlanIds.has(Number(input.dataset.comparePlan));
+            input.checked = checked;
+            input.disabled = !checked && chosen.length >= 3;
+        });
+        if (!comparison.hidden) renderComparison(visible);
+    };
+    const openComparison = () => {
+        if (compareOpen.disabled) return;
+        returnFocus = document.activeElement;
+        renderComparison(visiblePlans());
+        comparison.hidden = false;
+        document.body.classList.add('plans-modal-open');
+        comparisonDialog.focus();
+    };
+    compareOpen.addEventListener('click', openComparison);
+    compareClear.addEventListener('click', () => { selectedPlanIds.clear(); syncSelection(); });
+    compareClose.addEventListener('click', closeComparison);
+    compareDone.addEventListener('click', closeComparison);
+    comparison.querySelector('[data-close-comparison]').addEventListener('click', closeComparison);
+    comparison.addEventListener('keydown', event => {
+        if (event.key === 'Escape') { event.preventDefault(); closeComparison(); return; }
+        if (event.key !== 'Tab') return;
+        const focusable = [...comparisonDialog.querySelectorAll('button:not(:disabled),input:not(:disabled),[tabindex="0"]')].filter(el => el.getClientRects().length);
+        if (!focusable.length) return;
+        if (event.shiftKey && document.activeElement === focusable[0]) { event.preventDefault(); focusable[focusable.length - 1].focus(); }
+        else if (!event.shiftKey && document.activeElement === focusable[focusable.length - 1]) { event.preventDefault(); focusable[0].focus(); }
+    });
+    // Os cartões continuam todos no DOM e em ordem; no carrossel há
+    // rolagem nativa com snap, sem autoplay e sem ocultar recursos.
+    const carouselIndex = () => {
+        const cards = [...container.querySelectorAll('.public-plan')];
+        if (!cards.length) return 0;
+        const left = container.scrollLeft;
+        let index = 0;
+        let smallest = Infinity;
+        cards.forEach((card, i) => {
+            const distance = Math.abs(card.offsetLeft - cards[0].offsetLeft - left);
+            if (distance < smallest) { smallest = distance; index = i; }
+        });
+        return index;
+    };
+    const syncCarousel = () => {
+        if (!carouselVisible) return;
+        const cards = [...container.querySelectorAll('.public-plan')];
+        const index = carouselIndex();
+        carouselPosition.textContent = 'Plano ' + (index + 1) + ' de ' + cards.length;
+        carouselPrev.disabled = container.scrollLeft <= 2;
+        carouselNext.disabled = container.scrollLeft >= container.scrollWidth - container.clientWidth - 2;
+        [...carouselDots.children].forEach((dot, i) => {
+            dot.setAttribute('aria-current', i === index ? 'true' : 'false');
+            dot.title = 'Ver plano ' + (i + 1);
+        });
+    };
+    const goToCard = index => {
+        const cards = container.querySelectorAll('.public-plan');
+        if (!cards.length) return;
+        const target = cards[Math.max(0, Math.min(index, cards.length - 1))];
+        container.scrollTo({
+            left: target.offsetLeft - cards[0].offsetLeft,
+            behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'
+        });
+    };
+    const resetCarousel = count => {
+        carouselVisible = count > 3;
+        container.classList.toggle('plans-carousel-active', carouselVisible);
+        carouselControls.hidden = !carouselVisible;
+        carouselDots.hidden = !carouselVisible;
+        carouselDots.replaceChildren();
+        container.scrollLeft = 0;
+        if (!carouselVisible) return;
+        for (let i = 0; i < count; i++) {
+            const dot = element('button', 'plans-carousel-dot');
+            dot.type = 'button';
+            dot.setAttribute('aria-label', 'Ver plano ' + (i + 1));
+            dot.addEventListener('click', () => goToCard(i));
+            carouselDots.append(dot);
+        }
+        syncCarousel();
+    };
+    carouselPrev.addEventListener('click', () => goToCard(carouselIndex() - 1));
+    carouselNext.addEventListener('click', () => goToCard(carouselIndex() + 1));
+    container.addEventListener('scroll', () => {
+        if (!carouselVisible || carouselUpdateFrame) return;
+        carouselUpdateFrame = requestAnimationFrame(() => { carouselUpdateFrame = 0; syncCarousel(); });
+    }, { passive: true });
+    window.addEventListener('resize', () => { if (carouselVisible) syncCarousel(); });
     function render(plans) {
         const visible = plans.filter(p => p.preco_centavos === 0 || p.periodicidade === period);
         const cards = visible.map(plan => {
@@ -175,10 +293,25 @@ document.addEventListener('DOMContentLoaded', () => {
             const footer = element('div', 'plan-card-footer');
             footer.append(action, element('small', '', plan.preco_centavos === 0 ? 'Confirme o plano ao criar sua conta.' : 'Plano aplicado no cadastro, válido até o vencimento da cobrança inicial.'));
             card.append(footer);
+            const select = element('label', 'plan-compare-select');
+            const checkbox = element('input', '');
+            checkbox.type = 'checkbox';
+            checkbox.dataset.comparePlan = String(plan.id);
+            checkbox.setAttribute('aria-label', 'Selecionar ' + plan.nome + ' para comparação');
+            checkbox.checked = selectedPlanIds.has(plan.id);
+            checkbox.addEventListener('change', () => {
+                if (checkbox.checked && selectedPlanIds.size < 3) selectedPlanIds.add(plan.id);
+                else if (!checkbox.checked) selectedPlanIds.delete(plan.id);
+                syncSelection();
+            });
+            select.append(checkbox, element('span', '', 'Comparar este plano'));
+            card.append(select);
             return card;
         });
         container.replaceChildren(...cards);
-        renderComparison(visible);
+        resetCarousel(visible.length);
+        for (const id of [...selectedPlanIds]) if (!visible.some(p => p.id === id)) selectedPlanIds.delete(id);
+        syncSelection();
         periodButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.period === period)));
         status.textContent = !plans.length ? 'Nenhum plano público disponível no momento.' : !visible.some(p => p.preco_centavos > 0) ? 'Não há planos pagos ' + (period === 'anual' ? 'anuais' : 'mensais') + ' disponíveis no momento.' : visible.length + (visible.length === 1 ? ' plano disponível' : ' planos disponíveis');
     }
@@ -211,7 +344,10 @@ document.addEventListener('DOMContentLoaded', () => {
             catalog = [];
             periodControl.hidden = true;
             container.replaceChildren();
-            comparison.hidden = true;
+            resetCarousel(0);
+            closeComparison();
+            selectedPlanIds.clear();
+            compareToolbar.hidden = true;
             comparisonContent.replaceChildren();
             status.textContent = 'Não foi possível consultar os planos agora. Tente novamente ou confira as opções no ControlFinance.';
             retry.hidden = false;
@@ -222,8 +358,14 @@ document.addEventListener('DOMContentLoaded', () => {
             container.setAttribute('aria-busy', 'false');
         }
     }
-    periodButtons.forEach(button => button.addEventListener('click', () => { period = button.dataset.period; render(catalog); }));
-    differencesOnly.addEventListener('change', () => { if (catalog.length) renderComparison(catalog.filter(p => p.preco_centavos === 0 || p.periodicidade === period)); });
+    periodButtons.forEach(button => button.addEventListener('click', () => {
+        if (period === button.dataset.period) return;
+        closeComparison();
+        selectedPlanIds.clear();
+        period = button.dataset.period;
+        render(catalog);
+    }));
+    differencesOnly.addEventListener('change', () => { if (!comparison.hidden) renderComparison(visiblePlans()); });
     retry.addEventListener('click', load);
     document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'visible' && loadedAt && Date.now() - loadedAt >= 300000) load();

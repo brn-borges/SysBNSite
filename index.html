@@ -310,15 +310,37 @@
         <div id="plans-period" class="plans-period" hidden><div><strong>Período de cobrança</strong><p>Planos gratuitos estão disponíveis nos dois períodos.</p></div><div class="plans-period-buttons" role="group" aria-label="Período de cobrança"><button type="button" data-period="mensal" aria-pressed="true">Mensal</button><button type="button" data-period="anual" aria-pressed="false">Anual</button></div></div>
         <div id="plans-status" class="plans-status" role="status" aria-live="polite">Carregando planos disponíveis…</div>
         <button id="plans-retry" type="button" class="btn-cta secondary" hidden>Tentar novamente</button>
-        <div id="public-plans" class="pricing-table" aria-busy="true"></div>
-        <section id="plans-comparison" class="plans-comparison" aria-labelledby="plans-comparison-title" hidden>
-            <div class="plans-comparison-header">
-                <div><h3 id="plans-comparison-title">Compare os recursos de cada plano</h3><p>Veja o que está incluído e quais são os limites. Arraste a tabela para o lado no celular.</p></div>
-                <label class="plans-differences-filter"><input id="plans-differences-only" type="checkbox"><span>Mostrar somente diferenças</span></label>
+        <div id="plans-carousel-controls" class="plans-carousel-controls" hidden>
+            <p id="plans-carousel-position" class="plans-carousel-position" aria-live="polite"></p>
+            <div class="plans-carousel-actions">
+                <button id="plans-carousel-prev" class="plans-carousel-arrow" type="button" aria-label="Ver planos anteriores" aria-controls="public-plans"><i data-lucide="chevron-left" aria-hidden="true"></i><span aria-hidden="true">‹</span></button>
+                <button id="plans-carousel-next" class="plans-carousel-arrow" type="button" aria-label="Ver próximos planos" aria-controls="public-plans"><i data-lucide="chevron-right" aria-hidden="true"></i><span aria-hidden="true">›</span></button>
             </div>
-            <div id="plans-comparison-content" class="plans-comparison-scroll" role="region" aria-label="Tabela comparativa de planos" tabindex="0"></div>
-            <p class="plans-comparison-note">Preços, promoções e limites são obtidos do catálogo público e confirmados no ControlFinance antes da contratação. No período anual, o valor exibido é o total da cobrança anual.</p>
-        </section>
+        </div>
+        <div id="public-plans" class="pricing-table" aria-busy="true"></div>
+        <div id="plans-carousel-dots" class="plans-carousel-dots" role="group" aria-label="Navegação entre planos" hidden></div>
+        <div id="plans-compare-toolbar" class="plans-compare-toolbar" hidden>
+            <div><strong>Compare os planos que interessam</strong><p id="plans-compare-selection" role="status" aria-live="polite">Selecione de 2 a 3 planos para comparar.</p></div>
+            <div class="plans-compare-toolbar-actions">
+                <button id="plans-compare-clear" class="btn-cta secondary" type="button" disabled>Limpar seleção</button>
+                <button id="plans-compare-open" class="btn-cta primary" type="button" disabled>Comparar selecionados</button>
+            </div>
+        </div>
+        <div id="plans-comparison" class="plans-comparison-modal" hidden>
+            <div class="plans-comparison-backdrop" data-close-comparison></div>
+            <section class="plans-comparison-dialog" role="dialog" aria-modal="true" aria-labelledby="plans-comparison-title" tabindex="-1">
+                <div class="plans-comparison-header">
+                    <div><span class="eyebrow">Comparação de planos</span><h3 id="plans-comparison-title">Compare os recursos selecionados</h3><p>Consulte os limites e as funcionalidades de cada plano.</p></div>
+                    <button id="plans-compare-close" class="plans-comparison-close" type="button" aria-label="Fechar comparação">×</button>
+                </div>
+                <label class="plans-differences-filter"><input id="plans-differences-only" type="checkbox"><span>Mostrar somente diferenças</span></label>
+                <div id="plans-comparison-content" class="plans-comparison-scroll" role="region" aria-label="Tabela comparativa dos planos selecionados" tabindex="0"></div>
+                <div class="plans-comparison-footer">
+                    <p>Preços e limites são consultados na API e confirmados no cadastro. Valores anuais representam a cobrança anual.</p>
+                    <button id="plans-compare-done" class="btn-cta primary" type="button">Fechar</button>
+                </div>
+            </section>
+        </div>
         <p class="plans-existing"><a href="https://controlfinance.sysbn.com.br/subscription">Já possui uma conta? Consulte Minha assinatura</a></p>
         <p class="plans-note">Os limites são definidos por assinatura. A disponibilidade e os valores são conferidos novamente pelo ControlFinance antes da contratação. Planos pagos dependem da confirmação do pagamento para liberação.</p>
         <noscript><p>Ative o JavaScript para consultar os planos ou <a href="https://controlfinance.sysbn.com.br/authentication/register">confira as opções no cadastro do ControlFinance</a>.</p></noscript>
@@ -335,14 +357,14 @@
                 href="/contato/">Contato</a>
         </div>
     </footer>
-    <div id="cookie-banner">
-        <p>
-            Utilizamos cookies para garantir o melhor desempenho e segurança do SYSBN. Ao continuar navegando, você
-            concorda com a nossa
-            <a href="/privacidade/" class="cookie-link">Política de Privacidade e Cookies</a>.
-        </p>
-        <button id="aceitar-cookies" class="btn-cta primary small-link">Aceitar e Continuar</button>
-    </div>
+    <aside id="cookie-banner" aria-label="Informações sobre cookies">
+        <div class="cookie-banner-icon" aria-hidden="true"><i data-lucide="shield-check"></i></div>
+        <div class="cookie-banner-content">
+            <strong>Privacidade e cookies</strong>
+            <p>Usamos recursos de armazenamento necessários para preferências como o tema do site. Saiba como tratamos seus dados na <a href="/privacidade/" class="cookie-link">Política de Privacidade</a>.</p>
+        </div>
+        <button id="aceitar-cookies" type="button" class="btn-cta primary">Entendi</button>
+    </aside>
     <a href="/feedback/" class="floating-help-btn" aria-label="Ajuda e Suporte" data-tooltip="Dúvidas ou Sugestões?">
         <i data-lucide="help-circle"></i>
     </a>
