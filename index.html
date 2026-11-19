@@ -170,7 +170,10 @@
         <p class="section-subtitle">Veja os preços e limites disponíveis. Selecione até três planos para comparar e escolha o ideal para sua rotina.</p>
         <div id="plans-period" class="plans-period" hidden><div><strong>Período de cobrança</strong><p>Planos gratuitos estão disponíveis nos dois períodos.</p></div><div class="plans-period-buttons" role="group" aria-label="Período de cobrança"><button type="button" data-period="mensal" aria-pressed="true">Mensal</button><button type="button" data-period="anual" aria-pressed="false">Anual</button></div></div>
         <div id="plans-status" class="plans-status" role="status" aria-live="polite">Carregando planos disponíveis…</div>
-        <button id="plans-retry" type="button" class="btn-cta secondary" hidden>Tentar novamente</button>
+        <div class="plans-recovery-actions">
+            <button id="plans-retry" type="button" class="btn-cta secondary" hidden>Tentar novamente</button>
+            <a id="plans-external" class="btn-cta primary" href="https://controlfinance.sysbn.com.br/" target="_blank" rel="noopener noreferrer" hidden>Consultar planos no ControlFinance</a>
+        </div>
         <div id="plans-compare-toolbar" class="plans-compare-toolbar" hidden>
             <div class="plans-compare-toolbar-copy">
                 <strong><i data-lucide="columns-3" aria-hidden="true"></i> Comparar planos</strong>
