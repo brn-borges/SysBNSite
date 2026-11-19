@@ -136,43 +136,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     window.addEventListener('resize', () => { if (innerWidth > 900) closeMenu(); });
 
-    // --- LÓGICA DO BANNER DE COOKIES ---
+    // --- AVISO DE PRIVACIDADE PADRONIZADO EM TODAS AS PÁGINAS ---
     const cookieBanner = document.getElementById('cookie-banner');
     const acceptButton = document.getElementById('aceitar-cookies');
     const cookieName = 'sysbn_cookie_accepted';
-
-    // 1. Verifica se o cookie já foi aceito
-    if (localStorage.getItem(cookieName) === 'true') {
-        cookieBanner.style.display = 'none';
-        document.body.classList.add('cookies-accepted');
-    } else {
-        cookieBanner.style.display = 'flex'; // Exibe o banner
-        document.body.classList.remove('cookies-accepted');
+    let cookieAcknowledged = false;
+    try {
+        cookieAcknowledged = localStorage.getItem(cookieName) === 'true';
+    } catch (_) {
+        // Armazenamento bloqueado: exibe o aviso nesta navegação.
     }
-
-    // Reserve only the visible banner's real height, including after wrapping on mobile.
     const syncCookieBannerHeight = () => {
-        const height = document.body.classList.contains('cookies-accepted')
+        const height = cookieAcknowledged || !cookieBanner
             ? 0 : Math.ceil(cookieBanner.getBoundingClientRect().height);
         document.body.style.setProperty('--cookie-banner-height', `${height}px`);
     };
-    syncCookieBannerHeight();
-    if (typeof ResizeObserver !== 'undefined') {
-        new ResizeObserver(syncCookieBannerHeight).observe(cookieBanner);
-    } else {
-        window.addEventListener('resize', syncCookieBannerHeight);
-    }
-
-    // 2. Adiciona o evento de clique ao botão
-    acceptButton.addEventListener('click', () => {
-        localStorage.setItem(cookieName, 'true');
-        document.body.classList.add('cookies-accepted');
+    if (cookieBanner && acceptButton) {
+        // O CSS controla flex no desktop e grid no mobile. Nunca forçar display inline.
+        cookieBanner.hidden = cookieAcknowledged;
+        document.body.classList.toggle('cookies-accepted', cookieAcknowledged);
         syncCookieBannerHeight();
-        cookieBanner.style.opacity = '0';
-        setTimeout(() => {
-            cookieBanner.style.display = 'none';
-        }, 500);
-    });
+        if (typeof ResizeObserver !== 'undefined') {
+            new ResizeObserver(syncCookieBannerHeight).observe(cookieBanner);
+        } else {
+            window.addEventListener('resize', syncCookieBannerHeight);
+        }
+        acceptButton.addEventListener('click', () => {
+            cookieAcknowledged = true;
+            try { localStorage.setItem(cookieName, 'true'); } catch (_) { /* Navegação atual confirmada. */ }
+            document.body.classList.add('cookies-accepted');
+            cookieBanner.hidden = true;
+            syncCookieBannerHeight();
+        });
+    }
 
     // --- LÓGICA DE REVELAÇÃO AO ROLAR (SCROLL REVEAL) ---
     const revealCallback = (entries, observer) => {
