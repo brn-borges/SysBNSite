@@ -1410,6 +1410,9 @@ body.plans-modal-open {
 .footer .footer-brands a { display: inline-flex; align-items: center; gap: 7px; min-width: 0; text-decoration: none; color: var(--cf-text); }
 .footer .footer-brand-sysbn { font-weight: 800; font-size: 18px; letter-spacing: -.04em; white-space: nowrap; }
 .footer .footer-brand-sysbn img { display: block; width: 38px; height: 38px; flex-shrink: 0; }
+.footer .footer-brand-pdv { font-size: 15px; font-weight: 800; letter-spacing: 0; white-space: nowrap; }
+.footer .footer-brand-pdv img { display: block; width: 34px; height: 34px; flex-shrink: 0; }
+
 .footer .footer-brand-divider { width: 1px; height: 29px; background: var(--cf-border); flex-shrink: 0; }
 .footer .footer-brand-controlfinance img { display: block; width: min(162px,100%); max-height: 34px; height: auto; object-fit: contain; object-position: left center; }
 .footer .footer-brand-controlfinance .footer-cf-logo-dark { display: none; }
@@ -1446,9 +1449,9 @@ body.plans-modal-open {
     align-self: center;
     align-items: center;
     justify-content: center;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
   }
-  .footer .footer-brands a { flex: 0 1 auto; }
+  .footer .footer-brands a { flex: 0 0 auto; }
   .footer .footer-brand-controlfinance { max-width: min(138px, 42vw); }
   .footer .footer-brand-controlfinance img { max-width: 100%; }
   .footer .footer-legal {
@@ -1463,6 +1466,8 @@ body.plans-modal-open {
   .footer .footer-brands { gap: 10px; }
   .footer .footer-brand-sysbn { font-size: 16px; }
   .footer .footer-brand-sysbn img { width: 32px; height: 32px; }
+  .footer .footer-brand-pdv { font-size: 13px; }
+  .footer .footer-brand-pdv img { width: 30px; height: 30px; }
   .footer .footer-brand-controlfinance img { width: min(138px,100%); max-height: 30px; }
   .footer .footer-legal { font-size: 11px; }
 }
