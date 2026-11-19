@@ -1259,3 +1259,21 @@ body.plans-modal-open .floating-help-btn { visibility: hidden; pointer-events: n
   #planos .plan-compare-select input[type='checkbox'],
   #plans-comparison .plans-differences-filter input[type='checkbox'] { transition: none; }
 }
+
+/* Modal de comparação sem escurecimento ou segunda superfície externa.
+   O backdrop continua transparente e clicável para fechar ao clicar fora. */
+#plans-comparison.plans-comparison-modal {
+  background: transparent !important;
+  border: 0;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+#plans-comparison .plans-comparison-backdrop,
+[data-theme='dark'] #plans-comparison .plans-comparison-backdrop {
+  background: transparent !important;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
