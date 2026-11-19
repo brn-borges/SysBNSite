@@ -170,7 +170,10 @@
         <p class="section-subtitle">Veja os preços e limites disponíveis. Selecione até três planos para comparar e escolha o ideal para sua rotina.</p>
         <div id="plans-period" class="plans-period" hidden><div><strong>Período de cobrança</strong><p>Planos gratuitos estão disponíveis nos dois períodos.</p></div><div class="plans-period-buttons" role="group" aria-label="Período de cobrança"><button type="button" data-period="mensal" aria-pressed="true">Mensal</button><button type="button" data-period="anual" aria-pressed="false">Anual</button></div></div>
         <div id="plans-status" class="plans-status" role="status" aria-live="polite">Carregando planos disponíveis…</div>
-        <button id="plans-retry" type="button" class="btn-cta secondary" hidden>Tentar novamente</button>
+        <div class="plans-recovery-actions">
+            <button id="plans-retry" type="button" class="btn-cta secondary" hidden>Tentar novamente</button>
+            <a id="plans-external" class="btn-cta primary" href="https://controlfinance.sysbn.com.br/" target="_blank" rel="noopener noreferrer" hidden>Consultar planos no ControlFinance</a>
+        </div>
         <div id="plans-compare-toolbar" class="plans-compare-toolbar" hidden>
             <div class="plans-compare-toolbar-copy">
                 <strong><i data-lucide="columns-3" aria-hidden="true"></i> Comparar planos</strong>
@@ -215,12 +218,32 @@
     <section class="site-invitation"><div><span class="eyebrow">Seu próximo passo</span><h2>Comece a organizar o que importa.</h2><p>Explore o ControlFinance ou fale com a gente para tirar suas dúvidas.</p></div><div class="hero-actions"><a class="btn-cta primary" href="https://controlfinance.sysbn.com.br/" target="_blank" rel="noopener noreferrer">Acessar a plataforma <i data-lucide="arrow-up-right"></i></a><a class="btn-cta secondary" href="/contato/">Falar com a SYSBN</a></div></section>
     </main>
     <footer class="footer">
-        <p>&copy;
-            <script>document.write(new Date().getFullYear())</script> SYSBN. Todos os direitos reservados.
-        </p>
-        <div class="footer-links">
-            <a href="/termos/">Termos de Uso</a> | <a href="/privacidade/">Privacidade</a> | <a
-                href="/contato/">Contato</a>
+        <div class="footer-inner">
+            <div class="footer-brands" aria-label="SYSBN, ControlFinance e PDV">
+                <a class="footer-brand-sysbn" href="/" aria-label="SYSBN — página inicial">
+                    <img src="/assets/sysbn-symbol.svg" width="38" height="38" alt="" loading="lazy">
+                    <span>SYSBN</span>
+                </a>
+                <span class="footer-brand-divider" aria-hidden="true"></span>
+                <a class="footer-brand-controlfinance" href="https://controlfinance.sysbn.com.br/" target="_blank" rel="noopener noreferrer" aria-label="ControlFinance — acessar plataforma">
+                    <img class="footer-brand-icon" src="/assets/controlfinance-symbol.svg" width="34" height="34" alt="" loading="lazy">
+                    <span class="footer-brand-text"><strong>ControlFinance</strong><small>BY SYSBN</small></span>
+                </a>
+                <span class="footer-brand-divider" aria-hidden="true"></span>
+                <a class="footer-brand-pdv" href="https://controlfinance.sysbn.com.br/" target="_blank" rel="noopener noreferrer" aria-label="ControlSales by SYSBN — PDV integrado ao ControlFinance">
+                    <img class="footer-brand-icon" src="/assets/pdv-symbol.svg" width="34" height="34" alt="" loading="lazy">
+                    <span class="footer-brand-text"><strong>ControlSales</strong><small>BY SYSBN</small></span>
+                </a>
+            </div>
+            <div class="footer-legal">
+                <p>&copy; <script>document.write(new Date().getFullYear())</script> SYSBN. Todos os direitos reservados.</p>
+                <div class="footer-links">
+                    <a href="/termos/">Termos de Uso</a> <span aria-hidden="true">|</span>
+                    <a href="/privacidade/">Privacidade</a> <span aria-hidden="true">|</span>
+                    <a href="/contato/">Contato</a>
+                </div>
+            </div>
+            <div class="footer-layout-spacer" aria-hidden="true"></div>
         </div>
     </footer>
     <aside id="cookie-banner" aria-label="Informações sobre cookies">

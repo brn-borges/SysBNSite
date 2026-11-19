@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!container) return;
     const status = document.getElementById('plans-status');
     const retry = document.getElementById('plans-retry');
+    const externalPlans = document.getElementById('plans-external');
     const comparison = document.getElementById('plans-comparison');
     const comparisonContent = document.getElementById('plans-comparison-content');
     const differencesOnly = document.getElementById('plans-differences-only');
@@ -337,6 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (loading) return;
         loading = true;
         retry.hidden = true;
+        externalPlans.hidden = true;
         periodButtons.forEach(b => b.disabled = true);
         status.textContent = 'Carregando planos disponíveis…';
         container.setAttribute('aria-busy', 'true');
@@ -369,6 +371,7 @@ document.addEventListener('DOMContentLoaded', () => {
             comparisonContent.replaceChildren();
             status.textContent = 'Não foi possível consultar os planos agora. Tente novamente ou confira as opções no ControlFinance.';
             retry.hidden = false;
+            externalPlans.hidden = false;
         } finally {
             clearTimeout(timeout);
             loading = false;
