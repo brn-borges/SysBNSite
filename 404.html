@@ -76,12 +76,27 @@
 
     </main>
     <footer class="footer">
-        <p>&copy;
-            <script>document.write(new Date().getFullYear())</script> SYSBN. Todos os direitos reservados.
-        </p>
-        <div class="footer-links">
-            <a href="/termos/">Termos de Uso</a> | <a
-                href="/privacidade/">Privacidade</a> | <a href="/contato/">Contato</a>
+        <div class="footer-inner">
+            <div class="footer-brands" aria-label="SYSBN e ControlFinance">
+                <a class="footer-brand-sysbn" href="/" aria-label="SYSBN — página inicial">
+                    <img src="/assets/sysbn-symbol.svg" width="38" height="38" alt="" loading="lazy">
+                    <span>SYSBN</span>
+                </a>
+                <span class="footer-brand-divider" aria-hidden="true"></span>
+                <a class="footer-brand-controlfinance" href="https://controlfinance.sysbn.com.br/" target="_blank" rel="noopener noreferrer" aria-label="ControlFinance — acessar plataforma">
+                    <img class="footer-cf-logo-light" src="/assets/controlfinance-brand-light.svg" width="162" height="34" alt="ControlFinance" loading="lazy">
+                    <img class="footer-cf-logo-dark" src="/assets/controlfinance-brand-dark.svg" width="162" height="34" alt="" loading="lazy">
+                </a>
+            </div>
+            <div class="footer-legal">
+                <p>&copy; <script>document.write(new Date().getFullYear())</script> SYSBN. Todos os direitos reservados.</p>
+                <div class="footer-links">
+                    <a href="/termos/">Termos de Uso</a> <span aria-hidden="true">|</span>
+                    <a href="/privacidade/">Privacidade</a> <span aria-hidden="true">|</span>
+                    <a href="/contato/">Contato</a>
+                </div>
+            </div>
+            <div class="footer-layout-spacer" aria-hidden="true"></div>
         </div>
     </footer>
 
