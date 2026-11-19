@@ -310,7 +310,15 @@
         <div id="plans-period" class="plans-period" hidden><div><strong>Período de cobrança</strong><p>Planos gratuitos estão disponíveis nos dois períodos.</p></div><div class="plans-period-buttons" role="group" aria-label="Período de cobrança"><button type="button" data-period="mensal" aria-pressed="true">Mensal</button><button type="button" data-period="anual" aria-pressed="false">Anual</button></div></div>
         <div id="plans-status" class="plans-status" role="status" aria-live="polite">Carregando planos disponíveis…</div>
         <button id="plans-retry" type="button" class="btn-cta secondary" hidden>Tentar novamente</button>
+        <div id="plans-carousel-controls" class="plans-carousel-controls" hidden>
+            <p id="plans-carousel-position" class="plans-carousel-position" aria-live="polite"></p>
+            <div class="plans-carousel-actions">
+                <button id="plans-carousel-prev" class="plans-carousel-arrow" type="button" aria-label="Ver planos anteriores" aria-controls="public-plans"><i data-lucide="chevron-left" aria-hidden="true"></i><span aria-hidden="true">‹</span></button>
+                <button id="plans-carousel-next" class="plans-carousel-arrow" type="button" aria-label="Ver próximos planos" aria-controls="public-plans"><i data-lucide="chevron-right" aria-hidden="true"></i><span aria-hidden="true">›</span></button>
+            </div>
+        </div>
         <div id="public-plans" class="pricing-table" aria-busy="true"></div>
+        <div id="plans-carousel-dots" class="plans-carousel-dots" role="group" aria-label="Navegação entre planos" hidden></div>
         <section id="plans-comparison" class="plans-comparison" aria-labelledby="plans-comparison-title" hidden>
             <div class="plans-comparison-header">
                 <div><h3 id="plans-comparison-title">Compare os recursos de cada plano</h3><p>Veja o que está incluído e quais são os limites. Arraste a tabela para o lado no celular.</p></div>
