@@ -1565,7 +1565,7 @@ body :is(.btn-cta,.plans-period-buttons button,.plans-carousel-arrow,.plans-comp
   align-items: center;
   margin: 14px 0 0;
 }
-.plans-recovery-actions:has(> [hidden]:only-child) { display: none; }
+.plans-recovery-actions:not(:has(> :not([hidden]))) { display: none; }
 .plans-recovery-actions > [hidden] { display: none !important; }
 .plans-recovery-actions .btn-cta { min-height: 42px; }
 @media (max-width: 640px) {
