@@ -1094,3 +1094,168 @@ body:not(.cookies-accepted) .floating-help-btn {
     bottom: calc(var(--cookie-banner-height, 0px) + 24px);
   }
 }
+
+/* Comparação: aparência de diálogo do ControlFinance, sem painel escurecido.
+   A janela é movida para body pelo JS para evitar o containing block da seção .reveal. */
+#plans-comparison.plans-comparison-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 4000;
+  padding: clamp(12px,3vw,24px);
+  background: transparent;
+}
+#plans-comparison .plans-comparison-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(23,43,58,.16);
+  backdrop-filter: none;
+}
+[data-theme='dark'] #plans-comparison .plans-comparison-backdrop {
+  background: rgba(0,0,0,.34);
+}
+#plans-comparison .plans-comparison-dialog {
+  width: min(1040px,100%);
+  max-height: min(90dvh,900px);
+  background: var(--cf-surface);
+  color: var(--cf-text);
+  border: 1px solid var(--cf-border);
+  border-radius: 16px;
+  box-shadow: 0 20px 52px rgba(15,30,40,.16);
+}
+#plans-comparison .plans-comparison-header {
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  background: var(--cf-surface);
+  border-bottom: 1px solid var(--cf-border);
+}
+#plans-comparison .plans-comparison-header h3 {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.35;
+  font-weight: 700;
+  letter-spacing: -.025em;
+}
+#plans-comparison .plans-comparison-header p { font-size: 13px; line-height: 1.5; }
+#plans-comparison .plans-comparison-close {
+  display: grid;
+  place-items: center;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  font-size: 23px;
+  line-height: 1;
+  background: var(--cf-surface);
+  color: var(--cf-muted);
+  border: 1px solid var(--cf-border);
+  border-radius: 10px;
+}
+#plans-comparison .plans-comparison-close:hover { background: var(--cf-soft); color: var(--cf-text); border-color: var(--cf-accent); }
+#plans-comparison .plans-comparison-dialog > .plans-differences-filter {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 12px 24px;
+  gap: 10px;
+  background: var(--cf-soft);
+  color: var(--cf-text);
+  border-bottom: 1px solid var(--cf-border);
+  box-sizing: border-box;
+}
+#planos .plan-compare-select input[type='checkbox'],
+#plans-comparison .plans-differences-filter input[type='checkbox'] {
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  display: inline-grid;
+  place-content: center;
+  flex: 0 0 19px;
+  width: 19px;
+  height: 19px;
+  min-width: 19px;
+  padding: 0;
+  margin: 0;
+  border: 1.5px solid var(--cf-muted);
+  border-radius: 5px;
+  background: var(--cf-surface);
+  color: var(--cf-surface);
+  cursor: pointer;
+  transition: background-color .14s ease,border-color .14s ease;
+}
+#planos .plan-compare-select input[type='checkbox']:checked,
+#plans-comparison .plans-differences-filter input[type='checkbox']:checked {
+  border-color: var(--cf-accent);
+  background: var(--cf-accent);
+}
+#planos .plan-compare-select input[type='checkbox']:checked::after,
+#plans-comparison .plans-differences-filter input[type='checkbox']:checked::after {
+  content: '';
+  width: 9px;
+  height: 5px;
+  border: solid var(--cf-surface);
+  border-width: 0 0 2px 2px;
+  transform: rotate(-45deg) translate(1px,-1px);
+}
+#planos .plan-compare-select input[type='checkbox']:disabled { cursor: not-allowed; }
+#planos .plan-compare-select input[type='checkbox']:focus-visible,
+#plans-comparison .plans-differences-filter input[type='checkbox']:focus-visible {
+  outline: 2px solid var(--cf-accent);
+  outline-offset: 3px;
+}
+#plans-comparison .plans-comparison-scroll {
+  background: var(--cf-surface);
+  scrollbar-width: thin;
+}
+#plans-comparison .plans-compare-table {
+  width: 100%;
+  min-width: 620px;
+  table-layout: fixed;
+  font-variant-numeric: tabular-nums;
+}
+#plans-comparison .plans-compare-table th,
+#plans-comparison .plans-compare-table td {
+  min-width: 0;
+  width: auto;
+  padding: 13px 14px;
+  overflow-wrap: anywhere;
+}
+#plans-comparison .plans-compare-table thead th {
+  font-size: 13px;
+  background: var(--cf-soft);
+}
+#plans-comparison .plans-compare-table .plans-compare-feature {
+  min-width: 0;
+  width: 25%;
+  max-width: none;
+}
+#plans-comparison .plans-compare-table tbody th { font-weight: 650; }
+#plans-comparison .plans-compare-table tbody tr:hover > * {
+  background: var(--cf-accent-soft);
+}
+#plans-comparison .plans-comparison-footer {
+  padding: 12px 24px;
+  background: var(--cf-surface);
+}
+#plans-comparison .plans-comparison-footer button {
+  min-height: 44px;
+  min-width: 100px;
+  border-radius: 10px;
+}
+body.plans-modal-open #cookie-banner { visibility: hidden !important; pointer-events: none; }
+body.plans-modal-open .floating-help-btn { visibility: hidden; pointer-events: none; }
+@media(max-width:640px) {
+  #plans-comparison.plans-comparison-modal { padding: 8px; }
+  #plans-comparison .plans-comparison-dialog { max-height: calc(100dvh - 16px); border-radius: 12px; }
+  #plans-comparison .plans-comparison-header { padding: 16px; gap: 12px; }
+  #plans-comparison .plans-comparison-header h3 { font-size: 18px; }
+  #plans-comparison .plans-comparison-dialog > .plans-differences-filter { padding: 12px 16px; }
+  #plans-comparison .plans-comparison-footer { padding: 12px 16px; }
+  #plans-comparison .plans-compare-table { min-width: 550px; }
+  #plans-comparison .plans-compare-table th,
+  #plans-comparison .plans-compare-table td { padding: 12px 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #planos .plan-compare-select input[type='checkbox'],
+  #plans-comparison .plans-differences-filter input[type='checkbox'] { transition: none; }
+}
