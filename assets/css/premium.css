@@ -1424,3 +1424,63 @@ body.plans-modal-open {
   .footer .footer-brand-controlfinance img { width: min(138px,100%); max-height: 30px; }
   .footer .footer-legal { font-size: 11px; }
 }
+
+/* Tipografia ControlFinance: mesmos tokens de escala e família. */
+:root {
+  --app-font-family-base: 'Manrope', 'Segoe UI', Arial, sans-serif;
+  --app-text-display: clamp(2rem,3.4vw,2.75rem);
+  --app-text-title-xl: clamp(1.7rem,2.5vw,2.2rem);
+  --app-text-title-lg: clamp(1.35rem,2vw,1.7rem);
+  --app-text-title-md: 1.125rem;
+  --app-text-body-md: .95rem;
+  --app-text-body-sm: .88rem;
+  --app-text-caption: .76rem;
+  --app-text-label: .72rem;
+  --app-line-title: 1.15;
+  --app-line-body: 1.5;
+  --app-line-caption: 1.35;
+  --app-letter-label: .06em;
+}
+html, body, button, input, textarea, select { font-family: var(--app-font-family-base); }
+body { font-size: var(--app-text-body-md); line-height: var(--app-line-body); }
+body :is(.btn-cta,.plans-period-buttons button,.plans-carousel-arrow,.plans-comparison-close) {
+  font-family: var(--app-font-family-base); font-weight: 650; line-height: 1.4;
+}
+.hero h1 { font-size: var(--app-text-display); line-height: 1.12; letter-spacing: 0; font-weight: 800; }
+.hero-content h2 { font-size: var(--app-text-title-md); line-height: 1.3; font-weight: 700; letter-spacing: 0; }
+.hero-content > p { font-size: var(--app-text-body-md); line-height: var(--app-line-body); }
+.section > h2 { font-size: var(--app-text-title-xl); line-height: var(--app-line-title); letter-spacing: 0; font-weight: 800; }
+.section-subtitle { font-size: var(--app-text-body-md); line-height: 1.6; }
+:is(.feature-card,.integration-card,.news-highlights article) h3 {
+  font-size: var(--app-text-title-md); line-height: 1.3; font-weight: 700; letter-spacing: 0;
+}
+:is(.feature-card,.integration-card,.news-highlights article) p {
+  font-size: var(--app-text-body-sm); line-height: var(--app-line-body);
+}
+.news-topic summary strong { font-size: var(--app-text-body-md); font-weight: 700; line-height: 1.4; }
+.news-topic summary small { font-size: var(--app-text-caption); line-height: var(--app-line-caption); }
+.news-topic h4 { font-size: var(--app-text-body-md); font-weight: 700; }
+.news-topic p { font-size: var(--app-text-body-sm); line-height: var(--app-line-body); }
+.eyebrow { font-size: var(--app-text-label); line-height: var(--app-line-caption); letter-spacing: var(--app-letter-label); }
+.public-plan .public-plan-heading h3 { font-size: var(--app-text-title-lg); line-height: 1.25; font-weight: 700; letter-spacing: 0; }
+.public-plan .plan-price { font-weight: 800; letter-spacing: 0; }
+.public-plan .plan-description { font-size: var(--app-text-body-sm); line-height: var(--app-line-body); }
+.public-plan .plan-resources-title,
+.public-plan .plan-resources li,
+.public-plan .plan-more summary { font-size: var(--app-text-body-sm); line-height: var(--app-line-body); }
+.public-plan .plan-card-footer small { font-size: var(--app-text-caption); line-height: var(--app-line-caption); }
+#plans-compare-toolbar .plans-compare-toolbar-copy > strong { font-size: var(--app-text-body-md); font-weight: 700; }
+#plans-compare-toolbar .plans-compare-toolbar-copy > p,
+#plans-comparison .plans-comparison-header p { font-size: var(--app-text-body-sm); line-height: var(--app-line-body); }
+#plans-comparison .plans-comparison-header h3 { font-size: var(--app-text-title-md); line-height: 1.25; font-weight: 700; letter-spacing: 0; }
+#plans-comparison .plans-compare-table { font-size: var(--app-text-body-sm); line-height: var(--app-line-body); }
+#plans-comparison .plans-compare-table thead th { font-size: var(--app-text-body-sm); }
+#plans-comparison .plans-comparison-footer p { font-size: var(--app-text-caption); line-height: var(--app-line-caption); }
+#plans-comparison :is(.plans-differences-filter,.plans-comparison-close) { font-family: var(--app-font-family-base); }
+.footer .footer-legal { font-size: var(--app-text-caption); line-height: var(--app-line-caption); }
+.footer .footer-brand-sysbn { font-weight: 800; letter-spacing: 0; }
+@media(max-width:640px) {
+  .hero h1 { font-size: clamp(2rem, 7.5vw, 2.5rem); }
+  .section > h2 { font-size: clamp(1.65rem, 6vw, 2rem); }
+  #plans-comparison .plans-comparison-header h3 { font-size: var(--app-text-title-md); }
+}
