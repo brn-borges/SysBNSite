@@ -1277,3 +1277,26 @@ body.plans-modal-open .floating-help-btn { visibility: hidden; pointer-events: n
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
+
+/* Trava a rolagem da página somente durante a comparação.
+   A tabela permanece com rolagem própria sem propagação ao documento. */
+html:has(body.plans-modal-open),
+body.plans-modal-open {
+  overflow: hidden !important;
+  overscroll-behavior: none;
+}
+#plans-comparison.plans-comparison-modal {
+  overscroll-behavior: contain;
+  touch-action: none;
+}
+#plans-comparison .plans-comparison-dialog {
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+}
+#plans-comparison .plans-comparison-scroll {
+  overflow-y: auto;
+  overflow-x: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x pan-y;
+}
