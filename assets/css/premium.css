@@ -3,16 +3,16 @@
   color-scheme: light;
   --color-primary: #087f80;
   --color-primary-hover: #066b6c;
-  --color-background: #f5f8fa;
+  --color-background: #f5f7f9;
   --color-secondary: #fff;
-  --color-text: #19313f;
-  --color-muted: #647988;
+  --color-text: #172b3a;
+  --color-muted: #5d6e7d;
   --color-on-primary: #fff;
-  --color-light-gray: #dce6e9;
+  --color-light-gray: #e2e8ee;
   --header-bg: #ffffff;
-  --soft: #edf3f5;
-  --accent-soft: #e3f3f2;
-  --shadow: 0 12px 32px #1737440a;
+  --soft: #f8fafb;
+  --accent-soft: #e6f5f2;
+  --shadow: 0 4px 18px rgba(23,43,58,.04);
   --bg-gradient: none;
   --font-stack: 'Manrope', 'Segoe UI', Arial, sans-serif;
 }
@@ -20,16 +20,16 @@
   color-scheme: dark;
   --color-primary: #4bd5c5;
   --color-primary-hover: #72e2d5;
-  --color-background: #172126;
-  --color-secondary: #1e2c33;
-  --color-text: #e8eff3;
-  --color-muted: #a7bac6;
+  --color-background: #10181e;
+  --color-secondary: #18232c;
+  --color-text: #e9f0f5;
+  --color-muted: #a6b8c6;
   --color-on-primary: #103138;
-  --color-light-gray: #344c58;
-  --header-bg: #1e2c33;
-  --soft: #22323a;
-  --accent-soft: #24423f;
-  --shadow: 0 12px 32px #00000018;
+  --color-light-gray: #30424f;
+  --header-bg: #18232c;
+  --soft: #1c2a34;
+  --accent-soft: #203b3c;
+  --shadow: 0 4px 18px rgba(0,0,0,.12);
 }
 body { background: var(--color-background); animation: none; padding-top: 88px; min-height: 100vh; min-height: 100dvh; box-sizing: border-box; display: flex; flex-direction: column; }
 html { scroll-padding-top: 104px; }
@@ -385,4 +385,100 @@ input,
 textarea,
 select {
   font-family: var(--font-stack);
+}
+
+/* Alinhamento visual com os tokens do ControlFinance (novembro/2026).
+   Apenas apresentação: preserva a navegação, a API de planos e os formulários. */
+:root, [data-theme='light'], [data-theme='dark'] {
+  --cf-bg: var(--color-background);
+  --cf-surface: var(--color-secondary);
+  --cf-soft: var(--soft);
+  --cf-border: var(--color-light-gray);
+  --cf-text: var(--color-text);
+  --cf-muted: var(--color-muted);
+  --cf-accent: var(--color-primary);
+  --cf-accent-soft: var(--accent-soft);
+  --cf-shadow: var(--shadow);
+}
+body { line-height: 1.5; }
+.header {
+  height: 76px;
+  padding-block: 12px;
+  border-bottom: 1px solid var(--cf-border);
+}
+body { padding-top: 76px; }
+html { scroll-padding-top: 92px; }
+.nav a:not(.btn-cta) {
+  min-height: 42px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+}
+.nav a:not(.btn-cta):hover, .nav a:not(.btn-cta):focus-visible {
+  background: var(--cf-soft);
+  color: var(--cf-accent);
+}
+.btn-cta, .plans-period-buttons button, .theme-toggle, .menu-toggle {
+  transition: background-color .18s ease, border-color .18s ease, color .18s ease, box-shadow .18s ease;
+}
+.btn-cta:focus-visible, .theme-toggle:focus-visible, .menu-toggle:focus-visible,
+.plans-period-buttons button:focus-visible {
+  outline: 2px solid var(--cf-accent);
+  outline-offset: 3px;
+}
+.btn-cta.secondary { color: var(--cf-accent); }
+.hero { padding-top: 64px; padding-bottom: 64px; }
+.hero h1 { letter-spacing: -.04em; line-height: 1.18; }
+.hero-image.product-preview {
+  border-radius: 16px;
+  box-shadow: var(--cf-shadow);
+}
+.preview-top { background: var(--cf-surface); }
+.preview-modules > div, .preview-flow {
+  border-radius: 12px;
+  background: var(--cf-soft);
+}
+.preview-bottom { background: var(--cf-accent-soft); }
+.section > h2 { letter-spacing: -.025em; }
+.feature-card, .update-card, .integration-card, .pricing-card,
+.contact-channel-card, .content-container, .news-highlights article,
+.news-topic {
+  border-color: var(--cf-border);
+  border-radius: 16px;
+  background: var(--cf-surface) !important;
+  box-shadow: var(--cf-shadow) !important;
+}
+.feature-card:hover, .update-card:hover, .integration-card:hover,
+.contact-channel-card:hover, .news-highlights article:hover {
+  border-color: color-mix(in srgb, var(--cf-accent) 35%, var(--cf-border));
+}
+.news-highlights { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.news-highlights article { padding: 20px; min-width: 0; }
+.news-highlights h3 { font-weight: 650; letter-spacing: -.025em; }
+.news-topic { overflow: hidden; }
+.news-topic summary { min-height: 72px; }
+.news-topic summary:hover { background: var(--cf-soft); }
+.news-topic[open] summary { background: var(--cf-soft); border-bottom: 1px solid var(--cf-border); }
+.news-topic li { border-color: var(--cf-border); }
+.public-plan .public-plan-heading h3 { letter-spacing: -.025em; }
+.public-plan.public-plan--recommended {
+  background: var(--cf-surface) !important;
+  box-shadow: inset 0 3px 0 var(--cf-accent), var(--cf-shadow) !important;
+}
+.form-control { background: var(--cf-soft); border-color: var(--cf-border); border-radius: 10px; }
+.form-control:focus-visible { outline: 2px solid var(--cf-accent); outline-offset: 2px; }
+@media(max-width: 1050px) {
+  .news-highlights { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media(max-width: 900px) {
+  .nav { top: 76px; }
+  .nav a:not(.btn-cta) { width: 100%; }
+}
+@media(max-width: 599px) {
+  .hero { padding-top: 40px; padding-bottom: 40px; }
+  .news-highlights { grid-template-columns: minmax(0, 1fr); }
+  .news-highlights article { padding: 18px; }
+}
+@media(prefers-reduced-motion: reduce) {
+  .btn-cta, .plans-period-buttons button, .theme-toggle, .menu-toggle { transition: none; }
 }
