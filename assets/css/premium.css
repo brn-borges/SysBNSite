@@ -1604,3 +1604,42 @@ body :is(.btn-cta,.plans-period-buttons button,.plans-carousel-arrow,.plans-comp
   .footer .footer-legal { align-self: center; }
   .footer .footer-layout-spacer { display: none; }
 }
+
+/* A marca SYSBN usa a mesma família e peso da marca ControlFinance. */
+.header .site-brand__name,
+.footer .footer-brand-sysbn,
+.footer .footer-brand-sysbn span {
+  font-family: var(--app-font-family-base, 'Manrope', 'Segoe UI', Arial, sans-serif);
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.header .site-brand__name small {
+  font-family: inherit;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+/* Primeira dobra: nenhum CTA pode ultrapassar a largura útil do celular. */
+@media (max-width: 640px) {
+  .header { box-sizing: border-box; width: 100%; max-width: 100%; min-width: 0; padding-inline: 14px; gap: 10px; }
+  .header .logo-container, .header .logo-link, .header .site-brand { min-width: 0; }
+  .header .site-brand__name { min-width: 0; font-size: clamp(17px, 5.4vw, 23px); }
+  .header .menu-toggle { flex: 0 0 44px; margin-left: auto; }
+  .hero { box-sizing: border-box; width: 100%; max-width: 100%; min-width: 0; padding: 28px 16px 32px; grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .hero .hero-content { width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box; padding: 0; margin: 0; overflow-wrap: anywhere; }
+  .hero .eyebrow { max-width: 100%; font-size: 10px; line-height: 1.45; white-space: normal; }
+  .hero .hero-actions { width: 100%; max-width: 100%; min-width: 0; display: flex; flex-direction: column; align-items: stretch; gap: 10px; }
+  .hero .hero-actions .btn-cta {
+    box-sizing: border-box; width: 100%; max-width: 100%; min-width: 0;
+    min-height: 46px; display: flex; align-items: center; justify-content: center;
+    flex-wrap: wrap; gap: 8px; padding: 11px 14px;
+    white-space: normal; overflow-wrap: anywhere; line-height: 1.4;
+  }
+  .hero .hero-actions .btn-cta svg { flex: 0 0 18px; }
+  .hero .hero-notes { width: 100%; min-width: 0; gap: 8px 14px; }
+  .hero .hero-notes span { max-width: 100%; }
+  .hero .hero-image { max-width: 100%; min-width: 0; }
+}
+@media (max-width: 360px) {
+  .hero { padding-inline: 12px; }
+  .hero .hero-actions .btn-cta { padding-inline: 10px; font-size: 13px; }
+}
