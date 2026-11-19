@@ -1017,3 +1017,67 @@ body:not(.cookies-accepted) .floating-help-btn { bottom: calc(var(--cookie-banne
     animation: none !important;
   }
 }
+
+/* Refinamento visual: comparação junto ao seletor de planos, não como um bloco isolado
+   após o carrossel. A rolagem continua funcional por toque/trackpad, mas não expõe
+   a barra horizontal (as setas e indicadores já comunicam a navegação). */
+#planos #public-plans.plans-carousel-active {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: 5px;
+}
+#planos #public-plans.plans-carousel-active::-webkit-scrollbar { display: none; width: 0; height: 0; }
+#planos #public-plans.plans-carousel-active::-webkit-scrollbar-thumb { display: none; }
+#planos #plans-carousel-dots { margin: 12px 0 0; }
+#planos #plans-carousel-controls { margin: 14px 0 0; }
+#planos #plans-compare-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  margin: 20px 0 0;
+  padding: 15px 18px;
+  border: 1px solid var(--cf-border);
+  border-radius: 12px;
+  background: var(--cf-soft);
+  box-shadow: none;
+}
+#planos #plans-compare-toolbar[hidden] { display: none; }
+#planos .plans-compare-toolbar-copy { display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1 1 240px; }
+#planos .plans-compare-toolbar-copy > strong { display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--cf-text); }
+#planos .plans-compare-toolbar-copy > strong svg { width: 17px; height: 17px; color: var(--cf-accent); }
+#planos .plans-compare-toolbar-copy > p { font-size: 12px; margin: 0; line-height: 1.5; color: var(--cf-muted); }
+#planos .plans-compare-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 3px; }
+#planos .plans-compare-chips:empty { display: none; }
+#planos .plans-compare-chip {
+  display: inline-flex;
+  min-width: 0;
+  max-width: 180px;
+  overflow-wrap: anywhere;
+  padding: 4px 9px;
+  border: 1px solid color-mix(in srgb, var(--cf-accent) 26%, var(--cf-border));
+  border-radius: 7px;
+  background: var(--cf-accent-soft);
+  color: var(--cf-accent);
+  font-size: 11px;
+  font-weight: 650;
+}
+#planos .plans-compare-toolbar-actions { display: flex; align-items: center; gap: 8px; }
+#planos .plans-compare-toolbar-actions button { min-height: 40px; padding-inline: 16px; border-radius: 10px; }
+#planos .plan-compare-select {
+  border-color: transparent;
+  background: transparent;
+  margin-top: 10px;
+  padding: 9px 10px;
+  font-weight: 600;
+}
+#planos .plan-compare-select:hover:not(:has(input:disabled)) { background: var(--cf-soft); border-color: var(--cf-border); }
+#planos .plan-compare-select:has(input:checked) { border-color: var(--cf-accent); background: var(--cf-accent-soft); }
+#planos .plan-compare-select:has(input:focus-visible) { outline: 2px solid var(--cf-accent); outline-offset: 2px; }
+@media (max-width: 640px) {
+  #planos #plans-compare-toolbar { align-items: stretch; padding: 14px; margin-top: 16px; }
+  #planos .plans-compare-toolbar-actions { width: 100%; }
+  #planos .plans-compare-toolbar-actions button { flex: 1 1 0; min-width: 0; }
+  #planos .plans-compare-chip { max-width: 130px; }
+}

@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const differencesOnly = document.getElementById('plans-differences-only');
     const compareToolbar = document.getElementById('plans-compare-toolbar');
     const compareSelection = document.getElementById('plans-compare-selection');
+    const compareChips = document.getElementById('plans-compare-chips');
     const compareClear = document.getElementById('plans-compare-clear');
     const compareOpen = document.getElementById('plans-compare-open');
     const compareClose = document.getElementById('plans-compare-close');
@@ -150,7 +151,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const visible = visiblePlans();
         const chosen = visible.filter(p => selectedPlanIds.has(p.id));
         compareToolbar.hidden = visible.length < 2;
-        compareSelection.textContent = chosen.length ? chosen.length + ' de 3 planos selecionados' : 'Selecione de 2 a 3 planos para comparar.';
+        compareSelection.textContent = chosen.length === 0
+            ? 'Marque de 2 a 3 planos nos cartões para comparar.'
+            : chosen.length === 1 ? 'Selecione mais um plano para comparar.'
+            : chosen.length + ' planos selecionados · pronto para comparar';
+        compareChips.replaceChildren(...chosen.map(plan => element('span', 'plans-compare-chip', plan.nome)));
         compareOpen.disabled = chosen.length < 2;
         compareClear.disabled = chosen.length === 0;
         container.querySelectorAll('[data-compare-plan]').forEach(input => {
@@ -304,7 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 else if (!checkbox.checked) selectedPlanIds.delete(plan.id);
                 syncSelection();
             });
-            select.append(checkbox, element('span', '', 'Comparar este plano'));
+            select.append(checkbox, element('span', '', 'Adicionar à comparação'));
             card.append(select);
             return card;
         });
