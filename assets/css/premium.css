@@ -1300,3 +1300,89 @@ body.plans-modal-open {
   -webkit-overflow-scrolling: touch;
   touch-action: pan-x pan-y;
 }
+
+/* Aviso compacto: privilegia a leitura e não ocupa os CTAs no mobile.
+   Os tokens do ControlFinance preservam os temas claro/escuro. */
+#cookie-banner {
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  max-width: min(740px, calc(100vw - 32px));
+  padding: 12px 14px;
+  box-sizing: border-box;
+}
+#cookie-banner .cookie-banner-icon {
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+}
+#cookie-banner .cookie-banner-icon svg { width: 18px; height: 18px; }
+#cookie-banner .cookie-banner-content { flex: 1 1 auto; min-width: 0; text-align: left; }
+#cookie-banner .cookie-banner-content strong { font-size: 13px; line-height: 1.4; margin: 0 0 3px; }
+#cookie-banner .cookie-banner-content p { font-size: 11px; line-height: 1.5; margin: 0; text-align: left; }
+#cookie-banner #aceitar-cookies {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 92px;
+  min-height: 40px;
+  padding: 9px 14px;
+  margin: 0;
+  border-radius: 9px;
+  white-space: nowrap;
+}
+@media (max-width: 640px) {
+  #cookie-banner {
+    display: grid;
+    grid-template-columns: 32px minmax(0,1fr) auto;
+    column-gap: 9px;
+    row-gap: 6px;
+    align-items: center;
+    width: calc(100vw - 24px);
+    max-width: calc(100vw - 24px);
+    left: 12px;
+    right: 12px;
+    bottom: max(10px, env(safe-area-inset-bottom));
+    padding: 11px 12px;
+    border-radius: 13px;
+  }
+  #cookie-banner .cookie-banner-icon {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    width: 32px;
+    height: 32px;
+    align-self: start;
+  }
+  #cookie-banner .cookie-banner-icon svg { width: 17px; height: 17px; }
+  #cookie-banner .cookie-banner-content {
+    grid-column: 2 / 4;
+    grid-row: 1;
+    align-self: center;
+    min-width: 0;
+  }
+  #cookie-banner .cookie-banner-content strong { font-size: 12px; }
+  #cookie-banner .cookie-banner-content p { font-size: 11px; line-height: 1.4; }
+  #cookie-banner #aceitar-cookies {
+    grid-column: 3;
+    grid-row: 2;
+    justify-self: end;
+    min-width: 94px;
+    min-height: 36px;
+    padding: 7px 14px;
+    font-size: 12px;
+  }
+  body:not(.cookies-accepted) .floating-help-btn {
+    /* O aviso já ocupa a área inferior: evitar competição com CTAs na tela curta. */
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+@media (max-width: 360px) {
+  #cookie-banner { grid-template-columns: 28px minmax(0,1fr); padding: 10px; }
+  #cookie-banner .cookie-banner-icon { width: 28px; height: 28px; }
+  #cookie-banner .cookie-banner-content { grid-column: 2; }
+  #cookie-banner #aceitar-cookies { grid-column: 2; }
+}
