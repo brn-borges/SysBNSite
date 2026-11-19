@@ -986,3 +986,34 @@ body:not(.cookies-accepted) .floating-help-btn { bottom: calc(var(--cookie-banne
   .cookie-banner-content { grid-column: 2; }
   #cookie-banner #aceitar-cookies { grid-column: 1 / -1; width: 100%; }
 }
+
+/* Entrada suave no carregamento: sem overlay, bloqueio de scroll ou espera por API.
+   A animação é apenas visual e não altera a posição final dos elementos. */
+@keyframes site-enter {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .header {
+    animation: site-enter 280ms ease-out both;
+  }
+  .hero .hero-content {
+    animation: site-enter 420ms cubic-bezier(.2,.7,.2,1) 60ms both;
+  }
+  .hero .hero-image {
+    animation: site-enter 460ms cubic-bezier(.2,.7,.2,1) 120ms both;
+  }
+  body > main > .content-container,
+  body > main > .feedback-page,
+  body > main > .section:first-child:not(.hero) {
+    animation: site-enter 360ms ease-out 65ms both;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .header, .hero .hero-content, .hero .hero-image,
+  body > main > .content-container,
+  body > main > .feedback-page,
+  body > main > .section:first-child:not(.hero) {
+    animation: none !important;
+  }
+}
