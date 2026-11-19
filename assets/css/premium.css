@@ -482,3 +482,147 @@ html { scroll-padding-top: 92px; }
 @media(prefers-reduced-motion: reduce) {
   .btn-cta, .plans-period-buttons button, .theme-toggle, .menu-toggle { transition: none; }
 }
+
+/* Identidade de produto: linguagem visual do dashboard ControlFinance.
+   Miniatura estática, sem números de conta nem conteúdo financeiro fictício. */
+.hero-image.product-preview {
+  border: 1px solid var(--cf-border);
+  border-radius: 16px;
+  box-shadow: var(--cf-shadow);
+}
+.hero-image.product-preview .preview-top {
+  min-height: 72px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--cf-border);
+}
+.hero-image.product-preview .preview-title { padding: 24px 22px 16px; }
+.hero-image.product-preview .preview-title h3 {
+  font-size: clamp(20px, 2vw, 25px);
+  font-weight: 750;
+  letter-spacing: -.035em;
+  line-height: 1.25;
+}
+.hero-image.product-preview .preview-title p { font-size: 13px; line-height: 1.6; }
+.hero-image.product-preview .preview-modules {
+  padding: 0 22px 16px;
+  gap: 10px;
+}
+.hero-image.product-preview .preview-modules > div {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  align-items: center;
+  align-content: center;
+  column-gap: 9px;
+  row-gap: 4px;
+  padding: 14px 10px;
+  background: var(--cf-surface);
+  border: 1px solid var(--cf-border);
+  border-radius: 12px;
+}
+.preview-module-icon {
+  grid-row: span 2;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: var(--cf-accent-soft);
+  color: var(--cf-accent);
+}
+.hero-image.product-preview .preview-modules svg { width: 18px; height: 18px; color: inherit; }
+.hero-image.product-preview .preview-modules strong { font-size: 11px; line-height: 1.35; }
+.hero-image.product-preview .preview-modules small { font-size: 10px; line-height: 1.4; }
+.preview-dashboard-panels {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 12px;
+  padding: 0 22px 22px;
+}
+.preview-dashboard-panel {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--cf-border);
+  border-radius: 12px;
+  background: var(--cf-surface);
+}
+.preview-dashboard-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 14px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--cf-text);
+}
+.preview-dashboard-heading span { display: inline-flex; align-items: center; gap: 7px; }
+.preview-dashboard-heading svg { width: 15px; height: 15px; color: var(--cf-accent); }
+.preview-chart {
+  height: 90px;
+  display: flex;
+  justify-content: space-around;
+  align-items: end;
+  gap: 10px;
+  padding: 8px 4px 0;
+  border-bottom: 1px solid var(--cf-border);
+  background: repeating-linear-gradient(to top,transparent 0,transparent 26px,var(--cf-border) 27px);
+}
+.preview-chart span {
+  display: block;
+  flex: 1;
+  max-width: 25px;
+  height: var(--height);
+  min-height: 12px;
+  background: var(--cf-accent);
+  opacity: .8;
+  border-radius: 5px 5px 0 0;
+}
+.preview-chart span:nth-child(even) { background: color-mix(in srgb,var(--cf-accent) 48%,var(--cf-surface)); }
+.preview-dashboard-panel > small { display: block; color: var(--cf-muted); font-size: 9px; margin-top: 10px; }
+.preview-dashboard-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--cf-border);
+  color: var(--cf-muted);
+  font-size: 10px;
+}
+.preview-dashboard-row:last-child { border-bottom: 0; }
+.preview-dashboard-row > span:nth-child(2) { flex: 1; }
+.preview-dashboard-row svg { width: 13px; height: 13px; color: var(--cf-muted); }
+.preview-dashboard-dot { flex: 0 0 7px; width: 7px; height: 7px; border-radius: 50%; background: var(--cf-accent); }
+.hero-image.product-preview .preview-bottom {
+  border-top: 1px solid var(--cf-border);
+  background: var(--cf-soft);
+}
+.hero-image.product-preview .preview-caption { background: var(--cf-soft); }
+#recursos .feature-card, #novidades .news-highlights article {
+  position: relative;
+  transition: border-color .15s ease, background-color .15s ease;
+}
+#recursos .feature-card:hover, #novidades .news-highlights article:hover {
+  transform: none;
+  border-color: var(--cf-accent);
+  background: var(--cf-soft) !important;
+}
+#recursos .feature-card h3 { font-size: 15px; font-weight: 700; letter-spacing: -.02em; }
+#recursos .feature-card h3 svg { flex-shrink: 0; }
+#novidades .news-highlights article svg { width: 20px; height: 20px; }
+#novidades .news-highlights article h3 { font-weight: 700; }
+#novidades .news-topic summary strong { font-weight: 700; }
+#planos .public-plan { border-radius: 16px; }
+#planos .public-plan .plan-card-footer a { min-height: 44px; border-radius: 10px; }
+@media (max-width: 1050px) {
+  .hero-image.product-preview .preview-modules { grid-template-columns: minmax(0,1fr); }
+}
+@media (max-width: 900px) {
+  .hero-image.product-preview .preview-modules { grid-template-columns: repeat(3,minmax(0,1fr)); }
+}
+@media (max-width: 599px) {
+  .hero-image.product-preview .preview-modules { grid-template-columns: minmax(0,1fr); padding: 0 16px 16px; }
+  .hero-image.product-preview .preview-modules > div { grid-template-columns: 34px minmax(0,1fr); }
+  .preview-dashboard-panels { grid-template-columns: minmax(0,1fr); padding: 0 16px 16px; }
+  .hero-image.product-preview .preview-title { padding: 20px 16px 16px; }
+}
