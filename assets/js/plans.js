@@ -15,6 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const compareClose = document.getElementById('plans-compare-close');
     const compareDone = document.getElementById('plans-compare-done');
     const comparisonDialog = comparison.querySelector('.plans-comparison-dialog');
+    // Modal precisa estar fora da seção animada: transform na seção cria
+    // um containing block para position:fixed e prende o backdrop à seção.
+    document.body.appendChild(comparison);
     const selectedPlanIds = new Set();
     let returnFocus = null;
     const carouselControls = document.getElementById('plans-carousel-controls');
