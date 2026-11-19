@@ -7,6 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const comparison = document.getElementById('plans-comparison');
     const comparisonContent = document.getElementById('plans-comparison-content');
     const differencesOnly = document.getElementById('plans-differences-only');
+    const carouselControls = document.getElementById('plans-carousel-controls');
+    const carouselPosition = document.getElementById('plans-carousel-position');
+    const carouselPrev = document.getElementById('plans-carousel-prev');
+    const carouselNext = document.getElementById('plans-carousel-next');
+    const carouselDots = document.getElementById('plans-carousel-dots');
+    let carouselVisible = false;
+    let carouselUpdateFrame = 0;
     const resources = [
         ['compartilhamentos', 'Compartilhamentos', true], ['contas', 'Contas', true],
         ['cartoes', 'Cartões', true], ['categorias', 'Categorias', true],
@@ -122,6 +129,65 @@ document.addEventListener('DOMContentLoaded', () => {
         table.append(caption, thead, tbody);
         comparisonContent.append(table);
     }
+    // Os cartões continuam todos no DOM e em ordem; no carrossel há
+    // rolagem nativa com snap, sem autoplay e sem ocultar recursos.
+    const carouselIndex = () => {
+        const cards = [...container.querySelectorAll('.public-plan')];
+        if (!cards.length) return 0;
+        const left = container.scrollLeft;
+        let index = 0;
+        let smallest = Infinity;
+        cards.forEach((card, i) => {
+            const distance = Math.abs(card.offsetLeft - cards[0].offsetLeft - left);
+            if (distance < smallest) { smallest = distance; index = i; }
+        });
+        return index;
+    };
+    const syncCarousel = () => {
+        if (!carouselVisible) return;
+        const cards = [...container.querySelectorAll('.public-plan')];
+        const index = carouselIndex();
+        carouselPosition.textContent = 'Plano ' + (index + 1) + ' de ' + cards.length;
+        carouselPrev.disabled = container.scrollLeft <= 2;
+        carouselNext.disabled = container.scrollLeft >= container.scrollWidth - container.clientWidth - 2;
+        [...carouselDots.children].forEach((dot, i) => {
+            dot.setAttribute('aria-current', i === index ? 'true' : 'false');
+            dot.title = 'Ver plano ' + (i + 1);
+        });
+    };
+    const goToCard = index => {
+        const cards = container.querySelectorAll('.public-plan');
+        if (!cards.length) return;
+        const target = cards[Math.max(0, Math.min(index, cards.length - 1))];
+        container.scrollTo({
+            left: target.offsetLeft - cards[0].offsetLeft,
+            behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'
+        });
+    };
+    const resetCarousel = count => {
+        carouselVisible = count > 3;
+        container.classList.toggle('plans-carousel-active', carouselVisible);
+        carouselControls.hidden = !carouselVisible;
+        carouselDots.hidden = !carouselVisible;
+        carouselDots.replaceChildren();
+        container.scrollLeft = 0;
+        if (!carouselVisible) return;
+        for (let i = 0; i < count; i++) {
+            const dot = element('button', 'plans-carousel-dot');
+            dot.type = 'button';
+            dot.setAttribute('aria-label', 'Ver plano ' + (i + 1));
+            dot.addEventListener('click', () => goToCard(i));
+            carouselDots.append(dot);
+        }
+        syncCarousel();
+    };
+    carouselPrev.addEventListener('click', () => goToCard(carouselIndex() - 1));
+    carouselNext.addEventListener('click', () => goToCard(carouselIndex() + 1));
+    container.addEventListener('scroll', () => {
+        if (!carouselVisible || carouselUpdateFrame) return;
+        carouselUpdateFrame = requestAnimationFrame(() => { carouselUpdateFrame = 0; syncCarousel(); });
+    }, { passive: true });
+    window.addEventListener('resize', () => { if (carouselVisible) syncCarousel(); });
     function render(plans) {
         const visible = plans.filter(p => p.preco_centavos === 0 || p.periodicidade === period);
         const cards = visible.map(plan => {
@@ -178,6 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return card;
         });
         container.replaceChildren(...cards);
+        resetCarousel(visible.length);
         renderComparison(visible);
         periodButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.period === period)));
         status.textContent = !plans.length ? 'Nenhum plano público disponível no momento.' : !visible.some(p => p.preco_centavos > 0) ? 'Não há planos pagos ' + (period === 'anual' ? 'anuais' : 'mensais') + ' disponíveis no momento.' : visible.length + (visible.length === 1 ? ' plano disponível' : ' planos disponíveis');
@@ -211,6 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
             catalog = [];
             periodControl.hidden = true;
             container.replaceChildren();
+            resetCarousel(0);
             comparison.hidden = true;
             comparisonContent.replaceChildren();
             status.textContent = 'Não foi possível consultar os planos agora. Tente novamente ou confira as opções no ControlFinance.';
