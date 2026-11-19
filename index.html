@@ -310,6 +310,17 @@
         <div id="plans-period" class="plans-period" hidden><div><strong>Período de cobrança</strong><p>Planos gratuitos estão disponíveis nos dois períodos.</p></div><div class="plans-period-buttons" role="group" aria-label="Período de cobrança"><button type="button" data-period="mensal" aria-pressed="true">Mensal</button><button type="button" data-period="anual" aria-pressed="false">Anual</button></div></div>
         <div id="plans-status" class="plans-status" role="status" aria-live="polite">Carregando planos disponíveis…</div>
         <button id="plans-retry" type="button" class="btn-cta secondary" hidden>Tentar novamente</button>
+        <div id="plans-compare-toolbar" class="plans-compare-toolbar" hidden>
+            <div class="plans-compare-toolbar-copy">
+                <strong><i data-lucide="columns-3" aria-hidden="true"></i> Comparar planos</strong>
+                <p id="plans-compare-selection" role="status" aria-live="polite">Marque de 2 a 3 planos nos cartões.</p>
+                <div id="plans-compare-chips" class="plans-compare-chips" aria-label="Planos selecionados"></div>
+            </div>
+            <div class="plans-compare-toolbar-actions">
+                <button id="plans-compare-clear" class="btn-cta secondary" type="button" disabled>Limpar</button>
+                <button id="plans-compare-open" class="btn-cta primary" type="button" disabled>Comparar planos</button>
+            </div>
+        </div>
         <div id="plans-carousel-controls" class="plans-carousel-controls" hidden>
             <p id="plans-carousel-position" class="plans-carousel-position" aria-live="polite"></p>
             <div class="plans-carousel-actions">
@@ -319,13 +330,7 @@
         </div>
         <div id="public-plans" class="pricing-table" aria-busy="true"></div>
         <div id="plans-carousel-dots" class="plans-carousel-dots" role="group" aria-label="Navegação entre planos" hidden></div>
-        <div id="plans-compare-toolbar" class="plans-compare-toolbar" hidden>
-            <div><strong>Compare os planos que interessam</strong><p id="plans-compare-selection" role="status" aria-live="polite">Selecione de 2 a 3 planos para comparar.</p></div>
-            <div class="plans-compare-toolbar-actions">
-                <button id="plans-compare-clear" class="btn-cta secondary" type="button" disabled>Limpar seleção</button>
-                <button id="plans-compare-open" class="btn-cta primary" type="button" disabled>Comparar selecionados</button>
-            </div>
-        </div>
+
         <div id="plans-comparison" class="plans-comparison-modal" hidden>
             <div class="plans-comparison-backdrop" data-close-comparison></div>
             <section class="plans-comparison-dialog" role="dialog" aria-modal="true" aria-labelledby="plans-comparison-title" tabindex="-1">
