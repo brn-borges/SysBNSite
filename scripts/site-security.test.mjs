@@ -20,3 +20,22 @@ test('public API and form endpoints remain allowed while plugins and frames are 
   const result = secureHtml(html);
   for (const value of ["object-src 'none'", "frame-src 'none'", 'https://cfapi.sysbn.com.br', "form-action 'self' https://forminit.com"]) assert(result.includes(value));
 });
+
+test('links públicos do ControlFinance utilizam as novas rotas e preservam a seleção de plano', async () => {
+  const { readFile } = await import('node:fs/promises');
+  const pages = ['index.html', '404.html', 'contato/index.html', 'feedback/index.html', 'obrigado/index.html', 'privacidade/index.html', 'termos/index.html'];
+  for (const page of pages) {
+    const html = await readFile(new URL('../' + page, import.meta.url), 'utf8');
+    for (const [, href] of html.matchAll(/href=["'](https:\/\/controlfinance\.sysbn\.com\.br[^"']*)["']/g)) {
+      const url = new URL(href);
+      assert(['/', '/assinatura', '/autenticacao/cadastro'].includes(url.pathname), page + ': rota inesperada ' + url.pathname);
+    }
+  }
+  const home = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+  const plans = await readFile(new URL('../assets/js/plans.js', import.meta.url), 'utf8');
+  assert(home.includes('https://controlfinance.sysbn.com.br/assinatura'));
+  assert(home.includes('https://controlfinance.sysbn.com.br/autenticacao/cadastro'));
+  assert(plans.includes("new URL('https://controlfinance.sysbn.com.br/autenticacao/cadastro')"));
+  assert(plans.includes("cadastro.searchParams.set('plano', String(plan.id))"));
+  assert(!plans.includes('/authentication/register'));
+});
