@@ -305,7 +305,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (!list.children.length) list.append(element('li', '', 'Nenhum recurso adicional disponível.'));
             const action = element('a', 'btn-cta primary', plan.preco_centavos === 0 ? 'Começar grátis' : 'Escolher plano');
-            const cadastro = new URL('https://controlfinance.sysbn.com.br/authentication/register');
+            const cadastro = new URL('https://controlfinance.sysbn.com.br/autenticacao/cadastro');
             cadastro.searchParams.set('plano', String(plan.id));
             action.href = cadastro.href;
             action.setAttribute('aria-label', 'Escolher o plano ' + plan.nome + ' no cadastro do ControlFinance');
